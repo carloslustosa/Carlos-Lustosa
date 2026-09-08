@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OSC | Gestão Empresarial e Licitações — Estrutura hoje, crescimento amanhã.</title>
+<meta name="description" content="A OSC descomplica a gestão e as licitações para destravar o faturamento da sua empresa. Diagnóstico, estruturação e crescimento com quem entende de compras públicas." />
+<meta name="theme-color" content="#0A2615" />
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+<link rel="canonical" href="https://oscgestao.com.br/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:title" content="OSC | Gestão Empresarial e Licitações" />
+<meta property="og:description" content="Parceria de verdade para o seu negócio ir além. Descomplicamos a gestão e as licitações para destravar o seu faturamento." />
+<meta property="og:image" content="assets/img/og-cover.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Google Fonts: Archivo + IBM Plex Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // guarda: se o CDN do Tailwind não carregar, a página não quebra
+  window.tailwind = window.tailwind || {};
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          deep:    '#0A2615',  /* Verde Profundo   */
+          deeper:  '#061A0E',  /* Verde Profundo + */
+          ink:     '#04120A',  /* Quase preto verde */
+          cream:   '#F4F1E1',  /* Creme Documento  */
+          creamdim:'#E4E0CB',  /* Creme sombreado  */
+          growth:  '#7CB342',  /* Verde Crescimento */
+          growthlt:'#8FCC5E'   /* Verde Crescimento claro */
+        },
+        fontFamily: {
+          sans: ['Archivo', 'system-ui', 'Segoe UI', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
+        },
+        maxWidth: { shell: '1240px' }
+      }
+    }
+  };
+</script>
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body class="bg-deep font-sans text-cream antialiased">
+
+<!-- ==========================================================================
+     A) NAVBAR FIXO
+     ========================================================================== -->
+<header id="navbar" class="nav fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-4 md:px-8">
+
+    <!-- Logo -->
+    <a href="#topo" class="logo group" aria-label="OSC — Gestão Empresarial e Licitações">
+      <span class="logo__mark">OSC</span>
+      <span class="logo__rule" aria-hidden="true"></span>
+      <span class="logo__tag">Gestão<br />Empresarial e<br />Licitações</span>
+    </a>
+
+    <!-- Links desktop -->
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Navegação principal">
+      <a href="#problema"    class="navlink">A Realidade</a>
+      <a href="#metodologia" class="navlink">Metodologia</a>
+      <a href="#servicos"    class="navlink">Serviços</a>
+      <a href="#duvidas"     class="navlink">Dúvidas</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="#contato" class="btn btn--primary hidden sm:inline-flex">
+        <span>Fale com um Especialista</span>
+        <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+      </a>
+
+      <!-- Botão menu mobile -->
+      <button id="menu-toggle" class="burger lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav__line" aria-hidden="true"></div>
+</header>
+
+<!-- Menu mobile (overlay) -->
+<div id="mobile-menu" class="mobile-menu" hidden>
+  <nav class="mobile-menu__inner" aria-label="Navegação mobile">
+    <a href="#problema"    class="mobile-menu__link"><span class="font-mono text-xs text-growth">01</span> A Realidade</a>
+    <a href="#metodologia" class="mobile-menu__link"><span class="font-mono text-xs text-growth">02</span> Metodologia</a>
+    <a href="#servicos"    class="mobile-menu__link"><span class="font-mono text-xs text-growth">03</span> Serviços</a>
+    <a href="#setores"     class="mobile-menu__link"><span class="font-mono text-xs text-growth">04</span> Para quem é</a>
+    <a href="#duvidas"     class="mobile-menu__link"><span class="font-mono text-xs text-growth">05</span> Dúvidas</a>
+    <a href="#contato" class="btn btn--primary mt-6 w-full justify-center">
+      <span>Fale com um Especialista</span>
+    </a>
+  </nav>
+</div>
+
+
+<!-- ==========================================================================
+     B) HERO — Fundo Verde Profundo
+     ========================================================================== -->
+<main id="topo">
+<section class="hero relative overflow-hidden bg-deep pt-32 pb-20 md:pt-40 md:pb-28">
+
+  <!-- Malha de fundo + barras decorativas -->
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__bars" data-parallax="0.12" aria-hidden="true">
+    <span class="hero__bar hero__bar--1"></span>
+    <span class="hero__bar hero__bar--2"></span>
+    <span class="hero__bar hero__bar--3"></span>
+  </div>
+
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+
+    <p class="hero-anim hero-anim--1 label label--growth">
+      <span class="label__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      Gestão Empresarial &amp; Licitações
+    </p>
+
+    <h1 class="hero-anim hero-anim--2 mt-6 max-w-4xl text-[clamp(2.6rem,8.2vw,6.2rem)] font-black uppercase leading-[0.92] tracking-[-0.035em]">
+      Estrutura hoje,<br />
+      <span class="text-growth">crescimento</span> amanhã.
+    </h1>
+
+    <p class="hero-anim hero-anim--3 mt-8 max-w-2xl text-lg font-semibold leading-relaxed text-cream/85 md:text-xl">
+      Parceria de verdade para o seu negócio ir além. Descomplicamos a gestão e as
+      licitações para destravar o seu faturamento.
+    </p>
+
+    <div class="hero-anim hero-anim--4 mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+      <a href="#contato" class="btn btn--primary btn--lg btn--pulse">
+        <span>Fale com um Especialista</span>
+        <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+      </a>
+      <a href="#metodologia" class="btn btn--ghost btn--lg">
+        <span>Conheça a metodologia</span>
+      </a>
+    </div>
+
+    <ul class="hero-anim hero-anim--5 mt-14 grid gap-x-10 gap-y-4 font-mono text-[0.78rem] uppercase tracking-[0.14em] text-cream/55 sm:grid-cols-3">
+      <li class="hero-check">Atendimento em todo o Brasil</li>
+      <li class="hero-check">Diagnóstico inicial sem custo</li>
+      <li class="hero-check">Do cadastro ao contrato assinado</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     C) FAIXA DE AUTORIDADE — números
+     ATENÇÃO: substitua os valores de data-count pelos números reais da OSC.
+     ========================================================================== -->
+<section class="border-y border-cream/10 bg-deeper py-12 md:py-14">
+  <div class="mx-auto grid max-w-shell grid-cols-2 gap-x-6 gap-y-10 px-5 md:grid-cols-4 md:px-8">
+
+    <div data-reveal>
+      <p class="stat" data-count="120" data-prefix="+">+0</p>
+      <p class="stat__label">Empresas estruturadas</p>
+    </div>
+    <div data-reveal data-reveal-delay="80">
+      <p class="stat" data-count="850" data-prefix="+">+0</p>
+      <p class="stat__label">Editais analisados</p>
+    </div>
+    <div data-reveal data-reveal-delay="160">
+      <p class="stat" data-count="98" data-suffix="%">0%</p>
+      <p class="stat__label">Habilitação na 1ª tentativa</p>
+    </div>
+    <div data-reveal data-reveal-delay="240">
+      <p class="stat" data-count="24" data-suffix="h">0h</p>
+      <p class="stat__label">Tempo médio de resposta</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     D) PROBLEMA / SOLUÇÃO — Fundo Creme Documento
+     ========================================================================== -->
+<section id="problema" class="section bg-cream text-deep">
+  <div class="mx-auto max-w-shell px-5 md:px-8">
+
+    <header class="max-w-3xl" data-reveal>
+      <p class="label label--dark">
+        <span class="label__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        A Realidade do Mercado
+      </p>
+      <h2 class="mt-6 text-[clamp(2rem,5.2vw,3.6rem)] font-black uppercase leading-[0.98] tracking-[-0.03em]">
+        O problema nunca foi a sua empresa.<br />
+        <span class="text-growth-dark">Foi a burocracia no meio do caminho.</span>
+      </h2>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-deep/70">
+        Todo ano o poder público compra de tudo: serviços, obras, materiais, tecnologia,
+        alimentação, locação. Empresas competentes ficam de fora dessa disputa por um
+        motivo simples — papel, prazo e processo. A OSC existe para tirar isso do seu caminho.
+      </p>
+    </header>
+
+    <div class="mt-16 grid gap-6 lg:grid-cols-2 lg:gap-8">
+
+      <!-- Coluna: dor -->
+      <div class="panel panel--pain" data-reveal>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-deep/45">Onde a empresa trava</p>
+        <h3 class="mt-3 text-2xl font-black uppercase tracking-tight md:text-3xl">Sem estrutura</h3>
+        <ul class="mt-8 space-y-5">
+          <li class="pain">Documentação vencida ou incompleta elimina você antes da disputa começar.</li>
+          <li class="pain">Editais longos, prazos curtos e ninguém dedicado a ler tudo com atenção.</li>
+          <li class="pain">Certidões, cadastros e regularidade fiscal sempre correndo atrás do prejuízo.</li>
+          <li class="pain">Processos internos na cabeça do dono — nunca no papel.</li>
+          <li class="pain">Faturamento refém do boca a boca e de dois ou três clientes grandes.</li>
+        </ul>
+      </div>
+
+      <!-- Coluna: solução -->
+      <div class="panel panel--fix" data-reveal data-reveal-delay="120">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-cream/50">Onde a OSC entra</p>
+        <h3 class="mt-3 text-2xl font-black uppercase tracking-tight md:text-3xl">
+          Com a <span class="text-growthlt">OSC</span>
+        </h3>
+        <ul class="mt-8 space-y-5">
+          <li class="fix">Diagnóstico real do que impede sua empresa de vender para o governo.</li>
+          <li class="fix">Documentação, cadastros e compliance organizados e monitorados por nós.</li>
+          <li class="fix">Busca ativa de editais compatíveis com o que você já faz bem hoje.</li>
+          <li class="fix">Condução da disputa: proposta, impugnação, recurso e assinatura.</li>
+          <li class="fix">Rotinas internas desenhadas para escalar sem virar bagunça.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-start gap-5 border-t border-deep/12 pt-10 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+      <p class="max-w-xl text-lg font-semibold leading-snug">
+        Se a sua empresa entrega bem, ela merece disputar o maior comprador do país.
+      </p>
+      <a href="#contato" class="btn btn--dark">
+        <span>Quero destravar isso</span>
+        <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     E) METODOLOGIA — Os 3 Degraus
+     ========================================================================== -->
+<section id="metodologia" class="section relative overflow-hidden bg-deep">
+  <div class="hero__grid hero__grid--soft" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+
+    <header class="max-w-3xl" data-reveal>
+      <p class="label label--growth">
+        <span class="label__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        Nossa Metodologia
+      </p>
+      <h2 class="mt-6 text-[clamp(2rem,5.2vw,3.6rem)] font-black uppercase leading-[0.98] tracking-[-0.03em]">
+        Três degraus.<br />Um caminho só.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-cream/70">
+        Nada de pacote genérico. A OSC sobe com a sua empresa degrau por degrau — e cada
+        degrau só existe porque o anterior foi feito direito.
+      </p>
+    </header>
+
+    <div class="mt-16 grid items-start gap-12 lg:grid-cols-[1fr_minmax(280px,0.85fr)] lg:gap-16">
+
+      <!-- Etapas (interativas) -->
+      <ol class="steps" id="steps">
+
+        <li class="step is-active" data-step="1" data-reveal>
+          <button class="step__btn" type="button" aria-expanded="true">
+            <span class="step__num">Etapa 01</span>
+            <span class="step__title">Diagnóstico</span>
+            <span class="step__icon" aria-hidden="true"></span>
+          </button>
+          <div class="step__body">
+            <div class="step__inner">
+              <p>
+                Mapeamos onde sua empresa realmente está: situação documental, capacidade
+                operacional, saúde fiscal e potencial de mercado. Sem diagnóstico, qualquer
+                estratégia vira chute caro.
+              </p>
+              <ul class="step__tags">
+                <li>Raio-X documental</li>
+                <li>Capacidade de entrega</li>
+                <li>Potencial de mercado</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="step" data-step="2" data-reveal data-reveal-delay="100">
+          <button class="step__btn" type="button" aria-expanded="false">
+            <span class="step__num">Etapa 02</span>
+            <span class="step__title">Estruturação</span>
+            <span class="step__icon" aria-hidden="true"></span>
+          </button>
+          <div class="step__body">
+            <div class="step__inner">
+              <p>
+                Colocamos a casa em ordem: regularização, cadastro nos portais e no SICAF,
+                compliance, processos internos e política de preço. É aqui que a empresa
+                deixa de ser elegível no papel e passa a ser competitiva de verdade.
+              </p>
+              <ul class="step__tags">
+                <li>Regularidade fiscal</li>
+                <li>Cadastros e portais</li>
+                <li>Processos e preço</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <li class="step" data-step="3" data-reveal data-reveal-delay="200">
+          <button class="step__btn" type="button" aria-expanded="false">
+            <span class="step__num">Etapa 03</span>
+            <span class="step__title">Crescimento</span>
+            <span class="step__icon" aria-hidden="true"></span>
+          </button>
+          <div class="step__body">
+            <div class="step__inner">
+              <p>
+                Entramos em campo com você: seleção de editais, montagem de proposta, disputa,
+                impugnações, recursos e gestão do contrato. Estrutura deixa de ser custo e
+                vira faturamento recorrente.
+              </p>
+              <ul class="step__tags">
+                <li>Seleção de editais</li>
+                <li>Disputa e recursos</li>
+                <li>Gestão de contrato</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <!-- Gráfico: 3 barras crescentes (1 : 1.6 : 2.7) -->
+      <figure class="chart" id="chart" data-reveal>
+        <figcaption class="chart__caption">
+          <span class="font-mono text-xs uppercase tracking-[0.18em] text-cream/45">Curva OSC</span>
+          <p class="mt-2 text-sm leading-snug text-cream/65">
+            Cada degrau multiplica o alcance da sua empresa no mercado público.
+          </p>
+        </figcaption>
+
+        <div class="chart__plot" aria-hidden="true">
+          <div class="chart__col" data-col="1"><span class="chart__bar"></span><span class="chart__tick">01</span></div>
+          <div class="chart__col" data-col="2"><span class="chart__bar"></span><span class="chart__tick">02</span></div>
+          <div class="chart__col" data-col="3"><span class="chart__bar"></span><span class="chart__tick">03</span></div>
+          <span class="chart__base"></span>
+        </div>
+
+        <p class="chart__foot font-mono text-[0.7rem] uppercase tracking-[0.16em] text-cream/40">
+          Diagnóstico → Estruturação → Crescimento
+        </p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     F) SERVIÇOS — cards dinâmicos
+     ========================================================================== -->
+<section id="servicos" class="section bg-cream text-deep">
+  <div class="mx-auto max-w-shell px-5 md:px-8">
+
+    <header class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+      <div class="max-w-2xl">
+        <p class="label label--dark">
+          <span class="label__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          O que fazemos
+        </p>
+        <h2 class="mt-6 text-[clamp(2rem,5.2vw,3.6rem)] font-black uppercase leading-[0.98] tracking-[-0.03em]">
+          Duas frentes.<br />Zero burocracia para você.
+        </h2>
+      </div>
+      <p class="max-w-sm text-base leading-relaxed text-deep/65">
+        Você pode contratar uma frente ou as duas. Na prática, quem faz as duas cresce mais rápido —
+        porque licitação sem gestão não se sustenta.
+      </p>
+    </header>
+
+    <!-- Frente 1 -->
+    <div class="mt-16" data-reveal>
+      <div class="svc-head">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-deep/45">Frente 01</span>
+        <h3 class="text-2xl font-black uppercase tracking-tight md:text-3xl">Gestão Empresarial</h3>
+        <span class="svc-head__rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+        <article class="card" data-reveal>
+          <span class="card__num font-mono">01</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Diagnóstico &amp; Reestruturação</h4>
+          <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
+        </article>
+
+        <article class="card" data-reveal data-reveal-delay="80">
+          <span class="card__num font-mono">02</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Documentação &amp; Regularidade</h4>
+          <p class="card__text">Certidões, alvarás e obrigações sempre em dia — com monitoramento de vencimento.</p>
+        </article>
+
+        <article class="card" data-reveal data-reveal-delay="160">
+          <span class="card__num font-mono">03</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Compliance &amp; Governança</h4>
+          <p class="card__text">Regras claras, responsabilidades definidas e a empresa preparada para auditoria.</p>
+        </article>
+
+        <article class="card" data-reveal data-reveal-delay="240">
+          <span class="card__num font-mono">04</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Processos &amp; Precificação</h4>
+          <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- Frente 2 -->
+    <div class="mt-16" data-reveal>
+      <div class="svc-head">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-deep/45">Frente 02</span>
+        <h3 class="text-2xl font-black uppercase tracking-tight md:text-3xl">Licitações</h3>
+        <span class="svc-head__rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+        <article class="card card--alt" data-reveal>
+          <span class="card__num font-mono">05</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Cadastro em Portais &amp; SICAF</h4>
+          <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
+        </article>
+
+        <article class="card card--alt" data-reveal data-reveal-delay="80">
+          <span class="card__num font-mono">06</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Análise &amp; Seleção de Editais</h4>
+          <p class="card__text">Filtramos o que faz sentido para você disputar e descartamos o que só dá trabalho.</p>
+        </article>
+
+        <article class="card card--alt" data-reveal data-reveal-delay="160">
+          <span class="card__num font-mono">07</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Disputa, Impugnação &amp; Recurso</h4>
+          <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando o jogo aperta.</p>
+        </article>
+
+        <article class="card card--alt" data-reveal data-reveal-delay="240">
+          <span class="card__num font-mono">08</span>
+          <span class="card__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h4 class="card__title">Gestão de Contratos Públicos</h4>
+          <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     G) SETORES — faixa em movimento
+     ========================================================================== -->
+<section id="setores" class="relative overflow-hidden border-y border-cream/10 bg-deeper py-16 md:py-20">
+  <div class="mx-auto max-w-shell px-5 md:px-8" data-reveal>
+    <p class="label label--growth">
+      <span class="label__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      Para quem é
+    </p>
+    <h2 class="mt-6 max-w-3xl text-[clamp(1.6rem,3.6vw,2.4rem)] font-black uppercase leading-tight tracking-[-0.02em]">
+      Se o governo compra o que você vende, existe contrato esperando por você.
+    </h2>
+  </div>
+
+  <div class="marquee mt-12" aria-hidden="true">
+    <div class="marquee__track" id="marquee-track">
+      <span class="marquee__item">Serviços Terceirizados</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Obras &amp; Engenharia</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Fornecimento de Materiais</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Tecnologia &amp; Software</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Alimentação</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Locação de Equipamentos</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Saúde &amp; Hospitalar</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Limpeza &amp; Conservação</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Transporte &amp; Logística</span><span class="marquee__dot"></span>
+      <span class="marquee__item">Uniformes &amp; EPI</span><span class="marquee__dot"></span>
+    </div>
+  </div>
+
+  <p class="mx-auto mt-12 max-w-shell px-5 font-mono text-xs uppercase tracking-[0.16em] text-cream/45 md:px-8" data-reveal>
+    Não achou o seu segmento? Fale com a gente — a lista é maior do que cabe aqui.
+  </p>
+</section>
+
+
+<!-- ==========================================================================
+     H) DÚVIDAS — acordeão
+     ========================================================================== -->
+<section id="duvidas" class="section bg-cream text-deep">
+  <div class="mx-auto max-w-shell px-5 md:px-8">
+    <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+
+      <header data-reveal>
+        <p class="label label--dark">
+          <span class="label__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          Dúvidas Frequentes
+        </p>
+        <h2 class="mt-6 text-[clamp(2rem,4.6vw,3.2rem)] font-black uppercase leading-[0.98] tracking-[-0.03em]">
+          Direto ao ponto.
+        </h2>
+        <p class="mt-6 text-base leading-relaxed text-deep/65">
+          As perguntas que todo empresário faz antes de começar. Se a sua não estiver aqui,
+          é só chamar no WhatsApp.
+        </p>
+        <a href="#contato" class="btn btn--dark mt-8">
+          <span>Tirar minha dúvida</span>
+          <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+        </a>
+      </header>
+
+      <div class="faq" id="faq" data-reveal>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span class="font-mono text-xs text-growth-dark">01</span>
+            <span>Minha empresa é pequena. Consigo vender para o governo?</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a"><p>
+            Consegue — e a legislação joga a seu favor. A Lei Complementar 123/2006 garante
+            tratamento diferenciado a microempresas e empresas de pequeno porte em compras
+            públicas. O que costuma faltar não é porte, é organização documental. É exatamente
+            aí que a OSC entra.
+          </p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span class="font-mono text-xs text-growth-dark">02</span>
+            <span>Quanto tempo até participar da primeira licitação?</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a"><p>
+            Depende do ponto de partida. Empresa com documentação em dia costuma estar apta a
+            disputar em poucas semanas. Empresa com pendências fiscais ou cadastrais leva mais
+            tempo — e o diagnóstico mostra esse prazo logo na primeira conversa, sem promessa vazia.
+          </p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span class="font-mono text-xs text-growth-dark">03</span>
+            <span>Vocês atendem empresas de outros estados?</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a"><p>
+            Sim. Hoje praticamente todo o processo é eletrônico: cadastro, envio de proposta,
+            sessão de disputa e recursos acontecem em portais online. Atendemos empresas em
+            todo o Brasil, com reuniões remotas e acompanhamento contínuo.
+          </p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span class="font-mono text-xs text-growth-dark">04</span>
+            <span>Preciso ter experiência anterior com o setor público?</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a"><p>
+            Não. A maior parte dos nossos clientes nunca tinha disputado um edital antes.
+            Nós conduzimos o processo do início ao fim e traduzimos o que importa — você segue
+            focado em entregar bem o que sua empresa já sabe fazer.
+          </p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span class="font-mono text-xs text-growth-dark">05</span>
+            <span>E depois que a empresa vence? Vocês somem?</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a"><p>
+            Não. Vencer é meio do caminho. Acompanhamos assinatura, prazos, aditivos, reajustes
+            e obrigações do contrato — porque contrato público mal gerido vira multa, e não lucro.
+          </p></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" type="button" aria-expanded="false">
+            <span class="font-mono text-xs text-growth-dark">06</span>
+            <span>Como funciona a contratação da OSC?</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq__a"><p>
+            Começa por uma conversa de diagnóstico, sem custo. A partir dela desenhamos o escopo —
+            só gestão, só licitações ou as duas frentes — e apresentamos uma proposta com prazos
+            e entregas claras. Sem letra miúda.
+          </p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     I) CTA FINAL + FORMULÁRIO
+     ========================================================================== -->
+<section id="contato" class="section relative overflow-hidden bg-deep">
+  <div class="hero__grid hero__grid--soft" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+
+      <div data-reveal>
+        <p class="label label--growth">
+          <span class="label__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          Próximo passo
+        </p>
+        <h2 class="mt-6 text-[clamp(2rem,5vw,3.6rem)] font-black uppercase leading-[0.96] tracking-[-0.03em]">
+          Vamos destravar o seu <span class="text-growth">faturamento</span>?
+        </h2>
+        <p class="mt-6 max-w-md text-lg leading-relaxed text-cream/75">
+          Conte em duas linhas o que a sua empresa faz. A gente responde com um diagnóstico
+          honesto do seu potencial no mercado público — sem enrolação e sem compromisso.
+        </p>
+
+        <ul class="mt-10 space-y-4">
+          <li class="contact-line">
+            <span class="font-mono text-xs uppercase tracking-[0.16em] text-cream/45">E-mail</span>
+            <a href="mailto:contato.osc.gestao@gmail.com">contato.osc.gestao@gmail.com</a>
+          </li>
+          <li class="contact-line">
+            <span class="font-mono text-xs uppercase tracking-[0.16em] text-cream/45">WhatsApp</span>
+            <!-- EDITAR: troque pelo número real da OSC (formato internacional no link) -->
+            <a href="https://wa.me/5500000000000" target="_blank" rel="noopener">(00) 00000-0000</a>
+          </li>
+          <li class="contact-line">
+            <span class="font-mono text-xs uppercase tracking-[0.16em] text-cream/45">Atendimento</span>
+            <span>Segunda a sexta, 08h às 18h · Todo o Brasil</span>
+          </li>
+        </ul>
+
+        <span class="mt-12 hidden items-end gap-2 lg:flex" aria-hidden="true">
+          <span class="bars bars--xl text-growth"><i></i><i></i><i></i></span>
+        </span>
+      </div>
+
+      <!-- Formulário -->
+      <form id="lead-form" class="form" data-reveal data-reveal-delay="120" novalidate>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-cream/45">Diagnóstico gratuito</p>
+
+        <div class="mt-6 grid gap-5 sm:grid-cols-2">
+          <div class="field sm:col-span-2">
+            <label for="f-nome">Seu nome</label>
+            <input id="f-nome" name="nome" type="text" autocomplete="name" required placeholder="Como podemos te chamar?" />
+          </div>
+
+          <div class="field sm:col-span-2">
+            <label for="f-empresa">Empresa</label>
+            <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Razão social ou nome fantasia" />
+          </div>
+
+          <div class="field">
+            <label for="f-whats">WhatsApp</label>
+            <input id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000" />
+          </div>
+
+          <div class="field">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
+          </div>
+
+          <div class="field sm:col-span-2">
+            <label for="f-segmento">Segmento</label>
+            <select id="f-segmento" name="segmento" required>
+              <option value="">Selecione o que sua empresa faz</option>
+              <option>Serviços Terceirizados</option>
+              <option>Obras &amp; Engenharia</option>
+              <option>Fornecimento de Materiais</option>
+              <option>Tecnologia &amp; Software</option>
+              <option>Alimentação</option>
+              <option>Locação de Equipamentos</option>
+              <option>Saúde &amp; Hospitalar</option>
+              <option>Limpeza &amp; Conservação</option>
+              <option>Transporte &amp; Logística</option>
+              <option>Outro</option>
+            </select>
+          </div>
+
+          <div class="field sm:col-span-2">
+            <label for="f-msg">O que você precisa resolver?</label>
+            <textarea id="f-msg" name="mensagem" rows="3" placeholder="Ex.: nunca participei de licitação e quero começar."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg mt-7 w-full justify-center">
+          <span>Enviar e falar com um especialista</span>
+          <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg>
+        </button>
+
+        <p class="mt-4 font-mono text-[0.68rem] leading-relaxed text-cream/40">
+          Ao enviar, você será direcionado ao nosso WhatsApp com a mensagem pronta.
+          Seus dados são usados apenas para o contato comercial.
+        </p>
+
+        <p id="form-error" class="form__error" role="alert" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+
+<!-- ==========================================================================
+     J) FOOTER
+     ========================================================================== -->
+<footer class="border-t border-cream/10 bg-deeper pt-16 pb-8">
+  <div class="mx-auto max-w-shell px-5 md:px-8">
+
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
+
+      <div>
+        <a href="#topo" class="logo logo--lg" aria-label="OSC — Gestão Empresarial e Licitações">
+          <span class="logo__mark">OSC</span>
+          <span class="logo__rule" aria-hidden="true"></span>
+          <span class="logo__tag">Gestão<br />Empresarial e<br />Licitações</span>
+        </a>
+        <p class="mt-6 max-w-xs text-sm leading-relaxed text-cream/60">
+          Parceria de verdade para o seu negócio ir além. Estrutura hoje, crescimento amanhã.
+        </p>
+        <span class="mt-8 flex" aria-hidden="true">
+          <span class="bars bars--lg text-growth"><i></i><i></i><i></i></span>
+        </span>
+      </div>
+
+      <nav aria-label="Links rápidos">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-cream/40">Navegação</p>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li><a class="footlink" href="#problema">A Realidade</a></li>
+          <li><a class="footlink" href="#metodologia">Metodologia</a></li>
+          <li><a class="footlink" href="#servicos">Serviços</a></li>
+          <li><a class="footlink" href="#setores">Para quem é</a></li>
+          <li><a class="footlink" href="#duvidas">Dúvidas</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-cream/40">Contato</p>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li><a class="footlink" href="mailto:contato.osc.gestao@gmail.com">contato.osc.gestao@gmail.com</a></li>
+          <!-- EDITAR: número real da OSC -->
+          <li><a class="footlink" href="https://wa.me/5500000000000" target="_blank" rel="noopener">WhatsApp (00) 00000-0000</a></li>
+          <li><span class="text-cream/60">Atendimento em todo o Brasil</span></li>
+        </ul>
+        <a href="#contato" class="btn btn--primary mt-7">
+          <span>Fale com um Especialista</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-3 border-t border-cream/10 pt-6 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-cream/40 sm:flex-row sm:items-center sm:justify-between">
+      <p>© <span id="year">2026</span> OSC Gestão Empresarial e Licitações</p>
+      <!-- EDITAR: CNPJ real -->
+      <p>CNPJ 00.000.000/0001-00</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Botão flutuante WhatsApp -->
+<!-- EDITAR: número real da OSC -->
+<a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20falar%20com%20um%20especialista%20da%20OSC."
+   class="wa-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.02 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+</a>
+
+<!-- GSAP (animações) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OSC">
+  <rect width="64" height="64" fill="#0A2615"/>
+  <text x="32" y="30" text-anchor="middle"
+        font-family="Archivo, 'Arial Black', Helvetica, sans-serif"
+        font-weight="900" font-size="21" letter-spacing="-1" fill="#F4F1E1">OSC</text>
+  <!-- 3 barras crescentes, proporção 1 : 1.6 : 2.7 -->
+  <g fill="#7CB342">
+    <rect x="22" y="46.2" width="6" height="6.8"/>
+    <rect x="31" y="42.1" width="6" height="10.9"/>
+    <rect x="40" y="34.6" width="6" height="18.4"/>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img"
+     aria-label="OSC — Gestão Empresarial e Licitações. Estrutura hoje, crescimento amanhã.">
+  <rect width="1200" height="630" fill="#0A2615"/>
+
+  <!-- Barras decorativas (1 : 1.6 : 2.7) -->
+  <g>
+    <rect x="880"  y="482" width="64" height="148" fill="#7CB342" opacity="0.18"/>
+    <rect x="960"  y="393" width="64" height="237" fill="#7CB342" opacity="0.34"/>
+    <rect x="1040" y="230" width="64" height="400" fill="#7CB342" opacity="0.60"/>
+  </g>
+
+  <!-- Lockup do logotipo -->
+  <g font-family="Archivo, 'Arial Black', Helvetica, sans-serif" fill="#F4F1E1">
+    <text x="80" y="132" font-weight="900" font-size="74" letter-spacing="-3">OSC</text>
+    <rect x="248" y="76" width="4" height="66" fill="#7CB342"/>
+    <text x="274" y="94"  font-weight="700" font-size="21" letter-spacing="1.6">GESTÃO</text>
+    <text x="274" y="120" font-weight="700" font-size="21" letter-spacing="1.6">EMPRESARIAL E</text>
+    <text x="274" y="146" font-weight="700" font-size="21" letter-spacing="1.6">LICITAÇÕES</text>
+  </g>
+
+  <!-- Headline -->
+  <g font-family="Archivo, 'Arial Black', Helvetica, sans-serif" font-weight="900" font-size="86" letter-spacing="-3.4">
+    <text x="80" y="360" fill="#F4F1E1">ESTRUTURA HOJE,</text>
+    <text x="80" y="450" fill="#7CB342">CRESCIMENTO AMANHÃ.</text>
+  </g>
+
+  <text x="80" y="530" font-family="'IBM Plex Mono', monospace" font-size="22"
+        letter-spacing="3.2" fill="#F4F1E1" opacity="0.6">
+    GESTÃO EMPRESARIAL &#38; LICITAÇÕES
+  </text>
+</svg>
