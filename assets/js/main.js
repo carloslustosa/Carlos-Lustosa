@@ -1,19 +1,19 @@
 /* ==========================================================================
    OSC — GESTÃO EMPRESARIAL E LICITAÇÕES
-   Interações e animações
+   Interações e animações — Identidade Visual V2.0
    --------------------------------------------------------------------------
-   Estratégia:
-   • Scroll reveal, acordeões e degraus → IntersectionObserver + CSS
+   • Scroll reveal, acordeões e etapas → IntersectionObserver + CSS
      (funcionam mesmo se o CDN do GSAP falhar).
-   • GSAP + ScrollTrigger → parallax das barras do hero e contagem dos números.
+   • GSAP + ScrollTrigger → parallax do monograma e disparo do anel de progresso.
+   • WhatsApp: api.whatsapp.com no celular, web.whatsapp.com no computador.
    • Tudo respeita prefers-reduced-motion.
    ========================================================================== */
 (function () {
   'use strict';
 
-  var HAS_GSAP   = typeof window.gsap !== 'undefined';
-  var HAS_ST     = HAS_GSAP && typeof window.ScrollTrigger !== 'undefined';
-  var REDUCED    = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var HAS_GSAP = typeof window.gsap !== 'undefined';
+  var HAS_ST   = HAS_GSAP && typeof window.ScrollTrigger !== 'undefined';
+  var REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (HAS_ST) gsap.registerPlugin(ScrollTrigger);
 
@@ -21,24 +21,49 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ----------------------------------------------------------------------
-     01. NAVBAR — fundo sólido ao rolar + link ativo (scrollspy)
+     00. WHATSAPP — links oficiais da OSC
+     No celular abre o app (api.whatsapp.com); no computador, o WhatsApp Web.
+     ------------------------------------------------------------------- */
+  var WHATS = {
+    phone: '5586988372619',
+    mobile: 'https://api.whatsapp.com/send?phone=5586988372619&text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC.',
+    desktop: 'https://web.whatsapp.com/send?phone=5586988372619&text=Oi!%20Quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC.'
+  };
+
+  function isMobile() {
+    var ua = navigator.userAgent || '';
+    if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile|BlackBerry|webOS/i.test(ua)) return true;
+    // iPadOS recente se identifica como Mac: confirma pelo toque
+    if (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) return true;
+    return window.matchMedia('(pointer: coarse)').matches && window.innerWidth < 1024;
+  }
+
+  // Base para montar links com mensagem própria (ex.: o formulário)
+  function whatsBase() {
+    return (isMobile() ? 'https://api.whatsapp.com' : 'https://web.whatsapp.com') +
+           '/send?phone=' + WHATS.phone + '&text=';
+  }
+
+  function initWhatsappLinks() {
+    // No HTML o href padrão é o api.whatsapp.com (funciona em qualquer lugar).
+    // Só trocamos para o WhatsApp Web quando é computador.
+    if (isMobile()) return;
+    $$('.js-whats').forEach(function (a) { a.setAttribute('href', WHATS.desktop); });
+  }
+
+  /* ----------------------------------------------------------------------
+     01. NAVBAR — fundo sólido ao rolar + link ativo
      ------------------------------------------------------------------- */
   function initNavbar() {
     var nav = $('#navbar');
     if (!nav) return;
 
-    var onScroll = function () {
-      nav.classList.toggle('is-stuck', window.scrollY > 24);
-    };
+    var onScroll = function () { nav.classList.toggle('is-stuck', window.scrollY > 24); };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Scrollspy
     var links = $$('.navlink');
-    var sections = links
-      .map(function (l) { return $(l.getAttribute('href')); })
-      .filter(Boolean);
-
+    var sections = links.map(function (l) { return $(l.getAttribute('href')); }).filter(Boolean);
     if (!sections.length || !('IntersectionObserver' in window)) return;
 
     var spy = new IntersectionObserver(function (entries) {
@@ -63,8 +88,7 @@
 
     var open = function () {
       menu.hidden = false;
-      // força reflow para a transição de opacidade acontecer
-      void menu.offsetWidth;
+      void menu.offsetWidth;                 // força reflow para a transição rodar
       menu.classList.add('is-open');
       toggle.setAttribute('aria-expanded', 'true');
       toggle.setAttribute('aria-label', 'Fechar menu');
@@ -93,7 +117,7 @@
   }
 
   /* ----------------------------------------------------------------------
-     03. SCROLL REVEAL — elementos surgindo de baixo para cima
+     03. SCROLL REVEAL
      ------------------------------------------------------------------- */
   function initReveal() {
     var items = $$('[data-reveal]');
@@ -117,83 +141,45 @@
   }
 
   /* ----------------------------------------------------------------------
-     04. CONTADORES DAS ESTATÍSTICAS
-     ------------------------------------------------------------------- */
-  function initCounters() {
-    var stats = $$('.stat[data-count]');
-    if (!stats.length) return;
-
-    var render = function (el, value) {
-      var prefix = el.getAttribute('data-prefix') || '';
-      var suffix = el.getAttribute('data-suffix') || '';
-      el.textContent = prefix + Math.round(value).toLocaleString('pt-BR') + suffix;
-    };
-
-    if (REDUCED) {
-      stats.forEach(function (el) { render(el, parseFloat(el.getAttribute('data-count'))); });
-      return;
-    }
-
-    var run = function (el) {
-      var target = parseFloat(el.getAttribute('data-count')) || 0;
-
-      if (HAS_GSAP) {
-        var obj = { v: 0 };
-        gsap.to(obj, {
-          v: target,
-          duration: 1.8,
-          ease: 'power2.out',
-          onUpdate: function () { render(el, obj.v); }
-        });
-        return;
-      }
-
-      // Fallback sem GSAP
-      var start = null, dur = 1600;
-      var tick = function (ts) {
-        if (start === null) start = ts;
-        var p = Math.min((ts - start) / dur, 1);
-        render(el, target * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) window.requestAnimationFrame(tick);
-      };
-      window.requestAnimationFrame(tick);
-    };
-
-    if (!('IntersectionObserver' in window)) {
-      stats.forEach(run);
-      return;
-    }
-
-    var io = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        run(e.target);
-        obs.unobserve(e.target);
-      });
-    }, { threshold: 0.5 });
-
-    stats.forEach(function (el) { io.observe(el); });
-  }
-
-  /* ----------------------------------------------------------------------
-     05. METODOLOGIA — degraus interativos + 3 barras subindo em sequência
+     04. METODOLOGIA — etapas + anel de progresso
+     O anel da marca fecha um terço a cada etapa.
      ------------------------------------------------------------------- */
   function initMethodology() {
-    var list  = $('#steps');
-    var chart = $('#chart');
+    var list = $('#steps');
     if (!list) return;
 
     var steps = $$('.step', list);
-    var cols  = chart ? $$('.chart__col', chart) : [];
+    var fill  = $('#gauge-fill');
+    var pips  = $$('.gauge__pip');
+    var elStep = $('#gauge-step');
+    var elName = $('#gauge-name');
+    var elPct  = $('#gauge-pct');
+
+    var CIRC = 289.03;               // 2 · π · 46
+    var armed = REDUCED;             // o anel só desenha depois de entrar na tela
+    var current = 0;
+
+    var paint = function () {
+      if (!fill) return;
+      var pct = armed ? (parseInt(steps[current].getAttribute('data-pct'), 10) || 0) : 0;
+      fill.style.strokeDashoffset = String(CIRC * (1 - pct / 100));
+      if (elPct) elPct.textContent = pct + '%';
+      pips.forEach(function (p, i) { p.classList.toggle('is-on', armed && i <= current); });
+    };
 
     var activate = function (index) {
+      current = index;
       steps.forEach(function (s, i) {
         var on = i === index;
         s.classList.toggle('is-active', on);
         var btn = $('.step__btn', s);
         if (btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
       });
-      cols.forEach(function (c, i) { c.classList.toggle('is-focus', i === index); });
+
+      var step = steps[index];
+      if (elStep) elStep.textContent = 'Etapa 0' + (index + 1);
+      if (elName) elName.textContent = step.getAttribute('data-name') || '';
+      paint();
     };
 
     steps.forEach(function (step, i) {
@@ -207,31 +193,29 @@
 
     activate(0);
 
-    // Barras sobem uma a uma quando a seção entra na tela
-    if (!chart) return;
+    var gauge = $('#gauge');
+    if (!gauge || armed) { armed = true; paint(); return; }
 
-    var draw = function () { chart.classList.add('is-drawn'); };
-
-    if (REDUCED) { draw(); return; }
+    var arm = function () { armed = true; paint(); };
 
     if (HAS_ST) {
-      ScrollTrigger.create({ trigger: chart, start: 'top 82%', once: true, onEnter: draw });
+      ScrollTrigger.create({ trigger: gauge, start: 'top 82%', once: true, onEnter: arm });
     } else if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries, obs) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
-          draw();
+          arm();
           obs.unobserve(e.target);
         });
-      }, { threshold: 0.25 });
-      io.observe(chart);
+      }, { threshold: 0.3 });
+      io.observe(gauge);
     } else {
-      draw();
+      arm();
     }
   }
 
   /* ----------------------------------------------------------------------
-     06. FAQ — acordeão
+     05. FAQ — acordeão
      ------------------------------------------------------------------- */
   function initFaq() {
     var faq = $('#faq');
@@ -259,23 +243,21 @@
   }
 
   /* ----------------------------------------------------------------------
-     07. MARQUEE DE SETORES — loop contínuo
+     06. MARQUEE DE SETORES
      ------------------------------------------------------------------- */
   function initMarquee() {
     var track = $('#marquee-track');
     if (!track || REDUCED) return;
 
-    // Duplica o conteúdo para o loop de -50% ser imperceptível
-    track.innerHTML += track.innerHTML;
+    track.innerHTML += track.innerHTML;     // duplica para o loop ser contínuo
 
-    // Velocidade proporcional à largura (mantém ritmo igual em qualquer tela)
     var speed = Math.max(24, Math.round(track.scrollWidth / 90));
     track.style.setProperty('--marquee-speed', speed + 's');
     track.classList.add('is-running');
   }
 
   /* ----------------------------------------------------------------------
-     08. PARALLAX — barras decorativas do hero
+     07. PARALLAX — monograma gigante do hero
      ------------------------------------------------------------------- */
   function initParallax() {
     if (REDUCED || !HAS_ST) return;
@@ -296,11 +278,8 @@
   }
 
   /* ----------------------------------------------------------------------
-     09. FORMULÁRIO — validação simples + envio para o WhatsApp
+     08. FORMULÁRIO — validação + envio para o WhatsApp
      ------------------------------------------------------------------- */
-  // EDITAR: número da OSC em formato internacional, só dígitos (55 + DDD + número)
-  var WHATSAPP_NUMBER = '5500000000000';
-
   function initForm() {
     var form = $('#lead-form');
     if (!form) return;
@@ -308,7 +287,6 @@
     var errorBox = $('#form-error');
     var phone    = $('#f-whats');
 
-    // Máscara leve de telefone
     if (phone) {
       phone.addEventListener('input', function () {
         var d = phone.value.replace(/\D/g, '').slice(0, 11);
@@ -322,12 +300,6 @@
       });
     }
 
-    var showError = function (msg) {
-      if (!errorBox) return;
-      errorBox.textContent = msg;
-      errorBox.hidden = false;
-    };
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -335,13 +307,17 @@
       var invalid = null;
 
       fields.forEach(function (f) {
-        var ok = f.value.trim() !== '' && (f.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.value.trim()));
+        var ok = f.value.trim() !== '' &&
+                 (f.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.value.trim()));
         f.classList.toggle('is-invalid', !ok);
         if (!ok && !invalid) invalid = f;
       });
 
       if (invalid) {
-        showError('Confira os campos destacados antes de enviar.');
+        if (errorBox) {
+          errorBox.textContent = 'Confira os campos destacados antes de enviar.';
+          errorBox.hidden = false;
+        }
         invalid.focus();
         return;
       }
@@ -354,7 +330,7 @@
       };
 
       var lines = [
-        'Olá, OSC! Quero falar com um especialista.',
+        'Oi! Quero mais informações sobre a OSC.',
         '',
         'Nome: '     + get('nome'),
         'Empresa: '  + get('empresa'),
@@ -363,18 +339,13 @@
         'Segmento: ' + get('segmento')
       ];
       if (get('mensagem')) lines.push('Preciso resolver: ' + get('mensagem'));
-      var msg = lines.join('\n');
 
-      window.open(
-        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg),
-        '_blank',
-        'noopener'
-      );
+      window.open(whatsBase() + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
     });
   }
 
   /* ----------------------------------------------------------------------
-     10. ANO NO RODAPÉ
+     09. ANO NO RODAPÉ
      ------------------------------------------------------------------- */
   function initYear() {
     var y = $('#year');
@@ -385,10 +356,10 @@
      BOOT
      ------------------------------------------------------------------- */
   function boot() {
+    initWhatsappLinks();
     initNavbar();
     initMobileMenu();
     initReveal();
-    initCounters();
     initMethodology();
     initFaq();
     initMarquee();
