@@ -15,8 +15,19 @@ Landing page (one page) de captação de leads da **OSC Gestão Empresarial e Li
 | Animação | GSAP 3.12 + ScrollTrigger (CDN) e CSS/IntersectionObserver |
 | Tipografia | Archivo (400/600/900) + IBM Plex Mono (Google Fonts) |
 
-Não há build step. Basta abrir o `index.html` — ou publicar a pasta inteira em
-qualquer hospedagem estática (GitHub Pages, Vercel, Netlify, Hostinger, S3).
+Não há build step. Duas formas de usar, com o **mesmo resultado**:
+
+- **`osc-landing-page.html`** — arquivo único, com CSS e JS embutidos e o favicon
+  em data URI. Abre com duplo clique, sobe sozinho em qualquer lugar e é o mais
+  prático para colar num construtor de site ou num CMS.
+- **`index.html` + `assets/`** — versão separada em arquivos, melhor para manter
+  o código no dia a dia (o CSS e o JS ficam legíveis e versionados à parte).
+
+Publique em qualquer hospedagem estática (GitHub Pages, Vercel, Netlify,
+Hostinger, S3).
+
+> Ao editar, mexa numa das duas versões e regenere a outra — elas não se
+> sincronizam sozinhas.
 
 ```bash
 # visualizar localmente
@@ -30,6 +41,7 @@ python3 -m http.server 8000
 
 ```
 .
+├── osc-landing-page.html   # VERSÃO DE ARQUIVO ÚNICO (CSS + JS embutidos)
 ├── index.html              # página completa (todas as seções)
 ├── assets/
 │   ├── css/styles.css      # identidade visual e componentes de marca
@@ -86,9 +98,9 @@ IntersectionObserver + CSS.
 
 Procure por `EDITAR` no código. Os pontos são:
 
-1. **Número de WhatsApp** — aparece em 4 lugares:
-   - `assets/js/main.js` → constante `WHATSAPP_NUMBER` (formato `55DDNNNNNNNNN`)
-   - `index.html` → link da seção de contato, link do rodapé e botão flutuante
+1. **Número de WhatsApp** — aparece em 4 lugares (busque por `5500000000000`):
+   - constante `WHATSAPP_NUMBER` no JS (formato `55DDNNNNNNNNN`)
+   - link da seção de contato, link do rodapé e botão flutuante
 2. **Números da faixa de autoridade** (`index.html`, atributos `data-count`) —
    hoje estão com valores de exemplo: `+120` empresas, `+850` editais, `98%`,
    `24h`. **Substitua pelos números reais da OSC** antes de ir ao ar.
