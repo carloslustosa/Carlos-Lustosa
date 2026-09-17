@@ -1,0 +1,85 @@
+# ==========================================================================
+# OSC — Gestão Empresarial e Licitações
+# Configuração do servidor (Apache / LiteSpeed — é o que a Hostinger usa)
+# --------------------------------------------------------------------------
+# Só vale na hospedagem estática. Numa aplicação Node este arquivo é ignorado:
+# lá quem cuida disso é o server.js.
+#
+# Todo bloco está dentro de <IfModule>: se o módulo não existir no servidor,
+# o trecho é ignorado em vez de derrubar o site com erro 500.
+# ==========================================================================
+
+# --------------------------------------------------------------------------
+# 1. Arquivos que não devem ficar públicos
+# O site é publicado a partir da raiz do repositório, então sem isto qualquer
+# um poderia baixar o schema do banco, o README ou os scripts.
+# --------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^database/            - [F,L]
+  RewriteRule ^\.git                - [F,L]
+  RewriteRule ^server\.js$          - [F,L]
+  RewriteRule ^build\.py$           - [F,L]
+  RewriteRule ^package\.json$       - [F,L]
+  RewriteRule ^package-lock\.json$  - [F,L]
+  RewriteRule ^README\.md$          - [F,L]
+  RewriteRule ^\.gitignore$         - [F,L]
+</IfModule>
+
+# --------------------------------------------------------------------------
+# 2. Sempre HTTPS
+# Descomente depois que o certificado estiver ativo no painel da Hostinger.
+# --------------------------------------------------------------------------
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} !=on
+#   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# </IfModule>
+
+# --------------------------------------------------------------------------
+# 3. Compressão — deixa a página bem mais leve
+# --------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE text/javascript application/javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --------------------------------------------------------------------------
+# 4. Cache
+# O HTML fica sempre fresco; imagens, CSS e JS podem ficar guardados.
+# --------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html                "access plus 0 seconds"
+  ExpiresByType text/css                 "access plus 7 days"
+  ExpiresByType text/javascript          "access plus 7 days"
+  ExpiresByType application/javascript   "access plus 7 days"
+  ExpiresByType image/svg+xml            "access plus 30 days"
+  ExpiresByType image/png                "access plus 30 days"
+  ExpiresByType image/jpeg               "access plus 30 days"
+  ExpiresByType image/webp               "access plus 30 days"
+  ExpiresByType font/woff2               "access plus 1 year"
+</IfModule>
+
+# --------------------------------------------------------------------------
+# 5. Cabeçalhos de segurança
+# --------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# --------------------------------------------------------------------------
+# 6. Página inicial e codificação
+# --------------------------------------------------------------------------
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+
+# Não listar o conteúdo das pastas
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
