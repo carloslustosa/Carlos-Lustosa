@@ -39,6 +39,8 @@ python3 build.py              # gera osc-landing-page.html
 ├── index.html              # página (fonte de verdade)
 ├── build.py                # gera a versão de arquivo único
 ├── osc-landing-page.html   # versão de arquivo único (gerada)
+├── package.json            # metadados e scripts npm
+├── server.js               # servidor estático, sem dependências
 ├── database/
 │   └── schema.sql          # banco de dados dos leads
 └── assets/
@@ -47,6 +49,58 @@ python3 build.py              # gera osc-landing-page.html
     ├── js/main.js          # navegação, reveal, formulário, banco
     └── img/                # favicon e capa de compartilhamento
 ```
+
+### Scripts npm
+
+| Comando | O que faz |
+|---|---|
+| `npm start` | sobe o site em `http://localhost:3000` (é o que a Hostinger executa) |
+| `npm run dev` | o mesmo, para desenvolver |
+| `npm run build` | não faz nada — o site é estático, não há o que compilar |
+| `npm run build:single` | regenera o `osc-landing-page.html` (precisa de Python 3) |
+
+Não há dependências: `npm install` não baixa nada e o `server.js` usa só o que
+já vem no Node.
+
+---
+
+## Publicar na Hostinger
+
+O site é **HTML estático**. Há dois caminhos, e vale saber em qual você está.
+
+### 1. Hospedagem comum (o caminho normal)
+
+Envie os arquivos para a pasta `public_html` pelo Gerenciador de Arquivos ou por
+FTP. Precisa de: `index.html`, a pasta `assets/` e nada mais.
+
+Neste caminho o `package.json` e o `server.js` **não são usados** — o servidor da
+Hostinger entrega o `index.html` sozinho. Eles não atrapalham; ficam parados.
+
+Ainda mais simples: envie só o `osc-landing-page.html`, renomeie para
+`index.html` e pronto. Um arquivo, site no ar.
+
+### 2. Aplicação Node.js ou importação de repositório
+
+Alguns fluxos da Hostinger (Node.js app, deploy pelo Git, importação de projeto)
+exigem o `package.json` para reconhecer o projeto. É para isso que ele existe
+aqui. A plataforma vai rodar:
+
+```
+npm install     # não baixa nada, não há dependências
+npm start       # sobe o server.js na porta que a Hostinger definir
+```
+
+O `server.js` lê a variável `PORT` do ambiente — que a Hostinger define — e cai
+em 3000 se ela não existir. Ele também recusa servir `database/`, `server.js`,
+`package.json`, `build.py` e qualquer arquivo começado com ponto, e bloqueia
+tentativas de sair da pasta do site.
+
+### Depois de publicar
+
+Confira se o `assets/` subiu inteiro: sem ele a página aparece sem estilo e sem
+o fundo interativo.
+
+---
 
 ---
 

@@ -1,0 +1,29 @@
+{
+  "name": "osc-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page da OSC Gestão Empresarial e Licitações — site estático (HTML, CSS e JavaScript), sem framework e sem etapa de compilação.",
+  "keywords": [
+    "osc",
+    "licitacoes",
+    "gestao-empresarial",
+    "landing-page",
+    "site-estatico"
+  ],
+  "homepage": "https://oscgestao.com.br/",
+  "license": "UNLICENSED",
+  "author": "OSC Gestão Empresarial e Licitações <contato.osc.gestao@gmail.com>",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo \"Site estático: não há nada para compilar. Para regenerar a versão de arquivo único, rode npm run build:single.\"",
+    "build:single": "python3 build.py"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
