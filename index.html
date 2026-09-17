@@ -52,7 +52,10 @@
 <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
-<body class="bg-deep font-sans text-cream antialiased">
+<body class="font-sans text-cream antialiased">
+
+<!-- Fundo interativo: cor sólida + campo de monogramas da marca em canvas -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <!-- ==========================================================================
      A) NAVBAR FIXO
@@ -98,13 +101,12 @@
 
 <!-- Menu mobile -->
 <div id="mobile-menu" class="mobile-menu" hidden>
-  <span class="pattern" aria-hidden="true"></span>
   <nav class="mobile-menu__inner" aria-label="Navegação mobile">
-    <a href="#valores"     class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> A OSC</a>
-    <a href="#problema"    class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> O cenário</a>
-    <a href="#metodologia" class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> Metodologia</a>
-    <a href="#servicos"    class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> Serviços</a>
-    <a href="#duvidas"     class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> Dúvidas</a>
+    <a href="#valores"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> A OSC</a>
+    <a href="#problema"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> O cenário</a>
+    <a href="#metodologia" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Metodologia</a>
+    <a href="#servicos"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Serviços</a>
+    <a href="#duvidas"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Dúvidas</a>
     <a href="#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
       <span>Fale com um especialista</span>
       <span class="btn__dot" aria-hidden="true"></span>
@@ -117,23 +119,13 @@
 <!-- ==========================================================================
      B) HERO — Verde profundo
      ========================================================================== -->
-<section class="hero relative bg-deep pt-32 pb-20 md:pt-40 md:pb-28">
+<section class="hero relative pt-32 pb-20 md:pt-40 md:pb-28">
 
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
-
-  <!-- Monograma gigante sangrando pela borda (ornamento autorizado) -->
-  <div class="hero__ring" data-parallax="0.1" aria-hidden="true">
-    <svg class="mono" viewBox="0 0 100 100">
-      <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
-      <circle class="mono__c" cx="58" cy="42" r="29.44" stroke-width="9.81" stroke-dasharray="149 36" />
-      <circle class="mono__dot" cx="72.5" cy="67.5" r="8.5" />
-    </svg>
-  </div>
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <p class="hero-anim hero-anim--1 label label--growth">
-      <span class="ring ring--sm" aria-hidden="true"></span>
+      <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
       Gestão empresarial e licitações
     </p>
 
@@ -173,12 +165,12 @@
 <!-- ==========================================================================
      C) VALORES — faixa institucional
      ========================================================================== -->
-<section id="valores" class="relative overflow-hidden border-y border-cream/12 bg-deeper py-20 md:py-24">
+<section id="valores" class="relative overflow-hidden border-y border-cream/12 py-20 md:py-24">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <div class="max-w-3xl" data-reveal>
       <p class="label label--growth">
-        <span class="ring ring--sm" aria-hidden="true"></span>
+        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
         A essência
       </p>
       <h2 class="h-display mt-6 text-[clamp(1.7rem,3.8vw,2.6rem)]">
@@ -192,25 +184,25 @@
     <div class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
 
       <div class="value" data-reveal>
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Clareza</h3>
         <p class="value__text">Explicamos o processo em português, não em jargão de edital.</p>
       </div>
 
       <div class="value" data-reveal data-reveal-delay="80">
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Método</h3>
         <p class="value__text">Cada etapa documentada, cada prazo mapeado antes de começar.</p>
       </div>
 
       <div class="value" data-reveal data-reveal-delay="160">
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Presença</h3>
         <p class="value__text">Do diagnóstico à assinatura do contrato, sempre a mesma equipe.</p>
       </div>
 
       <div class="value" data-reveal data-reveal-delay="240">
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Ambição</h3>
         <p class="value__text">O objetivo é o próximo patamar do cliente, não o serviço avulso.</p>
       </div>
@@ -222,12 +214,12 @@
 <!-- ==========================================================================
      D) PROBLEMA / SOLUÇÃO — Creme documento
      ========================================================================== -->
-<section id="problema" class="section bg-cream text-deep">
+<section id="problema" class="section sec-solid bg-cream text-deep">
   <div class="mx-auto max-w-shell px-5 md:px-8">
 
     <header class="max-w-3xl" data-reveal>
       <p class="label label--dark">
-        <span class="ring ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
+        <span class="osc-ring osc-ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
         O cenário
       </p>
       <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
@@ -284,14 +276,13 @@
 <!-- ==========================================================================
      E) METODOLOGIA — três etapas + anel de progresso
      ========================================================================== -->
-<section id="metodologia" class="section relative overflow-hidden bg-deep">
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
+<section id="metodologia" class="section relative overflow-hidden">
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <header class="max-w-3xl" data-reveal>
       <p class="label label--growth">
-        <span class="ring ring--sm" aria-hidden="true"></span>
+        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
         Nossa metodologia
       </p>
       <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
@@ -410,13 +401,13 @@
 <!-- ==========================================================================
      F) SERVIÇOS — Creme documento
      ========================================================================== -->
-<section id="servicos" class="section bg-cream text-deep">
+<section id="servicos" class="section sec-solid bg-cream text-deep">
   <div class="mx-auto max-w-shell px-5 md:px-8">
 
     <header class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
       <div class="max-w-2xl">
         <p class="label label--dark">
-          <span class="ring ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
+          <span class="osc-ring osc-ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
           O que fazemos
         </p>
         <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
@@ -441,28 +432,28 @@
 
         <article class="card" data-reveal>
           <span class="card__num">01</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Diagnóstico e reestruturação</h4>
           <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
         </article>
 
         <article class="card" data-reveal data-reveal-delay="80">
           <span class="card__num">02</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Documentação e regularidade</h4>
           <p class="card__text">Certidões, alvarás e obrigações em dia, com aviso antes de cada vencimento.</p>
         </article>
 
         <article class="card" data-reveal data-reveal-delay="160">
           <span class="card__num">03</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Compliance e governança</h4>
           <p class="card__text">Regras claras, responsabilidades definidas e a empresa pronta para auditoria.</p>
         </article>
 
         <article class="card" data-reveal data-reveal-delay="240">
           <span class="card__num">04</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Processos e precificação</h4>
           <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
         </article>
@@ -481,28 +472,28 @@
 
         <article class="card card--alt" data-reveal>
           <span class="card__num">05</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Cadastro em portais e SICAF</h4>
           <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
         </article>
 
         <article class="card card--alt" data-reveal data-reveal-delay="80">
           <span class="card__num">06</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Análise e seleção de editais</h4>
           <p class="card__text">Filtramos o que vale disputar e descartamos o que só dá trabalho.</p>
         </article>
 
         <article class="card card--alt" data-reveal data-reveal-delay="160">
           <span class="card__num">07</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Disputa, impugnação e recurso</h4>
           <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando aperta.</p>
         </article>
 
         <article class="card card--alt" data-reveal data-reveal-delay="240">
           <span class="card__num">08</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Gestão de contratos públicos</h4>
           <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
         </article>
@@ -515,10 +506,10 @@
 <!-- ==========================================================================
      G) SETORES
      ========================================================================== -->
-<section id="setores" class="relative overflow-hidden border-y border-cream/12 bg-deeper py-16 md:py-20">
+<section id="setores" class="relative overflow-hidden border-y border-cream/12 py-16 md:py-20">
   <div class="mx-auto max-w-shell px-5 md:px-8" data-reveal>
     <p class="label label--growth">
-      <span class="ring ring--sm" aria-hidden="true"></span>
+      <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
       Para quem é
     </p>
     <h2 class="h-display mt-6 max-w-3xl text-[clamp(1.6rem,3.4vw,2.3rem)]">
@@ -550,15 +541,14 @@
 <!-- ==========================================================================
      H) DÚVIDAS — Verde profundo
      ========================================================================== -->
-<section id="duvidas" class="section relative overflow-hidden bg-deep">
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
+<section id="duvidas" class="section relative overflow-hidden">
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
     <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
 
       <header data-reveal>
         <p class="label label--growth">
-          <span class="ring ring--sm" aria-hidden="true"></span>
+          <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
           Dúvidas frequentes
         </p>
         <h2 class="h-display mt-6 text-[clamp(2rem,4.4vw,3.1rem)]">Direto ao ponto.</h2>
@@ -660,15 +650,14 @@
 <!-- ==========================================================================
      I) CONTATO
      ========================================================================== -->
-<section id="contato" class="section relative overflow-hidden bg-deeper">
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
+<section id="contato" class="section relative overflow-hidden">
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
 
       <div data-reveal>
         <p class="label label--growth">
-          <span class="ring ring--sm" aria-hidden="true"></span>
+          <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
           Próximo passo
         </p>
         <h2 class="h-display mt-6 text-[clamp(2rem,4.8vw,3.5rem)]">
@@ -740,6 +729,12 @@
             </select>
           </div>
 
+          <!-- Armadilha anti-robô: invisível para gente, irresistível para bot -->
+          <div class="field form__trap" aria-hidden="true">
+            <label for="f-website">Não preencha este campo</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div class="field sm:col-span-2">
             <label for="f-msg">O que você precisa resolver?</label>
             <textarea id="f-msg" name="mensagem" rows="3" placeholder="Ex.: nunca participei de licitação e quero começar."></textarea>
@@ -756,6 +751,7 @@
           apenas para este contato comercial.
         </p>
 
+        <p id="form-ok" class="form__ok" role="status" hidden></p>
         <p id="form-error" class="form__error" role="alert" hidden></p>
       </form>
     </div>
@@ -767,7 +763,7 @@
 <!-- ==========================================================================
      J) RODAPÉ
      ========================================================================== -->
-<footer class="relative overflow-hidden border-t border-cream/12 bg-deep pt-16 pb-8">
+<footer class="relative overflow-hidden border-t border-cream/12 pt-16 pb-8">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
@@ -850,6 +846,7 @@
 <!-- GSAP (animações) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/background.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

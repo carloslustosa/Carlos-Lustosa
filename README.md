@@ -26,8 +26,27 @@ Não há build step. Duas formas de usar, com o **mesmo resultado**:
 python3 -m http.server 8000   # depois: http://localhost:8000
 ```
 
-> Ao editar, mexa numa das duas versões e regenere a outra — elas não se
-> sincronizam sozinhas.
+Edite sempre o `index.html` + `assets/` e regenere o arquivo único:
+
+```bash
+python3 build.py              # gera osc-landing-page.html
+```
+
+### Arquivos
+
+```
+.
+├── index.html              # página (fonte de verdade)
+├── build.py                # gera a versão de arquivo único
+├── osc-landing-page.html   # versão de arquivo único (gerada)
+├── database/
+│   └── schema.sql          # banco de dados dos leads
+└── assets/
+    ├── css/styles.css      # identidade visual e componentes
+    ├── js/background.js    # fundo interativo em canvas
+    ├── js/main.js          # navegação, reveal, formulário, banco
+    └── img/                # favicon e capa de compartilhamento
+```
 
 ---
 
@@ -86,6 +105,50 @@ Nenhuma cor fora da paleta oficial.
 
 ---
 
+## Fundo interativo
+
+O fundo é **cor sólida** (`#12301F`). Em cima dele, um `<canvas>` fixo desenha um
+campo de monogramas da marca — os mesmos anéis do logo, na mesma proporção.
+
+| Interação | O que acontece |
+|---|---|
+| Mouse | os anéis próximos ao cursor acendem, giram mais rápido e se afastam de leve |
+| Clique ou toque | dispara uma onda que empurra os anéis por perto |
+| Arrastar o dedo | o dedo funciona como cursor |
+| Inclinar o aparelho | o campo se desloca com o giroscópio (onde o navegador permite) |
+
+As seções escuras são transparentes, então o campo aparece através delas; as
+seções creme são sólidas e cobrem o canvas. O canvas tem `pointer-events: none`,
+ou seja, nunca rouba um clique do conteúdo.
+
+**Cuidados de desempenho:** a quantidade de anéis é proporcional à área da tela
+(5 a 16), o `devicePixelRatio` é limitado a 2, o loop pausa quando a aba sai de
+foco e é desligado por completo em `prefers-reduced-motion` — aí o campo é
+desenhado uma vez e fica parado.
+
+Para mexer no fundo: `assets/js/background.js`. Os pontos de ajuste são
+`ringCount()` (quantidade) e o campo `alpha` em `build()` (intensidade).
+
+---
+
+## Adaptação por dispositivo
+
+Testado em 8 tamanhos, de 320 px a 1920 px, sem rolagem horizontal em nenhum.
+
+| Faixa | O que muda |
+|---|---|
+| Até 400 px | logo, botões e cantos reduzidos |
+| Até 1023 px | menu hambúrguer, alvos de toque com no mínimo 40 px, espaço extra no fim do formulário para o botão do WhatsApp não tapar nada |
+| Celular deitado | hero perde a altura mínima e o menu vira rolável |
+| 640–1023 px (tablet) | o anel da metodologia fica ao lado do texto, em vez de embaixo |
+| A partir de 1024 px | menu em links, layout em duas colunas |
+| A partir de 1536 px | respiro vertical maior |
+| Sem hover (toque) | os cards já nascem no estado final, em vez de depender de um hover que nunca acontece |
+
+Há ainda uma folha de impressão que esconde fundo, menu e botão flutuante.
+
+---
+
 ## Animações
 
 | Onde | O que acontece |
@@ -118,6 +181,70 @@ WhatsApp Web só quando detecta computador. O formulário usa a mesma regra, com
 mensagem montada a partir dos campos.
 
 Para trocar o número depois, edite o objeto `WHATS` no JS e os quatro `href` no HTML.
+
+---
+
+## Banco de dados dos leads
+
+Todo mundo que preenche o formulário é gravado numa tabela `leads`, e em seguida
+o WhatsApp abre com a mensagem pronta. As duas coisas acontecem juntas: se a
+gravação falhar, o contato **não se perde** — o WhatsApp abre do mesmo jeito.
+
+O banco é **Supabase** (Postgres gerenciado, plano gratuito, painel pronto para
+consultar e editar os leads). Ele foi escolhido porque o site é estático: não há
+servidor para rodar código, então o formulário precisa falar direto com uma API.
+
+### Ligar o banco (5 minutos)
+
+1. Crie um projeto em <https://supabase.com>.
+2. Abra o **SQL Editor**, cole o `database/schema.sql` inteiro e execute.
+3. Vá em **Settings → API** e copie a *Project URL* e a chave *anon public*.
+4. Preencha as duas no objeto `DB`, no início do JavaScript:
+
+```js
+var DB = {
+  url:     'https://xxxxxxxx.supabase.co',
+  anonKey: 'sua-chave-anon',
+  table:   'leads'
+};
+```
+
+5. Regenere o arquivo único (`python3 build.py`) e publique.
+
+Os leads aparecem em **Table Editor → leads**. Há duas visões prontas:
+`leads_novos` (quem ainda não foi contatado) e `leads_por_dia` (quantos entram
+por dia e quantos viraram cliente).
+
+### Enquanto você não ligar
+
+O formulário continua funcionando normalmente e manda tudo para o WhatsApp.
+Ele só não grava.
+
+### O que é gravado
+
+Nome, empresa, WhatsApp, e-mail, segmento e mensagem, mais a origem do lead:
+página, referrer, `utm_source`, `utm_medium`, `utm_campaign` e navegador. Assim
+dá para saber qual anúncio ou post trouxe cada cliente.
+
+O acompanhamento comercial (`status`, `responsavel`, `observacoes`,
+`contatado_em`) fica só no painel — o site nunca escreve nesses campos.
+
+### Segurança
+
+A chave *anon* fica visível no código do site, e **isso é o esperado**: sozinha
+ela não abre nada. Quem protege os dados é a Row Level Security do schema, que
+libera **apenas a inserção**. Ninguém consegue ler, alterar ou apagar leads pelo
+site — só você, logado no painel.
+
+**Nunca coloque a chave `service_role` no site.** Ela ignora a RLS.
+
+O formulário ainda tem um campo-armadilha invisível contra robôs e um índice
+único que barra o mesmo e-mail enviado duas vezes no mesmo minuto.
+
+### Se quiser outro destino
+
+Trocar Supabase por Formspree, n8n, RD Station ou uma planilha é mudar uma
+função só: `salvarLead()`, em `assets/js/main.js`.
 
 ---
 

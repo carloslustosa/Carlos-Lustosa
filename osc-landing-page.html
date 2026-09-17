@@ -68,6 +68,8 @@
    03. Monograma       08. Valores           13. Formulário
    04. Botões          09. Problema/Solução  14. Rodapé
    05. Navbar          10. Metodologia       15. Acessibilidade
+                                             16. Adaptação por dispositivo
+                                             17. Movimento reduzido
    ========================================================================== */
 
 /* -------------------------------------------------------------------------
@@ -89,8 +91,6 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io:  cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Ornamento da marca: anel aberto + ponto, repetido em fileira */
-  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Ccircle cx='44' cy='44' r='18' fill='none' stroke='%2387D06A' stroke-width='3' stroke-dasharray='91 22'/%3E%3Ccircle cx='56.7' cy='31.3' r='4' fill='%2387D06A'/%3E%3C/svg%3E");
 }
 
 /* -------------------------------------------------------------------------
@@ -106,11 +106,36 @@ html {
 }
 
 body {
-  background: var(--deep);
+  background: var(--deep);    /* cor sólida — o canvas só acrescenta os anéis */
   color: var(--cream);
   font-size: 16px;            /* mínimo de 15 px exigido pelo manual */
   line-height: 1.6;           /* entrelinha de corpo                  */
   overflow-x: hidden;
+}
+
+/* ---- Fundo interativo -----------------------------------------------------
+   O canvas fica fixo atrás de tudo. As seções escuras são transparentes, então
+   o campo de monogramas aparece através delas; as seções claras são sólidas e
+   cobrem o canvas. Assim o fundo é cor chapada, com a interação por cima. */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;       /* nunca rouba clique do conteúdo */
+}
+
+header, main, footer { position: relative; z-index: 1; }
+
+/* Seção de cor sólida: cobre o canvas por completo.
+   O fundo é declarado aqui, e não só pela classe do Tailwind, para que a
+   seção nunca fique translúcida caso o CDN demore ou falhe. */
+.sec-solid {
+  position: relative;
+  z-index: 1;
+  background: var(--cream);
 }
 
 section[id] { scroll-margin-top: 92px; }
@@ -204,8 +229,10 @@ section[id] { scroll-margin-top: 92px; }
 .logo--lg .logo__desc { font-size: 0.6rem; }
 
 /* Ornamento em CSS: anel aberto no quadrante superior direito + ponto.
-   A borda superior transparente abre exatamente um quadrante. */
-.ring {
+   A borda superior transparente abre exatamente um quadrante.
+   O nome é "osc-ring", e não "ring", porque o Tailwind já tem uma utilidade
+   chamada ring que desenha um contorno azul — cor fora da paleta. */
+.osc-ring {
   position: relative;
   display: inline-block;
   width: 18px;
@@ -216,7 +243,7 @@ section[id] { scroll-margin-top: 92px; }
   border-radius: 50%;
   transform: rotate(45deg);
 }
-.ring::after {                       /* o ponto, na abertura do anel */
+.osc-ring::after {                       /* o ponto, na abertura do anel */
   content: '';
   position: absolute;
   top: -4px;
@@ -226,32 +253,23 @@ section[id] { scroll-margin-top: 92px; }
   border-radius: 50%;
   background: var(--dot-color, var(--growth));
 }
-.ring--sm { width: 13px; height: 13px; border-width: 2.5px; }
-.ring--sm::after { width: 5.5px; height: 5.5px; top: -3px; right: -3px; }
-.ring--lg { width: 30px; height: 30px; border-width: 5px; }
-.ring--lg::after { width: 11px; height: 11px; top: -6px; right: -6px; }
+.osc-ring--sm { width: 13px; height: 13px; border-width: 2.5px; }
+.osc-ring--sm::after { width: 5.5px; height: 5.5px; top: -3px; right: -3px; }
+.osc-ring--lg { width: 30px; height: 30px; border-width: 5px; }
+.osc-ring--lg::after { width: 11px; height: 11px; top: -6px; right: -6px; }
 
-/* Padrão de fundo — anel + ponto repetidos a 12 % de opacidade */
-.pattern {
-  position: absolute;
-  inset: 0;
-  background-image: var(--pattern);
-  background-size: 88px 88px;
-  opacity: 0.12;
-  pointer-events: none;
-}
-.pattern--fade {
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 100%);
-}
 
 /* -------------------------------------------------------------------------
    04. BOTÕES E MICROINTERAÇÕES
    Flat: cor, filete e movimento. Sem sombra, sem gradiente.
    ---------------------------------------------------------------------- */
+/* O display fica em :where() (especificidade zero) para que as utilidades do
+   Tailwind — hidden, sm:inline-flex, lg:hidden — sempre vençam, não importa em
+   que ordem o CDN injete a folha dele. */
+:where(.btn) { display: inline-flex; }
+
 .btn {
   position: relative;
-  display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 14px 24px;
@@ -369,9 +387,10 @@ section[id] { scroll-margin-top: 92px; }
 .navlink.is-current::after { transform: scale(1); }
 .navlink.is-current { color: var(--cream); }
 
+:where(.burger) { display: inline-flex; }
+
 .burger {
   width: 46px; height: 46px;
-  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -451,21 +470,6 @@ body.is-locked { overflow: hidden; }
   overflow: hidden;
 }
 
-/* Anel gigante sangrando pela borda — ornamento autorizado */
-.hero__ring {
-  position: absolute;
-  right: -14vw;
-  bottom: -18vw;
-  width: 62vw;
-  height: 62vw;
-  max-width: 820px;
-  max-height: 820px;
-  pointer-events: none;
-}
-.hero__ring .mono__o   { stroke: rgba(63, 138, 75, 0.32); }
-.hero__ring .mono__c   { stroke: rgba(135, 208, 106, 0.26); }
-.hero__ring .mono__dot { fill: rgba(135, 208, 106, 0.5); }
-
 .hero-anim {
   opacity: 0;
   transform: translateY(26px);
@@ -478,18 +482,6 @@ body.is-locked { overflow: hidden; }
 .hero-anim--5 { animation-delay: 0.58s; }
 @keyframes heroIn { to { opacity: 1; transform: none; } }
 
-/* Traço do monograma se desenhando na entrada */
-.hero__ring .mono__o,
-.hero__ring .mono__c {
-  stroke-dashoffset: 0;
-  animation: ringDraw 1.6s var(--ease-out) both;
-  animation-delay: 0.3s;
-}
-@keyframes ringDraw {
-  from { opacity: 0; transform: scale(0.9); }
-  to   { opacity: 1; transform: scale(1); }
-}
-.hero__ring svg { transform-origin: center; }
 
 .hero-note {
   position: relative;
@@ -536,7 +528,7 @@ body.is-locked { overflow: hidden; }
   line-height: 1.6;
   color: rgba(242, 239, 228, 0.66);
 }
-.value:hover .ring { --ring-color: var(--growth); }
+.value:hover .osc-ring { --ring-color: var(--growth); }
 
 /* -------------------------------------------------------------------------
    09. PROBLEMA / SOLUÇÃO
@@ -799,8 +791,8 @@ body.is-locked { overflow: hidden; }
 
 .card__ring { margin-top: 20px; --ring-color: var(--deep); }
 .card:hover .card__ring { --ring-color: var(--growth); }
-.card__ring .ring { transition: transform 0.45s var(--ease-out); }
-.card:hover .card__ring .ring { transform: rotate(135deg); }
+.card__ring .osc-ring { transition: transform 0.45s var(--ease-out); }
+.card:hover .card__ring .osc-ring { transform: rotate(135deg); }
 
 .card__title {
   margin-top: 20px;
@@ -941,6 +933,22 @@ body.is-locked { overflow: hidden; }
 .field select.is-invalid,
 .field textarea.is-invalid { border-bottom-color: var(--alert); }
 
+.form__ok {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--growth);
+}
+
+/* Campo-armadilha: fora da tela, invisível para leitores de tela e para gente */
+.form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form__error {
   margin-top: 16px;
   font-family: 'IBM Plex Mono', monospace;
@@ -1010,6 +1018,103 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
+/* -------------------------------------------------------------------------
+   16. ADAPTAÇÃO POR DISPOSITIVO
+   Celular em pé, celular deitado, tablet, notebook e monitor grande.
+   ---------------------------------------------------------------------- */
+
+/* ---- Celular pequeno — até 400 px ---- */
+@media (max-width: 400px) {
+  .logo__sym  { width: 36px; height: 36px; }
+  .logo__name { font-size: 1.3rem; }
+  .logo__desc { font-size: 0.44rem; letter-spacing: 0.22em; }
+  .btn        { padding: 13px 20px; font-size: 0.9rem; }
+  .btn--lg    { padding: 16px 24px; font-size: 0.98rem; }
+  .panel      { border-radius: 20px; }
+  .card       { border-radius: 20px; padding: 24px 20px 26px; }
+  .form, .gauge { border-radius: 20px; }
+}
+
+/* ---- Celular e tablet: alvos de toque confortáveis ---- */
+@media (max-width: 1023px) {
+  .faq__q, .step__btn { min-height: 44px; }
+  /* min-height não vale em elemento inline: o link do rodapé vira inline-block
+     e ganha respiro vertical para o dedo acertar sem esforço. */
+  .footlink { display: inline-block; padding-block: 12px; }
+  footer li { line-height: 1.2; }
+  .contact-line a { display: inline-block; padding-block: 9px; }
+  .wa-float { width: 58px; height: 58px; right: 16px; bottom: 16px; }
+  /* o botão flutuante não pode tapar o fim do formulário */
+  #contato { padding-bottom: clamp(96px, 16vw, 150px); }
+}
+
+/* ---- Celular deitado — pouca altura ---- */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero { min-height: auto; padding-top: 104px; padding-bottom: 64px; }
+  .hero h1 { font-size: clamp(2rem, 6vh, 3rem); }
+  .mobile-menu__inner { padding-block: 24px; }
+  .mobile-menu { align-items: flex-start; overflow-y: auto; }
+  .mobile-menu__link { padding: 12px 0; font-size: 1.2rem; }
+}
+
+/* ---- Tablet — 640 px a 1023 px ---- */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .section { padding-block: clamp(72px, 9vw, 104px); }
+
+  /* o anel de progresso fica ao lado do texto em vez de empilhado */
+  .gauge { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; }
+  .gauge__plot   { margin: 0; width: clamp(200px, 30vw, 260px); }
+  .gauge__legend { grid-column: 1 / -1; margin-top: 4px; }
+
+  .step__title { font-size: clamp(1.6rem, 3.4vw, 2rem); }
+}
+
+/* ---- Tablet em pé especificamente ---- */
+@media (min-width: 640px) and (max-width: 900px) and (orientation: portrait) {
+  .hero { min-height: min(86svh, 760px); }
+}
+
+/* ---- Monitor grande — a partir de 1536 px ---- */
+@media (min-width: 1536px) {
+  .section { padding-block: 150px; }
+  .logo__sym { width: 46px; height: 46px; }
+}
+
+/* ---- Sem hover (toque): o card já nasce no estado final ----
+   Em celular e tablet ninguém passa o mouse, então o efeito de hover nunca
+   aconteceria e o card ficaria pela metade. Aqui ele se completa sozinho. */
+@media (hover: none) {
+  .card { border-color: var(--deep); }
+  .card--alt { border-color: var(--mid); }
+  .card:hover, .card:focus-within { transform: none; }
+  .card__num  { color: var(--mid-ink); }
+  .card__ring { --ring-color: var(--mid); }
+  .card:active { transform: scale(0.99); }
+
+  .value .osc-ring { --ring-color: var(--growth); }
+  .marquee:hover .marquee__track.is-running { animation-play-state: running; }
+  .footlink:hover { padding-left: 0; }
+  .social:hover  { transform: none; }
+  .wa-float:hover { transform: none; }
+}
+
+/* ---- Telas de alta densidade: afina os filetes ---- */
+@media (min-resolution: 2dppx) {
+  .osc-ring { border-width: 2.5px; }
+  .osc-ring--sm { border-width: 2px; }
+}
+
+/* ---- Impressão ---- */
+@media print {
+  #bg-canvas, .wa-float, .nav, .mobile-menu, .marquee { display: none !important; }
+  body { background: #fff; color: #000; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .step__body, .faq__a { grid-template-rows: 1fr !important; }
+}
+
+/* -------------------------------------------------------------------------
+   17. MOVIMENTO REDUZIDO
+   ---------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -1024,7 +1129,10 @@ textarea:focus-visible {
 </style>
 </head>
 
-<body class="bg-deep font-sans text-cream antialiased">
+<body class="font-sans text-cream antialiased">
+
+<!-- Fundo interativo: cor sólida + campo de monogramas da marca em canvas -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <!-- ==========================================================================
      A) NAVBAR FIXO
@@ -1070,13 +1178,12 @@ textarea:focus-visible {
 
 <!-- Menu mobile -->
 <div id="mobile-menu" class="mobile-menu" hidden>
-  <span class="pattern" aria-hidden="true"></span>
   <nav class="mobile-menu__inner" aria-label="Navegação mobile">
-    <a href="#valores"     class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> A OSC</a>
-    <a href="#problema"    class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> O cenário</a>
-    <a href="#metodologia" class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> Metodologia</a>
-    <a href="#servicos"    class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> Serviços</a>
-    <a href="#duvidas"     class="mobile-menu__link"><span class="ring ring--sm" aria-hidden="true"></span> Dúvidas</a>
+    <a href="#valores"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> A OSC</a>
+    <a href="#problema"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> O cenário</a>
+    <a href="#metodologia" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Metodologia</a>
+    <a href="#servicos"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Serviços</a>
+    <a href="#duvidas"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Dúvidas</a>
     <a href="#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
       <span>Fale com um especialista</span>
       <span class="btn__dot" aria-hidden="true"></span>
@@ -1089,23 +1196,13 @@ textarea:focus-visible {
 <!-- ==========================================================================
      B) HERO — Verde profundo
      ========================================================================== -->
-<section class="hero relative bg-deep pt-32 pb-20 md:pt-40 md:pb-28">
+<section class="hero relative pt-32 pb-20 md:pt-40 md:pb-28">
 
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
-
-  <!-- Monograma gigante sangrando pela borda (ornamento autorizado) -->
-  <div class="hero__ring" data-parallax="0.1" aria-hidden="true">
-    <svg class="mono" viewBox="0 0 100 100">
-      <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
-      <circle class="mono__c" cx="58" cy="42" r="29.44" stroke-width="9.81" stroke-dasharray="149 36" />
-      <circle class="mono__dot" cx="72.5" cy="67.5" r="8.5" />
-    </svg>
-  </div>
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <p class="hero-anim hero-anim--1 label label--growth">
-      <span class="ring ring--sm" aria-hidden="true"></span>
+      <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
       Gestão empresarial e licitações
     </p>
 
@@ -1145,12 +1242,12 @@ textarea:focus-visible {
 <!-- ==========================================================================
      C) VALORES — faixa institucional
      ========================================================================== -->
-<section id="valores" class="relative overflow-hidden border-y border-cream/12 bg-deeper py-20 md:py-24">
+<section id="valores" class="relative overflow-hidden border-y border-cream/12 py-20 md:py-24">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <div class="max-w-3xl" data-reveal>
       <p class="label label--growth">
-        <span class="ring ring--sm" aria-hidden="true"></span>
+        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
         A essência
       </p>
       <h2 class="h-display mt-6 text-[clamp(1.7rem,3.8vw,2.6rem)]">
@@ -1164,25 +1261,25 @@ textarea:focus-visible {
     <div class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
 
       <div class="value" data-reveal>
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Clareza</h3>
         <p class="value__text">Explicamos o processo em português, não em jargão de edital.</p>
       </div>
 
       <div class="value" data-reveal data-reveal-delay="80">
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Método</h3>
         <p class="value__text">Cada etapa documentada, cada prazo mapeado antes de começar.</p>
       </div>
 
       <div class="value" data-reveal data-reveal-delay="160">
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Presença</h3>
         <p class="value__text">Do diagnóstico à assinatura do contrato, sempre a mesma equipe.</p>
       </div>
 
       <div class="value" data-reveal data-reveal-delay="240">
-        <span class="value__ring block" aria-hidden="true"><span class="ring"></span></span>
+        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
         <h3 class="value__name">Ambição</h3>
         <p class="value__text">O objetivo é o próximo patamar do cliente, não o serviço avulso.</p>
       </div>
@@ -1194,12 +1291,12 @@ textarea:focus-visible {
 <!-- ==========================================================================
      D) PROBLEMA / SOLUÇÃO — Creme documento
      ========================================================================== -->
-<section id="problema" class="section bg-cream text-deep">
+<section id="problema" class="section sec-solid bg-cream text-deep">
   <div class="mx-auto max-w-shell px-5 md:px-8">
 
     <header class="max-w-3xl" data-reveal>
       <p class="label label--dark">
-        <span class="ring ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
+        <span class="osc-ring osc-ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
         O cenário
       </p>
       <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
@@ -1256,14 +1353,13 @@ textarea:focus-visible {
 <!-- ==========================================================================
      E) METODOLOGIA — três etapas + anel de progresso
      ========================================================================== -->
-<section id="metodologia" class="section relative overflow-hidden bg-deep">
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
+<section id="metodologia" class="section relative overflow-hidden">
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <header class="max-w-3xl" data-reveal>
       <p class="label label--growth">
-        <span class="ring ring--sm" aria-hidden="true"></span>
+        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
         Nossa metodologia
       </p>
       <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
@@ -1382,13 +1478,13 @@ textarea:focus-visible {
 <!-- ==========================================================================
      F) SERVIÇOS — Creme documento
      ========================================================================== -->
-<section id="servicos" class="section bg-cream text-deep">
+<section id="servicos" class="section sec-solid bg-cream text-deep">
   <div class="mx-auto max-w-shell px-5 md:px-8">
 
     <header class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
       <div class="max-w-2xl">
         <p class="label label--dark">
-          <span class="ring ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
+          <span class="osc-ring osc-ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
           O que fazemos
         </p>
         <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
@@ -1413,28 +1509,28 @@ textarea:focus-visible {
 
         <article class="card" data-reveal>
           <span class="card__num">01</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Diagnóstico e reestruturação</h4>
           <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
         </article>
 
         <article class="card" data-reveal data-reveal-delay="80">
           <span class="card__num">02</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Documentação e regularidade</h4>
           <p class="card__text">Certidões, alvarás e obrigações em dia, com aviso antes de cada vencimento.</p>
         </article>
 
         <article class="card" data-reveal data-reveal-delay="160">
           <span class="card__num">03</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Compliance e governança</h4>
           <p class="card__text">Regras claras, responsabilidades definidas e a empresa pronta para auditoria.</p>
         </article>
 
         <article class="card" data-reveal data-reveal-delay="240">
           <span class="card__num">04</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Processos e precificação</h4>
           <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
         </article>
@@ -1453,28 +1549,28 @@ textarea:focus-visible {
 
         <article class="card card--alt" data-reveal>
           <span class="card__num">05</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Cadastro em portais e SICAF</h4>
           <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
         </article>
 
         <article class="card card--alt" data-reveal data-reveal-delay="80">
           <span class="card__num">06</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Análise e seleção de editais</h4>
           <p class="card__text">Filtramos o que vale disputar e descartamos o que só dá trabalho.</p>
         </article>
 
         <article class="card card--alt" data-reveal data-reveal-delay="160">
           <span class="card__num">07</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Disputa, impugnação e recurso</h4>
           <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando aperta.</p>
         </article>
 
         <article class="card card--alt" data-reveal data-reveal-delay="240">
           <span class="card__num">08</span>
-          <span class="card__ring block" aria-hidden="true"><span class="ring ring--lg"></span></span>
+          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
           <h4 class="card__title">Gestão de contratos públicos</h4>
           <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
         </article>
@@ -1487,10 +1583,10 @@ textarea:focus-visible {
 <!-- ==========================================================================
      G) SETORES
      ========================================================================== -->
-<section id="setores" class="relative overflow-hidden border-y border-cream/12 bg-deeper py-16 md:py-20">
+<section id="setores" class="relative overflow-hidden border-y border-cream/12 py-16 md:py-20">
   <div class="mx-auto max-w-shell px-5 md:px-8" data-reveal>
     <p class="label label--growth">
-      <span class="ring ring--sm" aria-hidden="true"></span>
+      <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
       Para quem é
     </p>
     <h2 class="h-display mt-6 max-w-3xl text-[clamp(1.6rem,3.4vw,2.3rem)]">
@@ -1522,15 +1618,14 @@ textarea:focus-visible {
 <!-- ==========================================================================
      H) DÚVIDAS — Verde profundo
      ========================================================================== -->
-<section id="duvidas" class="section relative overflow-hidden bg-deep">
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
+<section id="duvidas" class="section relative overflow-hidden">
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
     <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
 
       <header data-reveal>
         <p class="label label--growth">
-          <span class="ring ring--sm" aria-hidden="true"></span>
+          <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
           Dúvidas frequentes
         </p>
         <h2 class="h-display mt-6 text-[clamp(2rem,4.4vw,3.1rem)]">Direto ao ponto.</h2>
@@ -1632,15 +1727,14 @@ textarea:focus-visible {
 <!-- ==========================================================================
      I) CONTATO
      ========================================================================== -->
-<section id="contato" class="section relative overflow-hidden bg-deeper">
-  <span class="pattern pattern--fade" aria-hidden="true"></span>
+<section id="contato" class="section relative overflow-hidden">
 
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
 
       <div data-reveal>
         <p class="label label--growth">
-          <span class="ring ring--sm" aria-hidden="true"></span>
+          <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
           Próximo passo
         </p>
         <h2 class="h-display mt-6 text-[clamp(2rem,4.8vw,3.5rem)]">
@@ -1712,6 +1806,12 @@ textarea:focus-visible {
             </select>
           </div>
 
+          <!-- Armadilha anti-robô: invisível para gente, irresistível para bot -->
+          <div class="field form__trap" aria-hidden="true">
+            <label for="f-website">Não preencha este campo</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div class="field sm:col-span-2">
             <label for="f-msg">O que você precisa resolver?</label>
             <textarea id="f-msg" name="mensagem" rows="3" placeholder="Ex.: nunca participei de licitação e quero começar."></textarea>
@@ -1728,6 +1828,7 @@ textarea:focus-visible {
           apenas para este contato comercial.
         </p>
 
+        <p id="form-ok" class="form__ok" role="status" hidden></p>
         <p id="form-error" class="form__error" role="alert" hidden></p>
       </form>
     </div>
@@ -1739,7 +1840,7 @@ textarea:focus-visible {
 <!-- ==========================================================================
      J) RODAPÉ
      ========================================================================== -->
-<footer class="relative overflow-hidden border-t border-cream/12 bg-deep pt-16 pb-8">
+<footer class="relative overflow-hidden border-t border-cream/12 pt-16 pb-8">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
@@ -1824,6 +1925,259 @@ textarea:focus-visible {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 /* ==========================================================================
+   OSC — Fundo interativo
+   --------------------------------------------------------------------------
+   Um campo de monogramas da marca desenhado em <canvas>, atrás do conteúdo.
+   O fundo em si é cor sólida (#12301F); o canvas só acrescenta os anéis.
+
+   Interação:
+   • O monograma mais próximo do cursor/dedo acende, gira e se afasta de leve.
+   • Clique ou toque dispara uma onda que empurra os anéis.
+   • No celular, o giroscópio (quando autorizado) inclina o campo.
+
+   Desempenho: DPR limitado a 2, quantidade proporcional à área da tela,
+   pausa com a aba oculta e desliga em prefers-reduced-motion.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var canvas = document.getElementById('bg-canvas');
+  if (!canvas || !canvas.getContext) return;
+
+  var ctx = canvas.getContext('2d');
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Paleta oficial — o fundo interativo não inventa cor nenhuma */
+  var COLOR = { o: '242, 239, 228', c: '63, 138, 75', dot: '135, 208, 106' };
+
+  var W = 0, H = 0, dpr = 1;
+  var rings = [];
+  var waves = [];
+  var pointer = { x: -9999, y: -9999, active: false };
+  var tilt = { x: 0, y: 0 };
+  var raf = null;
+
+  /* ----------------------------------------------------------------------
+     Geometria do monograma, parametrizada pelo raio do anel O.
+     Proporções idênticas às do SVG do logo:
+     anel O  → espessura = diâmetro / 6
+     anel C  → 8 % menor, abertura de 70° no quadrante superior direito,
+               centro deslocado na diagonal ascendente (+0.5r, -0.5r)
+     ponto   → no cruzamento real dos dois anéis
+     ------------------------------------------------------------------- */
+  var C_GAP = 290 * Math.PI / 180;          // arco visível do anel C
+
+  function drawMonogram(x, y, r, rot, alpha, glow) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+
+    // anel O
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.lineWidth = r / 3;
+    ctx.strokeStyle = 'rgba(' + COLOR.o + ',' + (alpha * (0.5 + glow * 0.5)).toFixed(3) + ')';
+    ctx.stroke();
+
+    // anel C — aberto, deslocado na diagonal ascendente
+    var rc = r * 0.92;
+    ctx.beginPath();
+    ctx.arc(r * 0.5, -r * 0.5, rc, 0, C_GAP);
+    ctx.lineWidth = rc / 3;
+    ctx.strokeStyle = 'rgba(' + COLOR.c + ',' + (alpha * (1 + glow)).toFixed(3) + ')';
+    ctx.stroke();
+
+    // ponto de encontro
+    ctx.beginPath();
+    ctx.arc(r * 0.953, r * 0.297, r * 0.266, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(' + COLOR.dot + ',' + (alpha * (1.3 + glow * 1.6)).toFixed(3) + ')';
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  /* ----------------------------------------------------------------------
+     Campo de anéis
+     ------------------------------------------------------------------- */
+  function ringCount() {
+    var area = W * H;
+    return Math.max(5, Math.min(16, Math.round(area / 150000)));
+  }
+
+  function build() {
+    rings = [];
+    var n = ringCount();
+
+    for (var i = 0; i < n; i++) {
+      var big = i === 0;                     // um monograma grande ancora o campo
+      var r = big
+        ? Math.min(W, H) * (W < 700 ? 0.3 : 0.26)
+        : Math.min(W, H) * (0.035 + Math.random() * 0.075);
+
+      rings.push({
+        hx: Math.random() * W,               // posição de repouso
+        hy: Math.random() * H,
+        x: 0, y: 0,                          // deslocamento atual
+        vx: 0, vy: 0,
+        r: r,
+        rot: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.0016,
+        drift: 0.1 + Math.random() * 0.35,   // amplitude do vaivém lento
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.00012 + Math.random() * 0.00022,
+        alpha: big ? 0.1 : 0.12 + Math.random() * 0.13,
+        glow: 0
+      });
+    }
+
+    // o monograma grande fica na borda direita, como no material impresso
+    if (rings[0]) { rings[0].hx = W * 0.86; rings[0].hy = H * 0.72; }
+  }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth;
+    H = canvas.clientHeight;
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    build();
+    if (REDUCED) frame(0);                   // desenha uma vez, sem animar
+  }
+
+  /* ----------------------------------------------------------------------
+     Loop
+     ------------------------------------------------------------------- */
+  function frame(t) {
+    ctx.clearRect(0, 0, W, H);
+
+    // ondas disparadas por clique/toque
+    for (var w = waves.length - 1; w >= 0; w--) {
+      waves[w].r += waves[w].v;
+      waves[w].life -= 0.014;
+      if (waves[w].life <= 0) waves.splice(w, 1);
+    }
+
+    for (var i = 0; i < rings.length; i++) {
+      var ring = rings[i];
+
+      // vaivém lento de repouso
+      var wander = Math.sin(t * ring.speed + ring.phase) * ring.drift * 40;
+      var baseX = ring.hx + wander + tilt.x * (ring.r * 0.4);
+      var baseY = ring.hy + Math.cos(t * ring.speed * 0.8 + ring.phase) * ring.drift * 30 + tilt.y * (ring.r * 0.4);
+
+      // repulsão suave do cursor
+      var target = 0;
+      if (pointer.active) {
+        var dx = baseX + ring.x - pointer.x;
+        var dy = baseY + ring.y - pointer.y;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        var reach = Math.max(180, ring.r * 2.4);
+        if (dist < reach) {
+          var push = (1 - dist / reach);
+          ring.vx += (dx / dist) * push * 0.5;
+          ring.vy += (dy / dist) * push * 0.5;
+          target = push;                     // acende conforme a proximidade
+        }
+      }
+
+      // ondas empurram o anel para fora
+      for (var k = 0; k < waves.length; k++) {
+        var wv = waves[k];
+        var wdx = baseX + ring.x - wv.x;
+        var wdy = baseY + ring.y - wv.y;
+        var wd = Math.sqrt(wdx * wdx + wdy * wdy) || 1;
+        if (Math.abs(wd - wv.r) < 90) {
+          var force = (1 - Math.abs(wd - wv.r) / 90) * wv.life;
+          ring.vx += (wdx / wd) * force * 2.2;
+          ring.vy += (wdy / wd) * force * 2.2;
+          if (force > target) target = force;
+        }
+      }
+
+      ring.glow += (target - ring.glow) * 0.08;
+
+      // mola de volta ao repouso + atrito
+      ring.vx += -ring.x * 0.012;
+      ring.vy += -ring.y * 0.012;
+      ring.vx *= 0.9;
+      ring.vy *= 0.9;
+      ring.x += ring.vx;
+      ring.y += ring.vy;
+
+      ring.rot += ring.spin + ring.glow * 0.012;
+
+      drawMonogram(baseX + ring.x, baseY + ring.y, ring.r, ring.rot, ring.alpha, ring.glow);
+    }
+
+    // Em prefers-reduced-motion o desenho acontece uma vez só, sem reagendar.
+    if (!REDUCED) raf = window.requestAnimationFrame(frame);
+  }
+
+  /* ----------------------------------------------------------------------
+     Eventos
+     ------------------------------------------------------------------- */
+  function setPointer(x, y) {
+    if (REDUCED) return;
+    var rect = canvas.getBoundingClientRect();
+    pointer.x = x - rect.left;
+    pointer.y = y - rect.top;
+    pointer.active = true;
+  }
+
+  function addWave(x, y) {
+    if (REDUCED) return;
+    var rect = canvas.getBoundingClientRect();
+    waves.push({ x: x - rect.left, y: y - rect.top, r: 0, v: 13, life: 1 });
+    if (waves.length > 4) waves.shift();
+  }
+
+  function start() {
+    if (REDUCED || raf !== null) return;
+    raf = window.requestAnimationFrame(frame);
+  }
+
+  function stop() {
+    if (raf === null) return;
+    window.cancelAnimationFrame(raf);
+    raf = null;
+  }
+
+  window.addEventListener('resize', function () {
+    window.clearTimeout(resize._t);
+    resize._t = window.setTimeout(resize, 150);
+  });
+
+  window.addEventListener('mousemove', function (e) { setPointer(e.clientX, e.clientY); }, { passive: true });
+  window.addEventListener('mouseleave', function () { pointer.active = false; });
+  window.addEventListener('pointerdown', function (e) { addWave(e.clientX, e.clientY); }, { passive: true });
+
+  window.addEventListener('touchmove', function (e) {
+    if (e.touches.length) setPointer(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  window.addEventListener('touchend', function () {
+    window.setTimeout(function () { pointer.active = false; }, 600);
+  }, { passive: true });
+
+  // Inclinação do aparelho — só onde o navegador entrega sem pedir permissão
+  if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function') {
+    window.addEventListener('deviceorientation', function (e) {
+      if (e.gamma === null) return;
+      tilt.x = Math.max(-1, Math.min(1, e.gamma / 45));
+      tilt.y = Math.max(-1, Math.min(1, ((e.beta || 0) - 45) / 45));
+    }, { passive: true });
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    document.hidden ? stop() : start();
+  });
+
+  resize();
+  start();
+})();
+</script>
+<script>
+/* ==========================================================================
    OSC — GESTÃO EMPRESARIAL E LICITAÇÕES
    Interações e animações — Identidade Visual V2.0
    --------------------------------------------------------------------------
@@ -1854,6 +2208,63 @@ textarea:focus-visible {
     mobile: 'https://api.whatsapp.com/send?phone=5586988372619&text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC.',
     desktop: 'https://web.whatsapp.com/send?phone=5586988372619&text=Oi!%20Quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC.'
   };
+
+  /* ----------------------------------------------------------------------
+     00b. BANCO DE DADOS — leads do formulário
+     Preencha as duas linhas abaixo com os dados do seu projeto Supabase
+     (Settings → API). Enquanto estiverem vazias, o formulário continua
+     funcionando: ele só não grava, e manda direto para o WhatsApp.
+
+     A chave "anon" é pública de propósito — quem protege os dados é a Row
+     Level Security do database/schema.sql, que só permite INSERIR.
+     Nunca use aqui a chave "service_role".
+     ------------------------------------------------------------------- */
+  var DB = {
+    url:     '',        // EDITAR: https://xxxxxxxx.supabase.co
+    anonKey: '',        // EDITAR: chave anon public
+    table:   'leads'
+  };
+
+  function dbConfigurado() {
+    return Boolean(DB.url && DB.anonKey);
+  }
+
+  /* Grava o lead. Não bloqueia o envio: se falhar, o WhatsApp abre do mesmo
+     jeito e o contato não se perde. keepalive mantém a requisição viva mesmo
+     com a aba trocando para o WhatsApp. */
+  function salvarLead(dados) {
+    if (!dbConfigurado()) return Promise.resolve({ ok: false, motivo: 'nao-configurado' });
+
+    return fetch(DB.url.replace(/\/$/, '') + '/rest/v1/' + DB.table, {
+      method: 'POST',
+      keepalive: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': DB.anonKey,
+        'Authorization': 'Bearer ' + DB.anonKey,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(dados)
+    }).then(function (res) {
+      return { ok: res.ok, status: res.status };
+    }).catch(function (err) {
+      return { ok: false, motivo: String(err) };
+    });
+  }
+
+  /* Origem do lead: de onde a pessoa veio e por qual campanha */
+  function origemDoLead() {
+    var q = new URLSearchParams(window.location.search);
+    return {
+      origem:       'site',
+      pagina:        window.location.pathname || '/',
+      referrer:      document.referrer ? document.referrer.slice(0, 500) : null,
+      utm_source:    q.get('utm_source'),
+      utm_medium:    q.get('utm_medium'),
+      utm_campaign:  q.get('utm_campaign'),
+      user_agent:    (navigator.userAgent || '').slice(0, 300)
+    };
+  }
 
   function isMobile() {
     var ua = navigator.userAgent || '';
@@ -2110,7 +2521,10 @@ textarea:focus-visible {
     if (!form) return;
 
     var errorBox = $('#form-error');
+    var okBox    = $('#form-ok');
     var phone    = $('#f-whats');
+    var submit   = form.querySelector('button[type="submit"]');
+    var enviando = false;
 
     if (phone) {
       phone.addEventListener('input', function () {
@@ -2125,8 +2539,24 @@ textarea:focus-visible {
       });
     }
 
+    var aviso = function (box, texto) {
+      if (!box) return;
+      box.textContent = texto;
+      box.hidden = !texto;
+    };
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (enviando) return;
+
+      var get = function (name) {
+        var el = form.elements[name];
+        return el ? el.value.trim() : '';
+      };
+
+      // Armadilha anti-robô: campo escondido que só um bot preenche.
+      // Fingimos sucesso para não avisar o robô de que foi barrado.
+      if (get('website')) { aviso(okBox, 'Recebemos sua mensagem. Já retornamos.'); form.reset(); return; }
 
       var fields  = $$('input[required], select[required], textarea[required]', form);
       var invalid = null;
@@ -2139,33 +2569,61 @@ textarea:focus-visible {
       });
 
       if (invalid) {
-        if (errorBox) {
-          errorBox.textContent = 'Confira os campos destacados antes de enviar.';
-          errorBox.hidden = false;
-        }
+        aviso(okBox, '');
+        aviso(errorBox, 'Confira os campos destacados antes de enviar.');
         invalid.focus();
         return;
       }
 
-      if (errorBox) errorBox.hidden = true;
+      aviso(errorBox, '');
 
-      var get = function (name) {
-        var el = form.elements[name];
-        return el ? el.value.trim() : '';
+      var lead = {
+        nome:     get('nome'),
+        empresa:  get('empresa'),
+        whatsapp: get('whatsapp'),
+        email:    get('email'),
+        segmento: get('segmento') || null,
+        mensagem: get('mensagem') || null
       };
 
-      var lines = [
+      var origem = origemDoLead();
+      for (var k in origem) { if (origem[k]) lead[k] = origem[k]; }
+
+      var mensagem = [
         'Oi! Quero mais informações sobre a OSC.',
         '',
-        'Nome: '     + get('nome'),
-        'Empresa: '  + get('empresa'),
-        'WhatsApp: ' + get('whatsapp'),
-        'E-mail: '   + get('email'),
-        'Segmento: ' + get('segmento')
+        'Nome: '     + lead.nome,
+        'Empresa: '  + lead.empresa,
+        'WhatsApp: ' + lead.whatsapp,
+        'E-mail: '   + lead.email,
+        'Segmento: ' + (lead.segmento || '—')
       ];
-      if (get('mensagem')) lines.push('Preciso resolver: ' + get('mensagem'));
+      if (lead.mensagem) mensagem.push('Preciso resolver: ' + lead.mensagem);
 
-      window.open(whatsBase() + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+      // Grava no banco (sem esperar) e abre o WhatsApp no mesmo gesto do
+      // clique — se abrisse depois do await, o bloqueador de pop-up barraria.
+      enviando = true;
+      if (submit) submit.disabled = true;
+
+      var gravando = salvarLead(lead);
+
+      window.open(whatsBase() + encodeURIComponent(mensagem.join('\n')), '_blank', 'noopener');
+
+      gravando.then(function (res) {
+        enviando = false;
+        if (submit) submit.disabled = false;
+
+        if (res.ok) {
+          aviso(okBox, 'Recebemos seus dados. Abrimos o WhatsApp para você continuar a conversa.');
+          form.reset();
+        } else if (res.motivo === 'nao-configurado') {
+          // Sem banco ligado, o WhatsApp já levou o contato adiante.
+          aviso(okBox, 'Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.');
+          form.reset();
+        } else {
+          aviso(okBox, 'Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.');
+        }
+      });
     });
   }
 

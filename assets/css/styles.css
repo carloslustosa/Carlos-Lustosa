@@ -15,6 +15,8 @@
    03. Monograma       08. Valores           13. Formulário
    04. Botões          09. Problema/Solução  14. Rodapé
    05. Navbar          10. Metodologia       15. Acessibilidade
+                                             16. Adaptação por dispositivo
+                                             17. Movimento reduzido
    ========================================================================== */
 
 /* -------------------------------------------------------------------------
@@ -36,8 +38,6 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-io:  cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Ornamento da marca: anel aberto + ponto, repetido em fileira */
-  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88'%3E%3Ccircle cx='44' cy='44' r='18' fill='none' stroke='%2387D06A' stroke-width='3' stroke-dasharray='91 22'/%3E%3Ccircle cx='56.7' cy='31.3' r='4' fill='%2387D06A'/%3E%3C/svg%3E");
 }
 
 /* -------------------------------------------------------------------------
@@ -53,11 +53,36 @@ html {
 }
 
 body {
-  background: var(--deep);
+  background: var(--deep);    /* cor sólida — o canvas só acrescenta os anéis */
   color: var(--cream);
   font-size: 16px;            /* mínimo de 15 px exigido pelo manual */
   line-height: 1.6;           /* entrelinha de corpo                  */
   overflow-x: hidden;
+}
+
+/* ---- Fundo interativo -----------------------------------------------------
+   O canvas fica fixo atrás de tudo. As seções escuras são transparentes, então
+   o campo de monogramas aparece através delas; as seções claras são sólidas e
+   cobrem o canvas. Assim o fundo é cor chapada, com a interação por cima. */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;       /* nunca rouba clique do conteúdo */
+}
+
+header, main, footer { position: relative; z-index: 1; }
+
+/* Seção de cor sólida: cobre o canvas por completo.
+   O fundo é declarado aqui, e não só pela classe do Tailwind, para que a
+   seção nunca fique translúcida caso o CDN demore ou falhe. */
+.sec-solid {
+  position: relative;
+  z-index: 1;
+  background: var(--cream);
 }
 
 section[id] { scroll-margin-top: 92px; }
@@ -151,8 +176,10 @@ section[id] { scroll-margin-top: 92px; }
 .logo--lg .logo__desc { font-size: 0.6rem; }
 
 /* Ornamento em CSS: anel aberto no quadrante superior direito + ponto.
-   A borda superior transparente abre exatamente um quadrante. */
-.ring {
+   A borda superior transparente abre exatamente um quadrante.
+   O nome é "osc-ring", e não "ring", porque o Tailwind já tem uma utilidade
+   chamada ring que desenha um contorno azul — cor fora da paleta. */
+.osc-ring {
   position: relative;
   display: inline-block;
   width: 18px;
@@ -163,7 +190,7 @@ section[id] { scroll-margin-top: 92px; }
   border-radius: 50%;
   transform: rotate(45deg);
 }
-.ring::after {                       /* o ponto, na abertura do anel */
+.osc-ring::after {                       /* o ponto, na abertura do anel */
   content: '';
   position: absolute;
   top: -4px;
@@ -173,32 +200,23 @@ section[id] { scroll-margin-top: 92px; }
   border-radius: 50%;
   background: var(--dot-color, var(--growth));
 }
-.ring--sm { width: 13px; height: 13px; border-width: 2.5px; }
-.ring--sm::after { width: 5.5px; height: 5.5px; top: -3px; right: -3px; }
-.ring--lg { width: 30px; height: 30px; border-width: 5px; }
-.ring--lg::after { width: 11px; height: 11px; top: -6px; right: -6px; }
+.osc-ring--sm { width: 13px; height: 13px; border-width: 2.5px; }
+.osc-ring--sm::after { width: 5.5px; height: 5.5px; top: -3px; right: -3px; }
+.osc-ring--lg { width: 30px; height: 30px; border-width: 5px; }
+.osc-ring--lg::after { width: 11px; height: 11px; top: -6px; right: -6px; }
 
-/* Padrão de fundo — anel + ponto repetidos a 12 % de opacidade */
-.pattern {
-  position: absolute;
-  inset: 0;
-  background-image: var(--pattern);
-  background-size: 88px 88px;
-  opacity: 0.12;
-  pointer-events: none;
-}
-.pattern--fade {
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 100%);
-}
 
 /* -------------------------------------------------------------------------
    04. BOTÕES E MICROINTERAÇÕES
    Flat: cor, filete e movimento. Sem sombra, sem gradiente.
    ---------------------------------------------------------------------- */
+/* O display fica em :where() (especificidade zero) para que as utilidades do
+   Tailwind — hidden, sm:inline-flex, lg:hidden — sempre vençam, não importa em
+   que ordem o CDN injete a folha dele. */
+:where(.btn) { display: inline-flex; }
+
 .btn {
   position: relative;
-  display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 14px 24px;
@@ -316,9 +334,10 @@ section[id] { scroll-margin-top: 92px; }
 .navlink.is-current::after { transform: scale(1); }
 .navlink.is-current { color: var(--cream); }
 
+:where(.burger) { display: inline-flex; }
+
 .burger {
   width: 46px; height: 46px;
-  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -398,21 +417,6 @@ body.is-locked { overflow: hidden; }
   overflow: hidden;
 }
 
-/* Anel gigante sangrando pela borda — ornamento autorizado */
-.hero__ring {
-  position: absolute;
-  right: -14vw;
-  bottom: -18vw;
-  width: 62vw;
-  height: 62vw;
-  max-width: 820px;
-  max-height: 820px;
-  pointer-events: none;
-}
-.hero__ring .mono__o   { stroke: rgba(63, 138, 75, 0.32); }
-.hero__ring .mono__c   { stroke: rgba(135, 208, 106, 0.26); }
-.hero__ring .mono__dot { fill: rgba(135, 208, 106, 0.5); }
-
 .hero-anim {
   opacity: 0;
   transform: translateY(26px);
@@ -425,18 +429,6 @@ body.is-locked { overflow: hidden; }
 .hero-anim--5 { animation-delay: 0.58s; }
 @keyframes heroIn { to { opacity: 1; transform: none; } }
 
-/* Traço do monograma se desenhando na entrada */
-.hero__ring .mono__o,
-.hero__ring .mono__c {
-  stroke-dashoffset: 0;
-  animation: ringDraw 1.6s var(--ease-out) both;
-  animation-delay: 0.3s;
-}
-@keyframes ringDraw {
-  from { opacity: 0; transform: scale(0.9); }
-  to   { opacity: 1; transform: scale(1); }
-}
-.hero__ring svg { transform-origin: center; }
 
 .hero-note {
   position: relative;
@@ -483,7 +475,7 @@ body.is-locked { overflow: hidden; }
   line-height: 1.6;
   color: rgba(242, 239, 228, 0.66);
 }
-.value:hover .ring { --ring-color: var(--growth); }
+.value:hover .osc-ring { --ring-color: var(--growth); }
 
 /* -------------------------------------------------------------------------
    09. PROBLEMA / SOLUÇÃO
@@ -746,8 +738,8 @@ body.is-locked { overflow: hidden; }
 
 .card__ring { margin-top: 20px; --ring-color: var(--deep); }
 .card:hover .card__ring { --ring-color: var(--growth); }
-.card__ring .ring { transition: transform 0.45s var(--ease-out); }
-.card:hover .card__ring .ring { transform: rotate(135deg); }
+.card__ring .osc-ring { transition: transform 0.45s var(--ease-out); }
+.card:hover .card__ring .osc-ring { transform: rotate(135deg); }
 
 .card__title {
   margin-top: 20px;
@@ -888,6 +880,22 @@ body.is-locked { overflow: hidden; }
 .field select.is-invalid,
 .field textarea.is-invalid { border-bottom-color: var(--alert); }
 
+.form__ok {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--growth);
+}
+
+/* Campo-armadilha: fora da tela, invisível para leitores de tela e para gente */
+.form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form__error {
   margin-top: 16px;
   font-family: 'IBM Plex Mono', monospace;
@@ -957,6 +965,103 @@ textarea:focus-visible {
   outline-offset: 3px;
 }
 
+/* -------------------------------------------------------------------------
+   16. ADAPTAÇÃO POR DISPOSITIVO
+   Celular em pé, celular deitado, tablet, notebook e monitor grande.
+   ---------------------------------------------------------------------- */
+
+/* ---- Celular pequeno — até 400 px ---- */
+@media (max-width: 400px) {
+  .logo__sym  { width: 36px; height: 36px; }
+  .logo__name { font-size: 1.3rem; }
+  .logo__desc { font-size: 0.44rem; letter-spacing: 0.22em; }
+  .btn        { padding: 13px 20px; font-size: 0.9rem; }
+  .btn--lg    { padding: 16px 24px; font-size: 0.98rem; }
+  .panel      { border-radius: 20px; }
+  .card       { border-radius: 20px; padding: 24px 20px 26px; }
+  .form, .gauge { border-radius: 20px; }
+}
+
+/* ---- Celular e tablet: alvos de toque confortáveis ---- */
+@media (max-width: 1023px) {
+  .faq__q, .step__btn { min-height: 44px; }
+  /* min-height não vale em elemento inline: o link do rodapé vira inline-block
+     e ganha respiro vertical para o dedo acertar sem esforço. */
+  .footlink { display: inline-block; padding-block: 12px; }
+  footer li { line-height: 1.2; }
+  .contact-line a { display: inline-block; padding-block: 9px; }
+  .wa-float { width: 58px; height: 58px; right: 16px; bottom: 16px; }
+  /* o botão flutuante não pode tapar o fim do formulário */
+  #contato { padding-bottom: clamp(96px, 16vw, 150px); }
+}
+
+/* ---- Celular deitado — pouca altura ---- */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero { min-height: auto; padding-top: 104px; padding-bottom: 64px; }
+  .hero h1 { font-size: clamp(2rem, 6vh, 3rem); }
+  .mobile-menu__inner { padding-block: 24px; }
+  .mobile-menu { align-items: flex-start; overflow-y: auto; }
+  .mobile-menu__link { padding: 12px 0; font-size: 1.2rem; }
+}
+
+/* ---- Tablet — 640 px a 1023 px ---- */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .section { padding-block: clamp(72px, 9vw, 104px); }
+
+  /* o anel de progresso fica ao lado do texto em vez de empilhado */
+  .gauge { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; }
+  .gauge__plot   { margin: 0; width: clamp(200px, 30vw, 260px); }
+  .gauge__legend { grid-column: 1 / -1; margin-top: 4px; }
+
+  .step__title { font-size: clamp(1.6rem, 3.4vw, 2rem); }
+}
+
+/* ---- Tablet em pé especificamente ---- */
+@media (min-width: 640px) and (max-width: 900px) and (orientation: portrait) {
+  .hero { min-height: min(86svh, 760px); }
+}
+
+/* ---- Monitor grande — a partir de 1536 px ---- */
+@media (min-width: 1536px) {
+  .section { padding-block: 150px; }
+  .logo__sym { width: 46px; height: 46px; }
+}
+
+/* ---- Sem hover (toque): o card já nasce no estado final ----
+   Em celular e tablet ninguém passa o mouse, então o efeito de hover nunca
+   aconteceria e o card ficaria pela metade. Aqui ele se completa sozinho. */
+@media (hover: none) {
+  .card { border-color: var(--deep); }
+  .card--alt { border-color: var(--mid); }
+  .card:hover, .card:focus-within { transform: none; }
+  .card__num  { color: var(--mid-ink); }
+  .card__ring { --ring-color: var(--mid); }
+  .card:active { transform: scale(0.99); }
+
+  .value .osc-ring { --ring-color: var(--growth); }
+  .marquee:hover .marquee__track.is-running { animation-play-state: running; }
+  .footlink:hover { padding-left: 0; }
+  .social:hover  { transform: none; }
+  .wa-float:hover { transform: none; }
+}
+
+/* ---- Telas de alta densidade: afina os filetes ---- */
+@media (min-resolution: 2dppx) {
+  .osc-ring { border-width: 2.5px; }
+  .osc-ring--sm { border-width: 2px; }
+}
+
+/* ---- Impressão ---- */
+@media print {
+  #bg-canvas, .wa-float, .nav, .mobile-menu, .marquee { display: none !important; }
+  body { background: #fff; color: #000; }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .step__body, .faq__a { grid-template-rows: 1fr !important; }
+}
+
+/* -------------------------------------------------------------------------
+   17. MOVIMENTO REDUZIDO
+   ---------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

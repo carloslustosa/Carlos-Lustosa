@@ -30,6 +30,63 @@
     desktop: 'https://web.whatsapp.com/send?phone=5586988372619&text=Oi!%20Quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC.'
   };
 
+  /* ----------------------------------------------------------------------
+     00b. BANCO DE DADOS — leads do formulário
+     Preencha as duas linhas abaixo com os dados do seu projeto Supabase
+     (Settings → API). Enquanto estiverem vazias, o formulário continua
+     funcionando: ele só não grava, e manda direto para o WhatsApp.
+
+     A chave "anon" é pública de propósito — quem protege os dados é a Row
+     Level Security do database/schema.sql, que só permite INSERIR.
+     Nunca use aqui a chave "service_role".
+     ------------------------------------------------------------------- */
+  var DB = {
+    url:     '',        // EDITAR: https://xxxxxxxx.supabase.co
+    anonKey: '',        // EDITAR: chave anon public
+    table:   'leads'
+  };
+
+  function dbConfigurado() {
+    return Boolean(DB.url && DB.anonKey);
+  }
+
+  /* Grava o lead. Não bloqueia o envio: se falhar, o WhatsApp abre do mesmo
+     jeito e o contato não se perde. keepalive mantém a requisição viva mesmo
+     com a aba trocando para o WhatsApp. */
+  function salvarLead(dados) {
+    if (!dbConfigurado()) return Promise.resolve({ ok: false, motivo: 'nao-configurado' });
+
+    return fetch(DB.url.replace(/\/$/, '') + '/rest/v1/' + DB.table, {
+      method: 'POST',
+      keepalive: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': DB.anonKey,
+        'Authorization': 'Bearer ' + DB.anonKey,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(dados)
+    }).then(function (res) {
+      return { ok: res.ok, status: res.status };
+    }).catch(function (err) {
+      return { ok: false, motivo: String(err) };
+    });
+  }
+
+  /* Origem do lead: de onde a pessoa veio e por qual campanha */
+  function origemDoLead() {
+    var q = new URLSearchParams(window.location.search);
+    return {
+      origem:       'site',
+      pagina:        window.location.pathname || '/',
+      referrer:      document.referrer ? document.referrer.slice(0, 500) : null,
+      utm_source:    q.get('utm_source'),
+      utm_medium:    q.get('utm_medium'),
+      utm_campaign:  q.get('utm_campaign'),
+      user_agent:    (navigator.userAgent || '').slice(0, 300)
+    };
+  }
+
   function isMobile() {
     var ua = navigator.userAgent || '';
     if (/Android|iPhone|iPad|iPod|Opera Mini|IEMobile|BlackBerry|webOS/i.test(ua)) return true;
@@ -285,7 +342,10 @@
     if (!form) return;
 
     var errorBox = $('#form-error');
+    var okBox    = $('#form-ok');
     var phone    = $('#f-whats');
+    var submit   = form.querySelector('button[type="submit"]');
+    var enviando = false;
 
     if (phone) {
       phone.addEventListener('input', function () {
@@ -300,8 +360,24 @@
       });
     }
 
+    var aviso = function (box, texto) {
+      if (!box) return;
+      box.textContent = texto;
+      box.hidden = !texto;
+    };
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (enviando) return;
+
+      var get = function (name) {
+        var el = form.elements[name];
+        return el ? el.value.trim() : '';
+      };
+
+      // Armadilha anti-robô: campo escondido que só um bot preenche.
+      // Fingimos sucesso para não avisar o robô de que foi barrado.
+      if (get('website')) { aviso(okBox, 'Recebemos sua mensagem. Já retornamos.'); form.reset(); return; }
 
       var fields  = $$('input[required], select[required], textarea[required]', form);
       var invalid = null;
@@ -314,33 +390,61 @@
       });
 
       if (invalid) {
-        if (errorBox) {
-          errorBox.textContent = 'Confira os campos destacados antes de enviar.';
-          errorBox.hidden = false;
-        }
+        aviso(okBox, '');
+        aviso(errorBox, 'Confira os campos destacados antes de enviar.');
         invalid.focus();
         return;
       }
 
-      if (errorBox) errorBox.hidden = true;
+      aviso(errorBox, '');
 
-      var get = function (name) {
-        var el = form.elements[name];
-        return el ? el.value.trim() : '';
+      var lead = {
+        nome:     get('nome'),
+        empresa:  get('empresa'),
+        whatsapp: get('whatsapp'),
+        email:    get('email'),
+        segmento: get('segmento') || null,
+        mensagem: get('mensagem') || null
       };
 
-      var lines = [
+      var origem = origemDoLead();
+      for (var k in origem) { if (origem[k]) lead[k] = origem[k]; }
+
+      var mensagem = [
         'Oi! Quero mais informações sobre a OSC.',
         '',
-        'Nome: '     + get('nome'),
-        'Empresa: '  + get('empresa'),
-        'WhatsApp: ' + get('whatsapp'),
-        'E-mail: '   + get('email'),
-        'Segmento: ' + get('segmento')
+        'Nome: '     + lead.nome,
+        'Empresa: '  + lead.empresa,
+        'WhatsApp: ' + lead.whatsapp,
+        'E-mail: '   + lead.email,
+        'Segmento: ' + (lead.segmento || '—')
       ];
-      if (get('mensagem')) lines.push('Preciso resolver: ' + get('mensagem'));
+      if (lead.mensagem) mensagem.push('Preciso resolver: ' + lead.mensagem);
 
-      window.open(whatsBase() + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+      // Grava no banco (sem esperar) e abre o WhatsApp no mesmo gesto do
+      // clique — se abrisse depois do await, o bloqueador de pop-up barraria.
+      enviando = true;
+      if (submit) submit.disabled = true;
+
+      var gravando = salvarLead(lead);
+
+      window.open(whatsBase() + encodeURIComponent(mensagem.join('\n')), '_blank', 'noopener');
+
+      gravando.then(function (res) {
+        enviando = false;
+        if (submit) submit.disabled = false;
+
+        if (res.ok) {
+          aviso(okBox, 'Recebemos seus dados. Abrimos o WhatsApp para você continuar a conversa.');
+          form.reset();
+        } else if (res.motivo === 'nao-configurado') {
+          // Sem banco ligado, o WhatsApp já levou o contato adiante.
+          aviso(okBox, 'Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.');
+          form.reset();
+        } else {
+          aviso(okBox, 'Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.');
+        }
+      });
     });
   }
 
