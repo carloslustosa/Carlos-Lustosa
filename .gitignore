@@ -1,3 +1,8 @@
+# Segredos — nunca versionar
+.env
+.env.local
+*.key
+
 # Dependências
 node_modules/
 

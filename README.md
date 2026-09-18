@@ -42,28 +42,97 @@ python3 build.py              # gera osc-landing-page.html
 ├── osc-landing-page.html       # home em arquivo único (gerada)
 ├── osc-guia-licitacoes.html    # guia em arquivo único (gerado)
 ├── package.json                # metadados e scripts npm
-├── server.js                   # servidor estático, sem dependências
+├── server.js                   # servidor estático + API do diagnóstico
 ├── .htaccess                   # regras do servidor na hospedagem estática
+├── .env.example                # variáveis do servidor (copie para .env)
 ├── database/
 │   └── schema.sql              # banco de dados dos leads
 └── assets/
-    ├── css/styles.css      # identidade visual e componentes
-    ├── js/background.js    # fundo interativo em canvas
-    ├── js/main.js          # navegação, reveal, formulário, banco
-    └── img/                # favicon e capa de compartilhamento
+    ├── css/styles.css          # identidade visual e componentes
+    ├── js/background.js        # fundo interativo em canvas
+    ├── js/main.js              # navegação, reveal, formulário, banco
+    ├── js/relatorio.js         # diagnóstico com IA
+    └── img/                    # favicon e capa de compartilhamento
 ```
 
 ### Scripts npm
 
 | Comando | O que faz |
 |---|---|
-| `npm start` | sobe o site em `http://localhost:3000` (é o que a Hostinger executa) |
+| `npm start` | sobe o site em `http://localhost:3000` e liga `/api/relatorio` (é o que a Hostinger executa) |
 | `npm run dev` | o mesmo, para desenvolver |
 | `npm run build` | não faz nada — o site é estático, não há o que compilar |
 | `npm run build:single` | regenera o `osc-landing-page.html` (precisa de Python 3) |
 
 Não há dependências: `npm install` não baixa nada e o `server.js` usa só o que
 já vem no Node.
+
+---
+
+## Diagnóstico com IA
+
+A seção **Diagnóstico** na home coleta oito respostas sobre a empresa e devolve na
+tela um relatório: nível de maturidade, diagnóstico da situação atual, caminhos de
+prospecção no mercado público, tipos de órgão que compram aquilo, termos para buscar
+no PNCP, documentos a preparar, armadilhas do perfil e um plano com prazos.
+
+O visitante recebe valor na hora; a OSC recebe um lead qualificado, gravado no banco
+com `origem = 'relatorio-ia'`.
+
+### ⚠️ A chave do Gemini NUNCA vai no site
+
+Este é o ponto mais importante desta funcionalidade. Se a chave fosse chamada direto
+do JavaScript da página, **qualquer visitante a leria** abrindo o inspetor do
+navegador — e poderia usá-la à vontade, na sua conta.
+
+Por isso o desenho é:
+
+```
+navegador  →  POST /api/relatorio  →  server.js  →  API do Gemini
+ (sem chave)     (no seu domínio)    (guarda a chave)
+```
+
+A chave fica em `GEMINI_API_KEY`, no ambiente do servidor. O navegador nunca a vê.
+
+### Ligar
+
+1. Pegue a chave no Google AI Studio.
+2. Copie `.env.example` para `.env` e preencha `GEMINI_API_KEY` — ou cadastre a
+   variável no painel da Hostinger, em variáveis de ambiente.
+3. **O site precisa rodar como aplicação Node** (`npm start`). Em hospedagem
+   estática pura o `server.js` não roda e o endpoint não existe.
+4. Reinicie a aplicação.
+
+Sem a chave configurada, o endpoint responde 503 e o formulário mostra uma mensagem
+clara com o WhatsApp — nada quebra.
+
+### Proteções
+
+| Proteção | Por quê |
+|---|---|
+| Limite por IP (`LIMITE_POR_IP`, padrão 5/hora) | um endpoint de IA aberto na internet é convite para queimar sua cota |
+| Teto global (`LIMITE_GLOBAL`, padrão 200/hora) | protege a conta mesmo sob abuso distribuído |
+| Cota só conta chamada que vai ao Gemini | quem erra um campo e reenvia não é punido |
+| Corpo limitado a 16 KB | evita envio abusivo de texto |
+| Campo-armadilha no formulário | barra robô |
+| Erro da API nunca volta ao navegador | a resposta de erro do Google pode ecoar a chave; ela fica só no log do servidor |
+| Saída escapada no HTML | o que o modelo devolve não executa script na página |
+
+### O que o prompt proíbe
+
+O modelo é instruído a **não inventar**: nada de número de edital, nome de órgão com
+contratação em aberto, valor de contrato, quantidade de oportunidades ou estatística.
+Ele não consulta base em tempo real. Também não pode prometer resultado nem citar
+limites legais em dinheiro (que mudam por decreto).
+
+O relatório sai com um aviso fixo na tela dizendo exatamente isso. **Não remova esse
+aviso** — ele é o que separa uma ferramenta honesta de uma promessa que a OSC não
+pode cumprir.
+
+### Trocar o modelo
+
+`GEMINI_MODEL` no `.env`. O padrão é `gemini-2.5-flash`. Se a sua conta não tiver
+acesso, o endpoint responde 502 e o log do servidor mostra o motivo exato.
 
 ---
 
@@ -106,6 +175,10 @@ FTP. Precisa de: `index.html`, `guia-licitacoes.html`, a pasta `assets/` e o
 
 Neste caminho o `package.json` e o `server.js` **não são usados** — o servidor da
 Hostinger entrega o `index.html` sozinho. Eles não atrapalham; ficam parados.
+
+**Atenção:** sem o `server.js` rodando, o diagnóstico com IA não funciona, porque não
+existe `/api/relatorio`. O formulário avisa e oferece o WhatsApp. Para ter a IA, use
+o caminho 2 abaixo.
 
 Mais simples ainda: envie `osc-landing-page.html` e `osc-guia-licitacoes.html`,
 renomeie o primeiro para `index.html` e pronto. Dois arquivos, site no ar — os

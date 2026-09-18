@@ -77,13 +77,13 @@
       </span>
     </a>
 
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Navegação principal">
-      <a href="#valores"     class="navlink">A OSC</a>
-      <a href="#problema"    class="navlink">O cenário</a>
-      <a href="#metodologia" class="navlink">Metodologia</a>
-      <a href="#servicos"    class="navlink">Serviços</a>
-      <a href="#como-funciona" class="navlink">Como funciona</a>
-      <a href="#duvidas"     class="navlink">Dúvidas</a>
+    <nav class="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Navegação principal">
+      <a href="#valores"       class="navlink">A OSC</a>
+      <a href="#metodologia"   class="navlink">Metodologia</a>
+      <a href="#servicos"      class="navlink">Serviços</a>
+      <a href="#diagnostico"   class="navlink">Diagnóstico IA</a>
+      <a href="guia-licitacoes.html" class="navlink">Guia</a>
+      <a href="#duvidas"       class="navlink">Dúvidas</a>
     </nav>
 
     <div class="flex items-center gap-3">
@@ -108,6 +108,8 @@
     <a href="#metodologia" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Metodologia</a>
     <a href="#servicos"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Serviços</a>
     <a href="#como-funciona" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Como funciona</a>
+    <a href="#diagnostico" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Diagnóstico IA</a>
+    <a href="guia-licitacoes.html" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Guia</a>
     <a href="#duvidas"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Dúvidas</a>
     <a href="#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
       <span>Fale com um especialista</span>
@@ -595,7 +597,205 @@
 
 
 <!-- ==========================================================================
-     H) SETORES
+     H) DIAGNÓSTICO COM IA — relatório da empresa e da prospecção
+     ========================================================================== -->
+<section id="diagnostico" class="section relative overflow-hidden border-y border-cream/12">
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+
+    <header class="max-w-3xl" data-reveal>
+      <p class="label label--growth">
+        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
+        Diagnóstico com inteligência artificial
+      </p>
+      <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
+        Descubra em dois minutos onde sua empresa está.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-cream/68">
+        Responda oito perguntas e receba na tela um relatório com o diagnóstico do seu
+        negócio, o potencial dele no mercado público e os próximos passos — sem custo
+        e sem compromisso.
+      </p>
+    </header>
+
+    <div class="mt-14 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+
+      <div data-reveal>
+        <ul class="guidelist">
+          <li>Em que nível de maturidade sua empresa está hoje</li>
+          <li>Que tipos de órgão costumam comprar o que você vende</li>
+          <li>Termos para buscar oportunidades no PNCP</li>
+          <li>Os documentos que você precisa deixar prontos</li>
+          <li>Onde empresas do seu perfil costumam tropeçar</li>
+          <li>Um plano com prazos para as próximas semanas</li>
+        </ul>
+
+        <div class="note note--warn mt-9">
+          <p>
+            <strong>O que este relatório não é.</strong> Ele é gerado por inteligência
+            artificial a partir do que você informar. Não consulta editais em tempo real,
+            não cita contratação em aberto e não promete resultado. Serve para orientar
+            o primeiro passo — a execução é conversa nossa.
+          </p>
+        </div>
+      </div>
+
+      <form id="relatorio-form" class="form" data-endpoint="/api/relatorio" data-reveal data-reveal-delay="120" novalidate>
+        <p class="descriptor text-cream/45">Gerar meu diagnóstico</p>
+
+        <div class="mt-7 grid gap-5 sm:grid-cols-2">
+
+          <div class="field">
+            <label for="r-nome">Seu nome</label>
+            <input id="r-nome" name="nome" type="text" autocomplete="name" required placeholder="Como podemos te chamar?" />
+          </div>
+
+          <div class="field">
+            <label for="r-empresa">Empresa</label>
+            <input id="r-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Razão social ou nome fantasia" />
+          </div>
+
+          <div class="field">
+            <label for="r-whatsapp">WhatsApp</label>
+            <input id="r-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000" />
+          </div>
+
+          <div class="field">
+            <label for="r-email">E-mail</label>
+            <input id="r-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
+          </div>
+
+          <div class="field">
+            <label for="r-segmento">Segmento</label>
+            <select id="r-segmento" name="segmento" required>
+              <option value="">Selecione</option>
+              <option>Serviços terceirizados</option>
+              <option>Obras e engenharia</option>
+              <option>Fornecimento de materiais</option>
+              <option>Tecnologia e software</option>
+              <option>Alimentação</option>
+              <option>Locação de equipamentos</option>
+              <option>Saúde e hospitalar</option>
+              <option>Limpeza e conservação</option>
+              <option>Transporte e logística</option>
+              <option>Outro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="r-porte">Porte</label>
+            <select id="r-porte" name="porte" required>
+              <option value="">Selecione</option>
+              <option>MEI</option>
+              <option>Microempresa (ME)</option>
+              <option>Empresa de pequeno porte (EPP)</option>
+              <option>Média empresa</option>
+              <option>Grande empresa</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="r-estado">Estado</label>
+            <select id="r-estado" name="estado" required>
+              <option value="">Selecione</option>
+              <option>AC</option>
+              <option>AL</option>
+              <option>AP</option>
+              <option>AM</option>
+              <option>BA</option>
+              <option>CE</option>
+              <option>DF</option>
+              <option>ES</option>
+              <option>GO</option>
+              <option>MA</option>
+              <option>MT</option>
+              <option>MS</option>
+              <option>MG</option>
+              <option>PA</option>
+              <option>PB</option>
+              <option>PR</option>
+              <option>PE</option>
+              <option>PI</option>
+              <option>RJ</option>
+              <option>RN</option>
+              <option>RS</option>
+              <option>RO</option>
+              <option>RR</option>
+              <option>SC</option>
+              <option>SP</option>
+              <option>SE</option>
+              <option>TO</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="r-experiencia">Já participou de licitação?</label>
+            <select id="r-experiencia" name="experiencia" required>
+              <option value="">Selecione</option>
+              <option>Nunca participei</option>
+              <option>Já tentei e não ganhei</option>
+              <option>Já ganhei alguma</option>
+              <option>Participo com frequência</option>
+            </select>
+          </div>
+
+          <div class="field sm:col-span-2">
+            <label for="r-faturamento">Faturamento anual aproximado (opcional)</label>
+            <select id="r-faturamento" name="faturamento">
+              <option value="">Prefiro não informar</option>
+              <option>Até 360 mil</option>
+              <option>De 360 mil a 4,8 milhões</option>
+              <option>De 4,8 a 20 milhões</option>
+              <option>Acima de 20 milhões</option>
+            </select>
+          </div>
+
+          <!-- Armadilha anti-robô -->
+          <div class="field form__trap" aria-hidden="true">
+            <label for="r-website">Não preencha este campo</label>
+            <input id="r-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="field sm:col-span-2">
+            <label for="r-atividade">O que a sua empresa faz?</label>
+            <textarea id="r-atividade" name="atividade" rows="3" required
+              placeholder="Ex.: fornecemos e instalamos ar-condicionado para empresas, com equipe própria de manutenção."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg mt-8 w-full justify-center">
+          <span>Gerar meu diagnóstico</span>
+          <span class="btn__dot" aria-hidden="true"></span>
+        </button>
+
+        <p class="mt-4 text-xs leading-relaxed text-cream/45">
+          Usamos seus dados apenas para gerar o relatório e para o contato comercial.
+        </p>
+
+        <p id="relatorio-erro" class="form__error" role="alert" hidden></p>
+      </form>
+    </div>
+
+    <!-- Estado de espera -->
+    <div id="relatorio-carregando" class="rel__espera" role="status" hidden>
+      <span class="rel__spin" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <circle class="rel__spin-o" cx="42" cy="58" r="32" stroke-width="10.67" fill="none" />
+          <circle class="rel__spin-c" cx="58" cy="42" r="29.44" stroke-width="9.81" fill="none" stroke-dasharray="149 36" />
+          <circle class="rel__spin-d" cx="72.5" cy="67.5" r="8.5" />
+        </svg>
+      </span>
+      <p>Analisando sua empresa e o mercado público do seu segmento…</p>
+      <p class="rel__espera-sub">Costuma levar de 15 a 40 segundos.</p>
+    </div>
+
+    <!-- Relatório -->
+    <article id="relatorio-saida" class="rel" aria-live="polite" hidden></article>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     I) SETORES
      ========================================================================== -->
 <section id="setores" class="relative overflow-hidden border-y border-cream/12 py-16 md:py-20">
   <div class="mx-auto max-w-shell px-5 md:px-8" data-reveal>
@@ -630,7 +830,7 @@
 
 
 <!-- ==========================================================================
-     I) DÚVIDAS — Verde profundo
+     J) DÚVIDAS — Verde profundo
      ========================================================================== -->
 <section id="duvidas" class="section relative overflow-hidden">
 
@@ -739,7 +939,7 @@
 
 
 <!-- ==========================================================================
-     J) CONTATO
+     K) CONTATO
      ========================================================================== -->
 <section id="contato" class="section relative overflow-hidden">
 
@@ -852,7 +1052,7 @@
 
 
 <!-- ==========================================================================
-     K) RODAPÉ
+     L) RODAPÉ
      ========================================================================== -->
 <footer class="relative overflow-hidden border-t border-cream/12 pt-16 pb-8">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
@@ -902,6 +1102,7 @@
           <li><a class="footlink" href="#metodologia">Metodologia</a></li>
           <li><a class="footlink" href="#servicos">Serviços</a></li>
           <li><a class="footlink" href="#setores">Para quem é</a></li>
+          <li><a class="footlink" href="#diagnostico">Diagnóstico com IA</a></li>
           <li><a class="footlink" href="guia-licitacoes.html">Guia de licitações</a></li>
           <li><a class="footlink" href="#duvidas">Dúvidas</a></li>
         </ul>
@@ -940,5 +1141,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="assets/js/background.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/relatorio.js"></script>
 </body>
 </html>

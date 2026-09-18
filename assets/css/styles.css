@@ -310,7 +310,8 @@ section[id] { scroll-margin-top: 92px; }
 
 .navlink {
   position: relative;
-  font-size: 0.92rem;
+  white-space: nowrap;      /* link de menu nunca quebra em duas linhas */
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: rgba(242, 239, 228, 0.76);
@@ -1046,6 +1047,157 @@ textarea:focus-visible {
 }
 
 /* -------------------------------------------------------------------------
+   15c. DIAGNÓSTICO COM IA — espera e relatório
+   ---------------------------------------------------------------------- */
+
+/* Enquanto o modelo pensa: o monograma girando */
+.rel__espera {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 26px;
+  background: rgba(15, 31, 20, 0.6);
+  padding: 44px 24px;
+}
+.rel__espera[hidden] { display: none; }
+.rel__espera p { color: rgba(242, 239, 228, 0.8); font-weight: 600; letter-spacing: -0.02em; }
+.rel__espera-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.42) !important;
+}
+.rel__spin { width: 72px; height: 72px; margin-bottom: 14px; }
+.rel__spin svg { width: 100%; height: 100%; transform-origin: 50% 50%; animation: relGira 2.4s linear infinite; }
+.rel__spin-o { stroke: rgba(242, 239, 228, 0.35); }
+.rel__spin-c { stroke: var(--growth); }
+.rel__spin-d { fill: var(--growth); }
+@keyframes relGira { to { transform: rotate(360deg); } }
+
+/* O relatório */
+.rel {
+  margin-top: 48px;
+  border: 1px solid rgba(135, 208, 106, 0.4);
+  border-radius: 28px;
+  background: rgba(15, 31, 20, 0.7);
+  padding: clamp(26px, 4vw, 52px);
+  outline: none;
+}
+.rel[hidden] { display: none; }
+
+.rel__topo { border-bottom: 1px solid rgba(242, 239, 228, 0.16); padding-bottom: 26px; }
+.rel__empresa {
+  margin-top: 10px;
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--cream);
+}
+.rel__selo {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 7px 16px;
+  border: 1px solid currentColor;
+}
+.rel__selo--inicial { color: #E0B341; }
+.rel__selo--media   { color: var(--growth); }
+.rel__selo--pronta  { color: var(--growth); background: rgba(135, 208, 106, 0.14); }
+.rel__just { margin-top: 14px; line-height: 1.65; color: rgba(242, 239, 228, 0.7); }
+
+.rel__resumo {
+  margin-top: 26px;
+  border-left: 3px solid var(--growth);
+  padding-left: 20px;
+}
+.rel__resumo p {
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+  color: var(--cream);
+}
+
+.rel__sec { margin-top: 40px; }
+.rel__h {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--growth);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.14);
+}
+
+.rel__grid { margin-top: 20px; display: grid; gap: 16px; }
+@media (min-width: 720px) { .rel__grid { grid-template-columns: 1fr 1fr; } }
+.rel__item {
+  border: 1px solid rgba(242, 239, 228, 0.14);
+  border-radius: 18px;
+  padding: 20px;
+}
+.rel__item h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.rel__item p { margin-top: 9px; font-size: 0.94rem; line-height: 1.62; color: rgba(242, 239, 228, 0.72); }
+
+.rel__chips { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 9px; }
+.rel__chips li {
+  font-size: 0.88rem;
+  line-height: 1.3;
+  color: rgba(242, 239, 228, 0.82);
+  border: 1px solid rgba(135, 208, 106, 0.4);
+  border-radius: 999px;
+  padding: 8px 15px;
+}
+
+.rel__passos { margin-top: 20px; display: flex; flex-direction: column; gap: 4px; }
+.rel__passos li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.12);
+  line-height: 1.6;
+  color: rgba(242, 239, 228, 0.76);
+}
+.rel__passos li:last-child { border-bottom: 0; }
+.rel__prazo {
+  flex: none;
+  min-width: 108px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--growth);
+}
+
+.rel__nota { margin-top: 40px; }
+.rel__acoes { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+/* Mensagem de erro com link do WhatsApp */
+.form__error a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* -------------------------------------------------------------------------
    15b. PÁGINA-GUIA — conteúdo longo de leitura
    Usada em guia-licitacoes.html. Mantém a mesma paleta e tipografia do resto.
    ---------------------------------------------------------------------- */
@@ -1411,6 +1563,13 @@ textarea:focus-visible {
   .guide { display: block; }
   .tbl, .note, .duo__card, .linkcard { border-color: #999 !important; background: transparent !important; }
   .bloco { break-inside: avoid; }
+  /* o relatório é o que as pessoas salvam em PDF */
+  .rel { border-color: #999 !important; background: transparent !important; padding: 0 !important; }
+  .rel, .rel p, .rel li, .rel h4 { color: #000 !important; }
+  .rel__h, .rel__prazo, .rel__selo { color: #333 !important; }
+  .rel__item, .rel__chips li { border-color: #bbb !important; break-inside: avoid; }
+  .rel__acoes, .rel__espera { display: none !important; }
+  .rel__sec { break-inside: avoid; }
 }
 
 /* -------------------------------------------------------------------------

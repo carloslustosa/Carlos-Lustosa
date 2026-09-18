@@ -47,13 +47,17 @@ def embutir(entrada, saida):
     ]
 
     # os dois scripts, na mesma ordem em que aparecem no HTML
-    for arquivo in ('background.js', 'main.js'):
+    for arquivo in ('background.js', 'main.js', 'relatorio.js'):
         js = open('assets/js/' + arquivo, encoding='utf-8').read()
         trocas.append(('<script src="assets/js/%s"></script>' % arquivo,
                        '<script>\n' + js.rstrip() + '\n</script>'))
 
     for velho, novo in trocas:
-        if html.count(velho) != 1:
+        ocorrencias = html.count(velho)
+        # relatorio.js só existe na home; o guia não o carrega
+        if ocorrencias == 0 and 'relatorio.js' in velho:
+            continue
+        if ocorrencias != 1:
             raise SystemExit('Esperava exatamente 1 ocorrência de: %s' % velho[:70])
         html = html.replace(velho, novo)
 

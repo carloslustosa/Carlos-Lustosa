@@ -363,7 +363,8 @@ section[id] { scroll-margin-top: 92px; }
 
 .navlink {
   position: relative;
-  font-size: 0.92rem;
+  white-space: nowrap;      /* link de menu nunca quebra em duas linhas */
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: rgba(242, 239, 228, 0.76);
@@ -1099,6 +1100,157 @@ textarea:focus-visible {
 }
 
 /* -------------------------------------------------------------------------
+   15c. DIAGNÓSTICO COM IA — espera e relatório
+   ---------------------------------------------------------------------- */
+
+/* Enquanto o modelo pensa: o monograma girando */
+.rel__espera {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 26px;
+  background: rgba(15, 31, 20, 0.6);
+  padding: 44px 24px;
+}
+.rel__espera[hidden] { display: none; }
+.rel__espera p { color: rgba(242, 239, 228, 0.8); font-weight: 600; letter-spacing: -0.02em; }
+.rel__espera-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.42) !important;
+}
+.rel__spin { width: 72px; height: 72px; margin-bottom: 14px; }
+.rel__spin svg { width: 100%; height: 100%; transform-origin: 50% 50%; animation: relGira 2.4s linear infinite; }
+.rel__spin-o { stroke: rgba(242, 239, 228, 0.35); }
+.rel__spin-c { stroke: var(--growth); }
+.rel__spin-d { fill: var(--growth); }
+@keyframes relGira { to { transform: rotate(360deg); } }
+
+/* O relatório */
+.rel {
+  margin-top: 48px;
+  border: 1px solid rgba(135, 208, 106, 0.4);
+  border-radius: 28px;
+  background: rgba(15, 31, 20, 0.7);
+  padding: clamp(26px, 4vw, 52px);
+  outline: none;
+}
+.rel[hidden] { display: none; }
+
+.rel__topo { border-bottom: 1px solid rgba(242, 239, 228, 0.16); padding-bottom: 26px; }
+.rel__empresa {
+  margin-top: 10px;
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--cream);
+}
+.rel__selo {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 7px 16px;
+  border: 1px solid currentColor;
+}
+.rel__selo--inicial { color: #E0B341; }
+.rel__selo--media   { color: var(--growth); }
+.rel__selo--pronta  { color: var(--growth); background: rgba(135, 208, 106, 0.14); }
+.rel__just { margin-top: 14px; line-height: 1.65; color: rgba(242, 239, 228, 0.7); }
+
+.rel__resumo {
+  margin-top: 26px;
+  border-left: 3px solid var(--growth);
+  padding-left: 20px;
+}
+.rel__resumo p {
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+  color: var(--cream);
+}
+
+.rel__sec { margin-top: 40px; }
+.rel__h {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--growth);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.14);
+}
+
+.rel__grid { margin-top: 20px; display: grid; gap: 16px; }
+@media (min-width: 720px) { .rel__grid { grid-template-columns: 1fr 1fr; } }
+.rel__item {
+  border: 1px solid rgba(242, 239, 228, 0.14);
+  border-radius: 18px;
+  padding: 20px;
+}
+.rel__item h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.rel__item p { margin-top: 9px; font-size: 0.94rem; line-height: 1.62; color: rgba(242, 239, 228, 0.72); }
+
+.rel__chips { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 9px; }
+.rel__chips li {
+  font-size: 0.88rem;
+  line-height: 1.3;
+  color: rgba(242, 239, 228, 0.82);
+  border: 1px solid rgba(135, 208, 106, 0.4);
+  border-radius: 999px;
+  padding: 8px 15px;
+}
+
+.rel__passos { margin-top: 20px; display: flex; flex-direction: column; gap: 4px; }
+.rel__passos li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.12);
+  line-height: 1.6;
+  color: rgba(242, 239, 228, 0.76);
+}
+.rel__passos li:last-child { border-bottom: 0; }
+.rel__prazo {
+  flex: none;
+  min-width: 108px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--growth);
+}
+
+.rel__nota { margin-top: 40px; }
+.rel__acoes { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+/* Mensagem de erro com link do WhatsApp */
+.form__error a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* -------------------------------------------------------------------------
    15b. PÁGINA-GUIA — conteúdo longo de leitura
    Usada em guia-licitacoes.html. Mantém a mesma paleta e tipografia do resto.
    ---------------------------------------------------------------------- */
@@ -1464,6 +1616,13 @@ textarea:focus-visible {
   .guide { display: block; }
   .tbl, .note, .duo__card, .linkcard { border-color: #999 !important; background: transparent !important; }
   .bloco { break-inside: avoid; }
+  /* o relatório é o que as pessoas salvam em PDF */
+  .rel { border-color: #999 !important; background: transparent !important; padding: 0 !important; }
+  .rel, .rel p, .rel li, .rel h4 { color: #000 !important; }
+  .rel__h, .rel__prazo, .rel__selo { color: #333 !important; }
+  .rel__item, .rel__chips li { border-color: #bbb !important; break-inside: avoid; }
+  .rel__acoes, .rel__espera { display: none !important; }
+  .rel__sec { break-inside: avoid; }
 }
 
 /* -------------------------------------------------------------------------
@@ -1508,13 +1667,13 @@ textarea:focus-visible {
       </span>
     </a>
 
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Navegação principal">
-      <a href="#valores"     class="navlink">A OSC</a>
-      <a href="#problema"    class="navlink">O cenário</a>
-      <a href="#metodologia" class="navlink">Metodologia</a>
-      <a href="#servicos"    class="navlink">Serviços</a>
-      <a href="#como-funciona" class="navlink">Como funciona</a>
-      <a href="#duvidas"     class="navlink">Dúvidas</a>
+    <nav class="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Navegação principal">
+      <a href="#valores"       class="navlink">A OSC</a>
+      <a href="#metodologia"   class="navlink">Metodologia</a>
+      <a href="#servicos"      class="navlink">Serviços</a>
+      <a href="#diagnostico"   class="navlink">Diagnóstico IA</a>
+      <a href="osc-guia-licitacoes.html" class="navlink">Guia</a>
+      <a href="#duvidas"       class="navlink">Dúvidas</a>
     </nav>
 
     <div class="flex items-center gap-3">
@@ -1539,6 +1698,8 @@ textarea:focus-visible {
     <a href="#metodologia" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Metodologia</a>
     <a href="#servicos"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Serviços</a>
     <a href="#como-funciona" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Como funciona</a>
+    <a href="#diagnostico" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Diagnóstico IA</a>
+    <a href="osc-guia-licitacoes.html" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Guia</a>
     <a href="#duvidas"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Dúvidas</a>
     <a href="#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
       <span>Fale com um especialista</span>
@@ -2026,7 +2187,205 @@ textarea:focus-visible {
 
 
 <!-- ==========================================================================
-     H) SETORES
+     H) DIAGNÓSTICO COM IA — relatório da empresa e da prospecção
+     ========================================================================== -->
+<section id="diagnostico" class="section relative overflow-hidden border-y border-cream/12">
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+
+    <header class="max-w-3xl" data-reveal>
+      <p class="label label--growth">
+        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
+        Diagnóstico com inteligência artificial
+      </p>
+      <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
+        Descubra em dois minutos onde sua empresa está.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-cream/68">
+        Responda oito perguntas e receba na tela um relatório com o diagnóstico do seu
+        negócio, o potencial dele no mercado público e os próximos passos — sem custo
+        e sem compromisso.
+      </p>
+    </header>
+
+    <div class="mt-14 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+
+      <div data-reveal>
+        <ul class="guidelist">
+          <li>Em que nível de maturidade sua empresa está hoje</li>
+          <li>Que tipos de órgão costumam comprar o que você vende</li>
+          <li>Termos para buscar oportunidades no PNCP</li>
+          <li>Os documentos que você precisa deixar prontos</li>
+          <li>Onde empresas do seu perfil costumam tropeçar</li>
+          <li>Um plano com prazos para as próximas semanas</li>
+        </ul>
+
+        <div class="note note--warn mt-9">
+          <p>
+            <strong>O que este relatório não é.</strong> Ele é gerado por inteligência
+            artificial a partir do que você informar. Não consulta editais em tempo real,
+            não cita contratação em aberto e não promete resultado. Serve para orientar
+            o primeiro passo — a execução é conversa nossa.
+          </p>
+        </div>
+      </div>
+
+      <form id="relatorio-form" class="form" data-endpoint="/api/relatorio" data-reveal data-reveal-delay="120" novalidate>
+        <p class="descriptor text-cream/45">Gerar meu diagnóstico</p>
+
+        <div class="mt-7 grid gap-5 sm:grid-cols-2">
+
+          <div class="field">
+            <label for="r-nome">Seu nome</label>
+            <input id="r-nome" name="nome" type="text" autocomplete="name" required placeholder="Como podemos te chamar?" />
+          </div>
+
+          <div class="field">
+            <label for="r-empresa">Empresa</label>
+            <input id="r-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Razão social ou nome fantasia" />
+          </div>
+
+          <div class="field">
+            <label for="r-whatsapp">WhatsApp</label>
+            <input id="r-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000" />
+          </div>
+
+          <div class="field">
+            <label for="r-email">E-mail</label>
+            <input id="r-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
+          </div>
+
+          <div class="field">
+            <label for="r-segmento">Segmento</label>
+            <select id="r-segmento" name="segmento" required>
+              <option value="">Selecione</option>
+              <option>Serviços terceirizados</option>
+              <option>Obras e engenharia</option>
+              <option>Fornecimento de materiais</option>
+              <option>Tecnologia e software</option>
+              <option>Alimentação</option>
+              <option>Locação de equipamentos</option>
+              <option>Saúde e hospitalar</option>
+              <option>Limpeza e conservação</option>
+              <option>Transporte e logística</option>
+              <option>Outro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="r-porte">Porte</label>
+            <select id="r-porte" name="porte" required>
+              <option value="">Selecione</option>
+              <option>MEI</option>
+              <option>Microempresa (ME)</option>
+              <option>Empresa de pequeno porte (EPP)</option>
+              <option>Média empresa</option>
+              <option>Grande empresa</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="r-estado">Estado</label>
+            <select id="r-estado" name="estado" required>
+              <option value="">Selecione</option>
+              <option>AC</option>
+              <option>AL</option>
+              <option>AP</option>
+              <option>AM</option>
+              <option>BA</option>
+              <option>CE</option>
+              <option>DF</option>
+              <option>ES</option>
+              <option>GO</option>
+              <option>MA</option>
+              <option>MT</option>
+              <option>MS</option>
+              <option>MG</option>
+              <option>PA</option>
+              <option>PB</option>
+              <option>PR</option>
+              <option>PE</option>
+              <option>PI</option>
+              <option>RJ</option>
+              <option>RN</option>
+              <option>RS</option>
+              <option>RO</option>
+              <option>RR</option>
+              <option>SC</option>
+              <option>SP</option>
+              <option>SE</option>
+              <option>TO</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="r-experiencia">Já participou de licitação?</label>
+            <select id="r-experiencia" name="experiencia" required>
+              <option value="">Selecione</option>
+              <option>Nunca participei</option>
+              <option>Já tentei e não ganhei</option>
+              <option>Já ganhei alguma</option>
+              <option>Participo com frequência</option>
+            </select>
+          </div>
+
+          <div class="field sm:col-span-2">
+            <label for="r-faturamento">Faturamento anual aproximado (opcional)</label>
+            <select id="r-faturamento" name="faturamento">
+              <option value="">Prefiro não informar</option>
+              <option>Até 360 mil</option>
+              <option>De 360 mil a 4,8 milhões</option>
+              <option>De 4,8 a 20 milhões</option>
+              <option>Acima de 20 milhões</option>
+            </select>
+          </div>
+
+          <!-- Armadilha anti-robô -->
+          <div class="field form__trap" aria-hidden="true">
+            <label for="r-website">Não preencha este campo</label>
+            <input id="r-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="field sm:col-span-2">
+            <label for="r-atividade">O que a sua empresa faz?</label>
+            <textarea id="r-atividade" name="atividade" rows="3" required
+              placeholder="Ex.: fornecemos e instalamos ar-condicionado para empresas, com equipe própria de manutenção."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg mt-8 w-full justify-center">
+          <span>Gerar meu diagnóstico</span>
+          <span class="btn__dot" aria-hidden="true"></span>
+        </button>
+
+        <p class="mt-4 text-xs leading-relaxed text-cream/45">
+          Usamos seus dados apenas para gerar o relatório e para o contato comercial.
+        </p>
+
+        <p id="relatorio-erro" class="form__error" role="alert" hidden></p>
+      </form>
+    </div>
+
+    <!-- Estado de espera -->
+    <div id="relatorio-carregando" class="rel__espera" role="status" hidden>
+      <span class="rel__spin" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <circle class="rel__spin-o" cx="42" cy="58" r="32" stroke-width="10.67" fill="none" />
+          <circle class="rel__spin-c" cx="58" cy="42" r="29.44" stroke-width="9.81" fill="none" stroke-dasharray="149 36" />
+          <circle class="rel__spin-d" cx="72.5" cy="67.5" r="8.5" />
+        </svg>
+      </span>
+      <p>Analisando sua empresa e o mercado público do seu segmento…</p>
+      <p class="rel__espera-sub">Costuma levar de 15 a 40 segundos.</p>
+    </div>
+
+    <!-- Relatório -->
+    <article id="relatorio-saida" class="rel" aria-live="polite" hidden></article>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     I) SETORES
      ========================================================================== -->
 <section id="setores" class="relative overflow-hidden border-y border-cream/12 py-16 md:py-20">
   <div class="mx-auto max-w-shell px-5 md:px-8" data-reveal>
@@ -2061,7 +2420,7 @@ textarea:focus-visible {
 
 
 <!-- ==========================================================================
-     I) DÚVIDAS — Verde profundo
+     J) DÚVIDAS — Verde profundo
      ========================================================================== -->
 <section id="duvidas" class="section relative overflow-hidden">
 
@@ -2170,7 +2529,7 @@ textarea:focus-visible {
 
 
 <!-- ==========================================================================
-     J) CONTATO
+     K) CONTATO
      ========================================================================== -->
 <section id="contato" class="section relative overflow-hidden">
 
@@ -2283,7 +2642,7 @@ textarea:focus-visible {
 
 
 <!-- ==========================================================================
-     K) RODAPÉ
+     L) RODAPÉ
      ========================================================================== -->
 <footer class="relative overflow-hidden border-t border-cream/12 pt-16 pb-8">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
@@ -2333,6 +2692,7 @@ textarea:focus-visible {
           <li><a class="footlink" href="#metodologia">Metodologia</a></li>
           <li><a class="footlink" href="#servicos">Serviços</a></li>
           <li><a class="footlink" href="#setores">Para quem é</a></li>
+          <li><a class="footlink" href="#diagnostico">Diagnóstico com IA</a></li>
           <li><a class="footlink" href="osc-guia-licitacoes.html">Guia de licitações</a></li>
           <li><a class="footlink" href="#duvidas">Dúvidas</a></li>
         </ul>
@@ -3123,11 +3483,243 @@ textarea:focus-visible {
     initYear();
   }
 
+  /* Compartilha o que o relatório com IA também precisa, em vez de duplicar
+     a gravação de lead e a montagem do link do WhatsApp. */
+  window.OSC = {
+    salvarLead: salvarLead,
+    origemDoLead: origemDoLead,
+    whatsBase: whatsBase,
+    dbConfigurado: dbConfigurado
+  };
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
     boot();
   }
+})();
+</script>
+<script>
+/* ==========================================================================
+   OSC — Diagnóstico com IA
+   --------------------------------------------------------------------------
+   Coleta os dados da empresa, pede o relatório ao servidor e desenha o
+   resultado na página.
+
+   A chave do Gemini NÃO passa por aqui. O navegador fala com /api/relatorio,
+   no próprio domínio, e é o servidor que guarda a chave. Se o site estiver
+   publicado como HTML estático, esse endpoint não existe: o formulário avisa
+   e oferece o WhatsApp.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var form = document.getElementById('relatorio-form');
+  if (!form) return;
+
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  var painel    = $('#relatorio-saida');
+  var carregando = $('#relatorio-carregando');
+  var erroBox   = $('#relatorio-erro');
+  var botao     = form.querySelector('button[type="submit"]');
+  var ENDPOINT  = form.getAttribute('data-endpoint') || '/api/relatorio';
+
+  var esc = function (t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  };
+
+  var mostrar = function (el, visivel) { if (el) el.hidden = !visivel; };
+
+  var aviso = function (texto) {
+    if (!erroBox) return;
+    erroBox.innerHTML = texto;
+    mostrar(erroBox, Boolean(texto));
+  };
+
+  /* ----------------------------------------------------------------------
+     Desenho do relatório
+     ------------------------------------------------------------------- */
+  function listaSimples(itens) {
+    if (!itens || !itens.length) return '';
+    return '<ul class="rel__chips">' +
+      itens.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') +
+      '</ul>';
+  }
+
+  function blocos(itens) {
+    if (!itens || !itens.length) return '';
+    return '<div class="rel__grid">' + itens.map(function (i) {
+      return '<div class="rel__item">' +
+               '<h4>' + esc(i.titulo) + '</h4>' +
+               '<p>' + esc(i.texto) + '</p>' +
+             '</div>';
+    }).join('') + '</div>';
+  }
+
+  function passos(itens) {
+    if (!itens || !itens.length) return '';
+    return '<ol class="rel__passos">' + itens.map(function (i) {
+      return '<li><span class="rel__prazo">' + esc(i.prazo) + '</span>' +
+             '<span>' + esc(i.acao) + '</span></li>';
+    }).join('') + '</ol>';
+  }
+
+  function desenhar(r, empresa) {
+    var nivel = (r.maturidade && r.maturidade.nivel) || '';
+    var chave = nivel.toLowerCase().indexOf('pronta') >= 0 ? 'pronta'
+              : nivel.toLowerCase().indexOf('estrutura') >= 0 ? 'media' : 'inicial';
+
+    var html = '' +
+      '<header class="rel__topo">' +
+        '<p class="descriptor text-cream/45">Diagnóstico OSC</p>' +
+        '<h3 class="rel__empresa">' + esc(empresa) + '</h3>' +
+        '<span class="rel__selo rel__selo--' + chave + '">' + esc(nivel) + '</span>' +
+        '<p class="rel__just">' + esc(r.maturidade && r.maturidade.justificativa) + '</p>' +
+      '</header>' +
+
+      '<div class="rel__resumo"><p>' + esc(r.resumo) + '</p></div>' +
+
+      '<section class="rel__sec"><h4 class="rel__h">Onde sua empresa está</h4>' + blocos(r.diagnostico) + '</section>' +
+      '<section class="rel__sec"><h4 class="rel__h">Prospecção no mercado público</h4>' + blocos(r.oportunidades) + '</section>' +
+
+      '<section class="rel__sec"><h4 class="rel__h">Quem costuma comprar isso</h4>' + listaSimples(r.orgaos) + '</section>' +
+      '<section class="rel__sec"><h4 class="rel__h">Termos para buscar no PNCP</h4>' + listaSimples(r.palavrasChave) + '</section>' +
+      '<section class="rel__sec"><h4 class="rel__h">Documentos para deixar prontos</h4>' + listaSimples(r.documentos) + '</section>' +
+
+      '<section class="rel__sec"><h4 class="rel__h">Onde esse perfil costuma tropeçar</h4>' + blocos(r.riscos) + '</section>' +
+      '<section class="rel__sec"><h4 class="rel__h">Próximos passos</h4>' + passos(r.proximosPassos) + '</section>' +
+
+      '<div class="note note--warn rel__nota">' +
+        '<p><strong>Como ler este relatório.</strong> Ele foi gerado por inteligência ' +
+        'artificial a partir do que você informou, e serve como ponto de partida. ' +
+        'Não consulta editais em tempo real, não cita contratação em aberto e não ' +
+        'garante resultado em disputa pública. Quem manda, sempre, é o edital.</p>' +
+      '</div>' +
+
+      '<div class="rel__acoes">' +
+        '<a href="#contato" class="btn btn--primary btn--lg"><span>Quero a OSC executando isso</span><span class="btn__dot" aria-hidden="true"></span></a>' +
+        '<button type="button" class="btn btn--ghost" id="rel-imprimir"><span>Salvar em PDF</span></button>' +
+      '</div>';
+
+    painel.innerHTML = html;
+    mostrar(painel, true);
+
+    var imprimir = $('#rel-imprimir');
+    if (imprimir) imprimir.addEventListener('click', function () { window.print(); });
+
+    painel.setAttribute('tabindex', '-1');
+    painel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    painel.focus({ preventScroll: true });
+  }
+
+  /* ----------------------------------------------------------------------
+     Envio
+     ------------------------------------------------------------------- */
+  var enviando = false;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (enviando) return;
+
+    var pega = function (nome) {
+      var el = form.elements[nome];
+      return el ? el.value.trim() : '';
+    };
+
+    // armadilha anti-robô
+    if (pega('website')) return;
+
+    var obrigatorios = $$('input[required], select[required], textarea[required]', form);
+    var falho = null;
+    obrigatorios.forEach(function (f) {
+      var ok = f.value.trim() !== '' &&
+               (f.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.value.trim()));
+      f.classList.toggle('is-invalid', !ok);
+      if (!ok && !falho) falho = f;
+    });
+    if (falho) {
+      aviso('Confira os campos destacados antes de gerar.');
+      falho.focus();
+      return;
+    }
+
+    aviso('');
+    mostrar(painel, false);
+    mostrar(carregando, true);
+    enviando = true;
+    if (botao) botao.disabled = true;
+
+    var dados = {
+      empresa:     pega('empresa'),
+      segmento:    pega('segmento'),
+      atividade:   pega('atividade'),
+      porte:       pega('porte'),
+      estado:      pega('estado'),
+      experiencia: pega('experiencia'),
+      faturamento: pega('faturamento')
+    };
+
+    // Grava o lead em paralelo. Falhar aqui não pode impedir o relatório.
+    if (window.OSC && window.OSC.salvarLead) {
+      var lead = {
+        nome:     pega('nome'),
+        empresa:  dados.empresa,
+        whatsapp: pega('whatsapp'),
+        email:    pega('email'),
+        segmento: dados.segmento || null,
+        mensagem: [
+          'Pediu o diagnóstico com IA.',
+          'Atividade: '   + dados.atividade,
+          'Porte: '       + dados.porte,
+          'Estado: '      + dados.estado,
+          'Experiência: ' + dados.experiencia,
+          'Faturamento: ' + (dados.faturamento || 'não informado')
+        ].join(' | ')
+      };
+      var origem = window.OSC.origemDoLead ? window.OSC.origemDoLead() : {};
+      for (var k in origem) { if (origem[k]) lead[k] = origem[k]; }
+      lead.origem = 'relatorio-ia';
+      window.OSC.salvarLead(lead);
+    }
+
+    var terminou = function () {
+      enviando = false;
+      if (botao) botao.disabled = false;
+      mostrar(carregando, false);
+    };
+
+    var zap = (window.OSC && window.OSC.whatsBase)
+      ? window.OSC.whatsBase() + encodeURIComponent('Oi! Tentei gerar o diagnóstico no site e quero falar com um especialista.')
+      : 'https://api.whatsapp.com/send?phone=5586988372619';
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    })
+      .then(function (res) {
+        return res.json().then(function (corpo) { return { status: res.status, corpo: corpo }; });
+      })
+      .then(function (r) {
+        terminou();
+        if (r.corpo && r.corpo.ok && r.corpo.relatorio) {
+          desenhar(r.corpo.relatorio, dados.empresa);
+          return;
+        }
+        var msg = (r.corpo && r.corpo.mensagem) || 'Não conseguimos gerar o diagnóstico agora.';
+        aviso(esc(msg) + ' <a href="' + zap + '" target="_blank" rel="noopener">Falar no WhatsApp</a>');
+      })
+      .catch(function () {
+        terminou();
+        aviso('Não conseguimos gerar o diagnóstico agora. ' +
+              '<a href="' + zap + '" target="_blank" rel="noopener">Fale com a gente no WhatsApp</a> ' +
+              'que fazemos o diagnóstico com você.');
+      });
+  });
 })();
 </script>
 </body>

@@ -498,6 +498,15 @@
     initYear();
   }
 
+  /* Compartilha o que o relatório com IA também precisa, em vez de duplicar
+     a gravação de lead e a montagem do link do WhatsApp. */
+  window.OSC = {
+    salvarLead: salvarLead,
+    origemDoLead: origemDoLead,
+    whatsBase: whatsBase,
+    dbConfigurado: dbConfigurado
+  };
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
