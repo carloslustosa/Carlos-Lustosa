@@ -57,7 +57,9 @@ body {
   color: var(--cream);
   font-size: 16px;            /* mínimo de 15 px exigido pelo manual */
   line-height: 1.6;           /* entrelinha de corpo                  */
-  overflow-x: hidden;
+  /* clip, e não hidden: hidden faria do body um container de rolagem e
+     quebraria o position:sticky do índice do guia. */
+  overflow-x: clip;
 }
 
 /* ---- Fundo interativo -----------------------------------------------------
@@ -966,6 +968,352 @@ textarea:focus-visible {
 }
 
 /* -------------------------------------------------------------------------
+   15a. SEÇÃO "COMO FUNCIONA" — resumo na home
+   ---------------------------------------------------------------------- */
+.miniblock {
+  position: relative;
+  border-top: 1px solid rgba(242, 239, 228, 0.18);
+  padding-top: 22px;
+  transition: border-color 0.35s var(--ease-out);
+}
+.miniblock::after {          /* o ponto da marca corre no filete */
+  content: '';
+  position: absolute;
+  left: 0; top: -4.5px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--growth);
+  transform: scale(0);
+  transition: transform 0.35s var(--ease-out);
+}
+.miniblock:hover::after { transform: scale(1); }
+.miniblock:hover { border-color: var(--growth); }
+.miniblock__n {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: var(--growth);
+}
+.miniblock__t {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--cream);
+}
+.miniblock__d {
+  margin-top: 10px;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: rgba(242, 239, 228, 0.66);
+}
+
+.guidecta {
+  border: 1px solid rgba(242, 239, 228, 0.18);
+  border-radius: 26px;
+  background: rgba(15, 31, 20, 0.6);
+  padding: clamp(26px, 3.4vw, 40px);
+}
+
+.guidelist { display: flex; flex-direction: column; gap: 14px; }
+.guidelist li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(242, 239, 228, 0.7);
+}
+.guidelist li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.42em;
+  width: 13px; height: 13px;
+  border: 2.5px solid var(--mid);
+  border-top-color: transparent;
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+.guidelist li::after {
+  content: '';
+  position: absolute;
+  left: 10px; top: 0.28em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--growth);
+}
+
+/* -------------------------------------------------------------------------
+   15b. PÁGINA-GUIA — conteúdo longo de leitura
+   Usada em guia-licitacoes.html. Mantém a mesma paleta e tipografia do resto.
+   ---------------------------------------------------------------------- */
+
+/* Trilha de navegação */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.45);
+}
+.crumbs a { color: var(--growth); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+
+/* Índice fixo ao lado do texto */
+.guide { display: grid; gap: 44px; }
+
+.toc {
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 22px;
+  background: rgba(15, 31, 20, 0.6);
+  padding: 24px;
+}
+.toc__list { display: flex; flex-direction: column; }
+.toclink {
+  position: relative;
+  padding: 9px 0 9px 20px;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: rgba(242, 239, 228, 0.65);
+  text-decoration: none;
+  transition: color 0.25s var(--ease-out);
+}
+.toclink::before {          /* o ponto da marca marca o item atual */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.05em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--growth);
+  transform: scale(0);
+  transition: transform 0.3s var(--ease-out);
+}
+.toclink:hover { color: var(--cream); }
+.toclink:hover::before,
+.toclink.is-current::before { transform: scale(1); }
+.toclink.is-current { color: var(--growth); }
+
+@media (min-width: 1024px) {
+  .guide { grid-template-columns: minmax(230px, 280px) minmax(0, 1fr); gap: 64px; align-items: start; }
+  .toc { position: sticky; top: 112px; max-height: calc(100svh - 150px); overflow-y: auto; }
+}
+
+/* Corpo de leitura */
+.prose { min-width: 0; max-width: 74ch; }
+
+.bloco + .bloco { margin-top: 64px; padding-top: 56px; border-top: 1px solid rgba(242, 239, 228, 0.14); }
+.bloco { scroll-margin-top: 108px; }
+
+.prose h2 {
+  font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--cream);
+}
+.prose h3 {
+  margin-top: 36px;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--cream);
+}
+.prose p {
+  margin-top: 18px;
+  line-height: 1.7;
+  color: rgba(242, 239, 228, 0.74);
+}
+.prose strong { color: var(--cream); font-weight: 600; }
+.prose a { color: var(--growth); text-decoration: underline; text-underline-offset: 3px; }
+.prose a:hover { color: var(--cream); }
+
+/* Lista comum, com o anel da marca no lugar do marcador */
+.lista { margin-top: 20px; display: flex; flex-direction: column; gap: 13px; }
+.lista li {
+  position: relative;
+  padding-left: 30px;
+  line-height: 1.65;
+  color: rgba(242, 239, 228, 0.74);
+}
+.lista li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.5em;
+  width: 13px; height: 13px;
+  border: 2.5px solid var(--mid);
+  border-top-color: transparent;
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+.lista li::after {
+  content: '';
+  position: absolute;
+  left: 10px; top: 0.36em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--growth);
+}
+
+/* Fases numeradas */
+.fases { margin-top: 26px; display: flex; flex-direction: column; gap: 4px; }
+.fases li {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.12);
+  line-height: 1.65;
+  color: rgba(242, 239, 228, 0.74);
+}
+.fases li:last-child { border-bottom: 0; }
+.fases__n {
+  flex: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--growth);
+  padding-top: 0.24em;
+}
+
+/* Passos ordenados */
+.passos { margin-top: 20px; counter-reset: passo; display: flex; flex-direction: column; gap: 14px; }
+.passos li {
+  counter-increment: passo;
+  position: relative;
+  padding-left: 42px;
+  line-height: 1.65;
+  color: rgba(242, 239, 228, 0.74);
+}
+.passos li::before {
+  content: counter(passo, decimal-leading-zero);
+  position: absolute;
+  left: 0; top: 0.1em;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--growth);
+  border: 1px solid rgba(135, 208, 106, 0.35);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* Checklist para imprimir */
+.checklist { margin-top: 18px; display: flex; flex-direction: column; gap: 11px; }
+.checklist li {
+  position: relative;
+  padding-left: 32px;
+  line-height: 1.6;
+  color: rgba(242, 239, 228, 0.74);
+}
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.28em;
+  width: 17px; height: 17px;
+  border: 2px solid rgba(242, 239, 228, 0.35);
+  border-radius: 5px;
+}
+
+/* Tabela — rola sozinha no celular em vez de estourar a tela */
+.tbl {
+  margin-top: 24px;
+  overflow-x: auto;
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 18px;
+  -webkit-overflow-scrolling: touch;
+}
+.tbl table { width: 100%; border-collapse: collapse; min-width: 480px; }
+.tbl th, .tbl td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.12);
+}
+.tbl th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.5);
+  background: rgba(15, 31, 20, 0.6);
+  white-space: nowrap;
+}
+.tbl td { color: rgba(242, 239, 228, 0.74); }
+.tbl tr:last-child td { border-bottom: 0; }
+
+/* Caixa de aviso */
+.note {
+  margin-top: 26px;
+  border: 1px solid rgba(242, 239, 228, 0.18);
+  border-left: 3px solid var(--mid);
+  border-radius: 16px;
+  background: rgba(15, 31, 20, 0.55);
+  padding: 20px 22px;
+}
+.note p { margin-top: 0; font-size: 0.95rem; line-height: 1.65; }
+.note p + p { margin-top: 12px; }
+.note--info { border-left-color: var(--growth); }
+.note--warn { border-left-color: #C9A227; }
+.note--osc  { border-left-color: var(--growth); background: rgba(18, 48, 31, 0.8); }
+
+/* Par de cartões lado a lado */
+.duo { margin-top: 26px; display: grid; gap: 18px; }
+@media (min-width: 720px) { .duo { grid-template-columns: 1fr 1fr; } }
+.duo__card {
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 20px;
+  background: rgba(15, 31, 20, 0.5);
+  padding: 24px;
+}
+.duo__card h3 {
+  margin-top: 12px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+  color: var(--cream);
+}
+.duo__card p { font-size: 0.94rem; }
+.duo__card .lista li { font-size: 0.92rem; }
+
+/* Links oficiais */
+.links { margin-top: 26px; display: grid; gap: 12px; }
+@media (min-width: 720px) { .links { grid-template-columns: 1fr 1fr; } }
+.linkcard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 16px;
+  padding: 16px 18px;
+  text-decoration: none;
+  transition: border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+}
+.linkcard:hover { border-color: var(--growth); transform: translateY(-3px); }
+.linkcard__t { font-weight: 600; font-size: 0.95rem; letter-spacing: -0.015em; color: var(--cream); }
+.linkcard__u {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--growth);
+}
+.prose .linkcard { text-decoration: none; }
+
+/* -------------------------------------------------------------------------
    16. ADAPTAÇÃO POR DISPOSITIVO
    Celular em pé, celular deitado, tablet, notebook e monitor grande.
    ---------------------------------------------------------------------- */
@@ -1053,10 +1401,16 @@ textarea:focus-visible {
 
 /* ---- Impressão ---- */
 @media print {
-  #bg-canvas, .wa-float, .nav, .mobile-menu, .marquee { display: none !important; }
+  #bg-canvas, .wa-float, .nav, .mobile-menu, .marquee, .toc { display: none !important; }
   body { background: #fff; color: #000; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
   .step__body, .faq__a { grid-template-rows: 1fr !important; }
+  /* o guia precisa sair legível no papel */
+  .prose, .prose p, .lista li, .passos li, .checklist li, .tbl td, .fases li { color: #000 !important; }
+  .prose h2, .prose h3, .prose strong { color: #000 !important; }
+  .guide { display: block; }
+  .tbl, .note, .duo__card, .linkcard { border-color: #999 !important; background: transparent !important; }
+  .bloco { break-inside: avoid; }
 }
 
 /* -------------------------------------------------------------------------

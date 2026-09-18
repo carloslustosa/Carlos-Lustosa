@@ -136,6 +136,31 @@
   }
 
   /* ----------------------------------------------------------------------
+     01b. ÍNDICE DO GUIA — acompanha a rolagem
+     Só faz algo na página do guia, onde existem links .toclink.
+     ------------------------------------------------------------------- */
+  function initToc() {
+    var links = $$('.toclink');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+
+    var alvos = links
+      .map(function (l) { return $(l.getAttribute('href')); })
+      .filter(Boolean);
+    if (!alvos.length) return;
+
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (l) {
+          l.classList.toggle('is-current', l.getAttribute('href') === '#' + e.target.id);
+        });
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+    alvos.forEach(function (a) { spy.observe(a); });
+  }
+
+  /* ----------------------------------------------------------------------
      02. MENU MOBILE
      ------------------------------------------------------------------- */
   function initMobileMenu() {
@@ -462,6 +487,7 @@
   function boot() {
     initWhatsappLinks();
     initNavbar();
+    initToc();
     initMobileMenu();
     initReveal();
     initMethodology();

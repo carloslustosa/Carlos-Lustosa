@@ -36,13 +36,16 @@ python3 build.py              # gera osc-landing-page.html
 
 ```
 .
-├── index.html              # página (fonte de verdade)
-├── build.py                # gera a versão de arquivo único
-├── osc-landing-page.html   # versão de arquivo único (gerada)
-├── package.json            # metadados e scripts npm
-├── server.js               # servidor estático, sem dependências
+├── index.html                  # home (fonte de verdade)
+├── guia-licitacoes.html        # guia de licitações públicas
+├── build.py                    # gera as versões de arquivo único
+├── osc-landing-page.html       # home em arquivo único (gerada)
+├── osc-guia-licitacoes.html    # guia em arquivo único (gerado)
+├── package.json                # metadados e scripts npm
+├── server.js                   # servidor estático, sem dependências
+├── .htaccess                   # regras do servidor na hospedagem estática
 ├── database/
-│   └── schema.sql          # banco de dados dos leads
+│   └── schema.sql              # banco de dados dos leads
 └── assets/
     ├── css/styles.css      # identidade visual e componentes
     ├── js/background.js    # fundo interativo em canvas
@@ -64,6 +67,33 @@ já vem no Node.
 
 ---
 
+## Guia de licitações
+
+`guia-licitacoes.html` é uma página de conteúdo sobre contratações públicas sob a
+Lei 14.133/2021: o que é licitação, as fases do processo, modalidades, dispensa e
+inexigibilidade, onde achar editais (PNCP e plataformas), cadastro no SICAF e no
+Licitações-e, passo a passo do pregão, documentos de habilitação, benefícios de ME
+e EPP, recursos e impugnação, checklist e links oficiais.
+
+Serve a três propósitos: buscador (as pessoas procuram "como participar de
+licitação"), autoridade, e material para o comercial mandar a um cliente em dúvida.
+Cada bloco pesado termina apontando para o contato.
+
+Na home, a seção **Como funciona** resume o caminho em quatro passos e leva ao guia.
+
+### Cuidado ao atualizar
+
+**Não publique valores em dinheiro nesta página.** Os limites de dispensa e os
+cortes de ME/EPP são corrigidos periodicamente, e número errado num site de
+consultoria de licitações custa credibilidade justamente com quem entende do
+assunto. O texto descreve o mecanismo e manda conferir o valor vigente no PNCP ou
+no edital — mantenha assim.
+
+Pelo mesmo motivo o guia abre e fecha avisando que é orientação geral e que quem
+manda é o edital. Não remova esses avisos.
+
+---
+
 ## Publicar na Hostinger
 
 O site é **HTML estático**. Há dois caminhos, e vale saber em qual você está.
@@ -71,13 +101,15 @@ O site é **HTML estático**. Há dois caminhos, e vale saber em qual você est�
 ### 1. Hospedagem comum (o caminho normal)
 
 Envie os arquivos para a pasta `public_html` pelo Gerenciador de Arquivos ou por
-FTP. Precisa de: `index.html`, a pasta `assets/` e nada mais.
+FTP. Precisa de: `index.html`, `guia-licitacoes.html`, a pasta `assets/` e o
+`.htaccess`.
 
 Neste caminho o `package.json` e o `server.js` **não são usados** — o servidor da
 Hostinger entrega o `index.html` sozinho. Eles não atrapalham; ficam parados.
 
-Ainda mais simples: envie só o `osc-landing-page.html`, renomeie para
-`index.html` e pronto. Um arquivo, site no ar.
+Mais simples ainda: envie `osc-landing-page.html` e `osc-guia-licitacoes.html`,
+renomeie o primeiro para `index.html` e pronto. Dois arquivos, site no ar — os
+links entre eles já saem ajustados pelo `build.py`.
 
 ### 2. Aplicação Node.js ou importação de repositório
 

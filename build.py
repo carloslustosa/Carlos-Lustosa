@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Gera osc-landing-page.html: a versão de arquivo único do site.
+Gera as versões de arquivo único do site (home e guia).
 
-Pega o index.html e embute dentro dele o CSS, os dois arquivos de JavaScript e
-o favicon (como data URI). Os CDNs de Tailwind, GSAP e Google Fonts continuam
+Pega cada página e embute nela o CSS, os dois arquivos de JavaScript e o
+favicon (como data URI). Os CDNs de Tailwind, GSAP e Google Fonts continuam
 externos — precisam de internet, mas não de arquivos ao lado.
 
 Uso:  python3 build.py
@@ -11,12 +11,21 @@ Uso:  python3 build.py
 import re
 import urllib.parse
 
-ENTRADA = 'index.html'
-SAIDA   = 'osc-landing-page.html'
+# (arquivo de origem, arquivo gerado)
+PAGINAS = [
+    ('index.html',           'osc-landing-page.html'),
+    ('guia-licitacoes.html', 'osc-guia-licitacoes.html'),
+]
+
+# Nas versões de arquivo único os links entre as páginas mudam de nome
+LINKS = {
+    'index.html':           'osc-landing-page.html',
+    'guia-licitacoes.html': 'osc-guia-licitacoes.html',
+}
 
 
-def embutir():
-    html = open(ENTRADA, encoding='utf-8').read()
+def embutir(entrada, saida):
+    html = open(entrada, encoding='utf-8').read()
     css  = open('assets/css/styles.css', encoding='utf-8').read()
     fav  = open('assets/img/favicon.svg', encoding='utf-8').read()
 
@@ -51,9 +60,15 @@ def embutir():
     if 'assets/' in html:
         raise SystemExit('Sobrou referência a assets/ no arquivo gerado.')
 
-    open(SAIDA, 'w', encoding='utf-8').write(html)
-    print('%s gerado — %d KB' % (SAIDA, len(html.encode('utf-8')) // 1024))
+    # aponta os links entre páginas para os nomes da versão de arquivo único
+    for origem, destino in LINKS.items():
+        html = html.replace('href="%s"' % origem, 'href="%s"' % destino)
+        html = html.replace('href="%s#' % origem, 'href="%s#' % destino)
+
+    open(saida, 'w', encoding='utf-8').write(html)
+    print('%s gerado — %d KB' % (saida, len(html.encode('utf-8')) // 1024))
 
 
 if __name__ == '__main__':
-    embutir()
+    for entrada, saida in PAGINAS:
+        embutir(entrada, saida)

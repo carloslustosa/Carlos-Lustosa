@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>OSC | Gestão Empresarial e Licitações — Estrutura hoje, crescimento amanhã.</title>
-<meta name="description" content="A OSC tira do caminho a burocracia que impede boas empresas de crescer. Gestão e licitações com clareza, método e presença — do diagnóstico à assinatura do contrato." />
+<title>Guia de licitações públicas | OSC Gestão Empresarial e Licitações</title>
+<meta name="description" content="Como funciona uma licitação pública no Brasil: modalidades da Lei 14.133/2021, as fases do processo, cadastro no SICAF, busca de editais no PNCP, documentos de habilitação, benefícios de ME e EPP, recursos e prazos." />
 <meta name="theme-color" content="#12301F" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20role%3D%22img%22%20aria-label%3D%22OSC%22%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23F2EFE4%22%2F%3E%20%3Cg%20transform%3D%22translate%2810.03%208.67%29%20scale%280.453%29%22%3E%20%3Ccircle%20cx%3D%2242%22%20cy%3D%2258%22%20r%3D%2232%22%20fill%3D%22none%22%20stroke%3D%22%2312301F%22%20stroke-width%3D%2210.67%22%2F%3E%20%3Ccircle%20cx%3D%2258%22%20cy%3D%2242%22%20r%3D%2229.44%22%20fill%3D%22none%22%20stroke%3D%22%233F8A4B%22%20stroke-width%3D%229.81%22%20stroke-dasharray%3D%22149%2036%22%2F%3E%20%3Ccircle%20cx%3D%2272.5%22%20cy%3D%2267.5%22%20r%3D%228.5%22%20fill%3D%22%2387D06A%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" />
-<link rel="canonical" href="https://oscgestao.com.br/" />
+<link rel="canonical" href="https://oscgestao.com.br/guia-licitacoes.html" />
 
 <!-- Open Graph -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
 <meta property="og:locale" content="pt_BR" />
-<meta property="og:title" content="OSC | Gestão Empresarial e Licitações" />
-<meta property="og:description" content="Parceria de verdade para o seu negócio ir além." />
+<meta property="og:title" content="Guia de licitações públicas | OSC" />
+<meta property="og:description" content="O caminho completo para a sua empresa vender para o governo, explicado em português." />
 <!-- EDITAR: suba uma imagem 1200x630 (PNG/JPG) e aponte a URL absoluta aqui -->
 <meta property="og:image" content="https://oscgestao.com.br/og-cover.png" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -26,17 +26,16 @@
 <!-- Tailwind CSS (CDN) -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  // guarda: se o CDN do Tailwind não carregar, a página não quebra
   window.tailwind = window.tailwind || {};
   tailwind.config = {
     theme: {
       extend: {
         colors: {
-          deep:     '#12301F',  /* Verde profundo    */
-          deeper:   '#0F1F14',  /* Verde profundo +  */
-          mid:      '#3F8A4B',  /* Verde médio       */
-          growth:   '#87D06A',  /* Verde crescimento */
-          cream:    '#F2EFE4',  /* Creme documento   */
+          deep:     '#12301F',
+          deeper:   '#0F1F14',
+          mid:      '#3F8A4B',
+          growth:   '#87D06A',
+          cream:    '#F2EFE4',
           creamdim: '#E3DFD0',
           rule:     '#CFD3C5'
         },
@@ -1485,16 +1484,15 @@ textarea:focus-visible {
 
 <body class="font-sans text-cream antialiased">
 
-<!-- Fundo interativo: cor sólida + campo de monogramas da marca em canvas -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <!-- ==========================================================================
-     A) NAVBAR FIXO
+     NAVBAR
      ========================================================================== -->
 <header id="navbar" class="nav fixed inset-x-0 top-0 z-50">
   <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-4 md:px-8">
 
-    <a href="#topo" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
+    <a href="osc-landing-page.html" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
       <span class="logo__sym">
         <svg class="mono mono--negativa" viewBox="0 0 100 100" aria-hidden="true">
           <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
@@ -1509,16 +1507,14 @@ textarea:focus-visible {
     </a>
 
     <nav class="hidden items-center gap-8 lg:flex" aria-label="Navegação principal">
-      <a href="#valores"     class="navlink">A OSC</a>
-      <a href="#problema"    class="navlink">O cenário</a>
-      <a href="#metodologia" class="navlink">Metodologia</a>
-      <a href="#servicos"    class="navlink">Serviços</a>
-      <a href="#como-funciona" class="navlink">Como funciona</a>
-      <a href="#duvidas"     class="navlink">Dúvidas</a>
+      <a href="osc-landing-page.html#valores"     class="navlink">A OSC</a>
+      <a href="osc-landing-page.html#metodologia" class="navlink">Metodologia</a>
+      <a href="osc-landing-page.html#servicos"    class="navlink">Serviços</a>
+      <a href="osc-guia-licitacoes.html"   class="navlink is-current">Guia</a>
     </nav>
 
     <div class="flex items-center gap-3">
-      <a href="#contato" class="btn btn--primary hidden sm:inline-flex">
+      <a href="osc-landing-page.html#contato" class="btn btn--primary hidden sm:inline-flex">
         <span>Fale com um especialista</span>
         <span class="btn__dot" aria-hidden="true"></span>
       </a>
@@ -1531,16 +1527,13 @@ textarea:focus-visible {
   <div class="nav__line" aria-hidden="true"></div>
 </header>
 
-<!-- Menu mobile -->
 <div id="mobile-menu" class="mobile-menu" hidden>
   <nav class="mobile-menu__inner" aria-label="Navegação mobile">
-    <a href="#valores"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> A OSC</a>
-    <a href="#problema"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> O cenário</a>
-    <a href="#metodologia" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Metodologia</a>
-    <a href="#servicos"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Serviços</a>
-    <a href="#como-funciona" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Como funciona</a>
-    <a href="#duvidas"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Dúvidas</a>
-    <a href="#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
+    <a href="osc-landing-page.html"             class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Início</a>
+    <a href="osc-landing-page.html#metodologia" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Metodologia</a>
+    <a href="osc-landing-page.html#servicos"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Serviços</a>
+    <a href="osc-guia-licitacoes.html"   class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Guia</a>
+    <a href="osc-landing-page.html#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
       <span>Fale com um especialista</span>
       <span class="btn__dot" aria-hidden="true"></span>
     </a>
@@ -1549,733 +1542,577 @@ textarea:focus-visible {
 
 
 <main id="topo">
+
 <!-- ==========================================================================
-     B) HERO — Verde profundo
+     ABERTURA
      ========================================================================== -->
-<section class="hero relative pt-32 pb-20 md:pt-40 md:pb-28">
-
-
+<section class="relative pt-32 pb-16 md:pt-40 md:pb-20">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
-    <p class="hero-anim hero-anim--1 label label--growth">
+    <nav class="crumbs" aria-label="Você está em">
+      <a href="osc-landing-page.html">Início</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Guia de licitações</span>
+    </nav>
+
+    <p class="label label--growth mt-8">
       <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
-      Gestão empresarial e licitações
+      Guia prático
     </p>
 
-    <h1 class="hero-anim hero-anim--2 h-display mt-7 max-w-4xl text-[clamp(2.7rem,8vw,6rem)]">
-      Estrutura hoje,<br />
-      <span class="text-growth-brand">crescimento</span> amanhã.
+    <h1 class="h-display mt-7 max-w-4xl text-[clamp(2.2rem,6vw,4.2rem)]">
+      Como funciona uma licitação pública.
     </h1>
 
-    <p class="hero-anim hero-anim--3 h-sub mt-8 max-w-2xl text-lg text-cream/85 md:text-2xl">
-      Parceria de verdade para o seu negócio ir além.
+    <p class="h-sub mt-7 max-w-2xl text-lg text-cream/85 md:text-xl">
+      Do cadastro à assinatura do contrato, em português.
     </p>
 
-    <p class="hero-anim hero-anim--3 mt-5 max-w-xl text-base leading-relaxed text-cream/65">
-      Organizamos sua gestão, cuidamos da documentação e entramos na disputa com você.
-      Sem jargão de edital, sem promessa vazia.
+    <p class="mt-5 max-w-2xl leading-relaxed text-cream/65">
+      Este guia explica o caminho que uma empresa percorre para vender ao poder público
+      sob a Lei 14.133/2021. Serve para quem nunca participou e para quem já participou
+      e quer entender onde está perdendo.
     </p>
 
-    <div class="hero-anim hero-anim--4 mt-11 flex flex-col gap-4 sm:flex-row sm:items-center">
-      <a href="#contato" class="btn btn--primary btn--lg btn--pulse">
-        <span>Fale com um especialista</span>
-        <span class="btn__dot" aria-hidden="true"></span>
-      </a>
-      <a href="#metodologia" class="btn btn--ghost btn--lg">
-        <span>Conheça a metodologia</span>
-      </a>
-    </div>
-
-    <ul class="hero-anim hero-anim--5 mt-14 grid gap-x-10 gap-y-4 text-sm text-cream/60 sm:grid-cols-3">
-      <li class="hero-note">Atendemos empresas em todo o Brasil.</li>
-      <li class="hero-note">O diagnóstico inicial não tem custo.</li>
-      <li class="hero-note">A mesma equipe do início ao contrato.</li>
-    </ul>
-  </div>
-</section>
-
-
-<!-- ==========================================================================
-     C) VALORES — faixa institucional
-     ========================================================================== -->
-<section id="valores" class="relative overflow-hidden border-y border-cream/12 py-20 md:py-24">
-  <div class="relative mx-auto max-w-shell px-5 md:px-8">
-
-    <div class="max-w-3xl" data-reveal>
-      <p class="label label--growth">
-        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
-        A essência
+    <div class="note note--info mt-10 max-w-2xl">
+      <p>
+        <strong>Antes de começar.</strong> Este material é uma orientação geral. Cada
+        licitação tem regras próprias, escritas no edital — é ele que manda. Prazos,
+        exigências e valores mudam conforme o órgão, a modalidade e a data. Leia o edital
+        inteiro antes de decidir participar.
       </p>
-      <h2 class="h-display mt-6 text-[clamp(1.7rem,3.8vw,2.6rem)]">
-        A OSC existe para tirar do caminho a burocracia que impede boas empresas de crescer.
-      </h2>
-      <p class="mt-5 text-lg leading-relaxed text-cream/65">
-        Gestão e licitações são meios. O produto real é acesso a oportunidade.
-      </p>
-    </div>
-
-    <div class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-
-      <div class="value" data-reveal>
-        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
-        <h3 class="value__name">Clareza</h3>
-        <p class="value__text">Explicamos o processo em português, não em jargão de edital.</p>
-      </div>
-
-      <div class="value" data-reveal data-reveal-delay="80">
-        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
-        <h3 class="value__name">Método</h3>
-        <p class="value__text">Cada etapa documentada, cada prazo mapeado antes de começar.</p>
-      </div>
-
-      <div class="value" data-reveal data-reveal-delay="160">
-        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
-        <h3 class="value__name">Presença</h3>
-        <p class="value__text">Do diagnóstico à assinatura do contrato, sempre a mesma equipe.</p>
-      </div>
-
-      <div class="value" data-reveal data-reveal-delay="240">
-        <span class="value__ring block" aria-hidden="true"><span class="osc-ring"></span></span>
-        <h3 class="value__name">Ambição</h3>
-        <p class="value__text">O objetivo é o próximo patamar do cliente, não o serviço avulso.</p>
-      </div>
     </div>
   </div>
 </section>
 
 
 <!-- ==========================================================================
-     D) PROBLEMA / SOLUÇÃO — Creme documento
+     CORPO DO GUIA
      ========================================================================== -->
-<section id="problema" class="section sec-solid bg-cream text-deep">
+<section class="pb-20 md:pb-28">
   <div class="mx-auto max-w-shell px-5 md:px-8">
+    <div class="guide">
 
-    <header class="max-w-3xl" data-reveal>
-      <p class="label label--dark">
-        <span class="osc-ring osc-ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
-        O cenário
-      </p>
-      <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
-        O problema nunca foi a sua empresa.<br />
-        <span class="text-mid-ink">Foi a burocracia no meio do caminho.</span>
-      </h2>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-deep/70">
-        O poder público compra de tudo: serviços, obras, materiais, tecnologia, alimentação,
-        locação. Empresas competentes ficam de fora dessa disputa por um motivo simples —
-        papel, prazo e processo.
-      </p>
-    </header>
+      <!-- Índice -->
+      <aside class="toc" aria-label="Índice do guia">
+        <p class="descriptor text-cream/45">Neste guia</p>
+        <nav class="toc__list mt-5">
+          <a class="toclink" href="#o-que-e">O que é licitação</a>
+          <a class="toclink" href="#fases">As fases do processo</a>
+          <a class="toclink" href="#modalidades">Modalidades</a>
+          <a class="toclink" href="#sem-licitacao">Dispensa e inexigibilidade</a>
+          <a class="toclink" href="#onde">Onde encontrar editais</a>
+          <a class="toclink" href="#cadastro">Cadastro: SICAF e Licitações-e</a>
+          <a class="toclink" href="#pregao">Passo a passo do pregão</a>
+          <a class="toclink" href="#habilitacao">Documentos de habilitação</a>
+          <a class="toclink" href="#me-epp">ME e EPP: o que muda</a>
+          <a class="toclink" href="#recursos">Recursos e impugnação</a>
+          <a class="toclink" href="#checklist">Checklist da primeira licitação</a>
+          <a class="toclink" href="#links">Links oficiais</a>
+        </nav>
+      </aside>
 
-    <div class="mt-16 grid gap-6 lg:grid-cols-2 lg:gap-8">
+      <!-- Conteúdo -->
+      <div class="prose">
 
-      <div class="panel panel--pain" data-reveal>
-        <p class="descriptor text-deep/45">Onde a empresa trava</p>
-        <h3 class="h-display mt-4 text-2xl md:text-3xl">Sem estrutura</h3>
-        <ul class="mt-8 space-y-5">
-          <li class="pain">Documentação vencida elimina você antes da disputa começar.</li>
-          <li class="pain">Editais longos, prazos curtos e ninguém dedicado a ler tudo.</li>
-          <li class="pain">Certidões e regularidade fiscal sempre correndo atrás do prejuízo.</li>
-          <li class="pain">Processos internos na cabeça do dono, nunca no papel.</li>
-          <li class="pain">Faturamento refém do boca a boca e de dois ou três clientes.</li>
-        </ul>
-      </div>
-
-      <div class="panel panel--fix" data-reveal data-reveal-delay="120">
-        <p class="descriptor text-cream/50">Onde a OSC entra</p>
-        <h3 class="h-display mt-4 text-2xl md:text-3xl">Com a <span class="text-growth-brand">OSC</span></h3>
-        <ul class="mt-8 space-y-5">
-          <li class="fix">Diagnosticamos o que impede sua empresa de vender para o governo.</li>
-          <li class="fix">Organizamos documentação, cadastros e compliance — e monitoramos.</li>
-          <li class="fix">Buscamos os editais compatíveis com o que você já faz bem hoje.</li>
-          <li class="fix">Conduzimos a disputa: proposta, impugnação, recurso e assinatura.</li>
-          <li class="fix">Desenhamos rotinas internas que escalam sem virar bagunça.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="mt-12 flex flex-col items-start gap-6 border-t border-rule pt-10 sm:flex-row sm:items-center sm:justify-between" data-reveal>
-      <p class="h-sub max-w-xl text-lg">
-        Se a sua empresa entrega bem, ela merece disputar o maior comprador do país.
-      </p>
-      <a href="#contato" class="btn btn--dark">
-        <span>Quero destravar isso</span>
-        <span class="btn__dot" aria-hidden="true"></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-
-<!-- ==========================================================================
-     E) METODOLOGIA — três etapas + anel de progresso
-     ========================================================================== -->
-<section id="metodologia" class="section relative overflow-hidden">
-
-  <div class="relative mx-auto max-w-shell px-5 md:px-8">
-
-    <header class="max-w-3xl" data-reveal>
-      <p class="label label--growth">
-        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
-        Nossa metodologia
-      </p>
-      <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
-        Três etapas.<br />Um caminho só.
-      </h2>
-      <p class="mt-6 text-lg leading-relaxed text-cream/68">
-        Nada de pacote genérico. Subimos com a sua empresa etapa por etapa — e cada etapa
-        só existe porque a anterior foi feita direito.
-      </p>
-    </header>
-
-    <div class="mt-16 grid items-start gap-12 lg:grid-cols-[1fr_minmax(300px,0.8fr)] lg:gap-16">
-
-      <ol class="steps" id="steps">
-
-        <li class="step is-active" data-step="1" data-pct="33" data-name="Diagnóstico" data-reveal>
-          <button class="step__btn" type="button" aria-expanded="true">
-            <span class="step__num">Etapa 01</span>
-            <span class="step__title">Diagnóstico</span>
-            <span class="step__icon" aria-hidden="true"></span>
-          </button>
-          <div class="step__body">
-            <div class="step__inner">
-              <p>
-                Mapeamos onde sua empresa está: situação documental, capacidade operacional,
-                saúde fiscal e potencial de mercado. Sem diagnóstico, qualquer estratégia
-                vira chute caro.
-              </p>
-              <ul class="step__tags">
-                <li>Raio-X documental</li>
-                <li>Capacidade de entrega</li>
-                <li>Potencial de mercado</li>
-              </ul>
-            </div>
-          </div>
-        </li>
-
-        <li class="step" data-step="2" data-pct="66" data-name="Estruturação" data-reveal data-reveal-delay="100">
-          <button class="step__btn" type="button" aria-expanded="false">
-            <span class="step__num">Etapa 02</span>
-            <span class="step__title">Estruturação</span>
-            <span class="step__icon" aria-hidden="true"></span>
-          </button>
-          <div class="step__body">
-            <div class="step__inner">
-              <p>
-                Colocamos a casa em ordem: regularização, cadastro nos portais e no SICAF,
-                compliance, processos internos e política de preço. Aqui a empresa deixa de
-                ser elegível no papel e passa a ser competitiva.
-              </p>
-              <ul class="step__tags">
-                <li>Regularidade fiscal</li>
-                <li>Cadastros e portais</li>
-                <li>Processos e preço</li>
-              </ul>
-            </div>
-          </div>
-        </li>
-
-        <li class="step" data-step="3" data-pct="100" data-name="Crescimento" data-reveal data-reveal-delay="200">
-          <button class="step__btn" type="button" aria-expanded="false">
-            <span class="step__num">Etapa 03</span>
-            <span class="step__title">Crescimento</span>
-            <span class="step__icon" aria-hidden="true"></span>
-          </button>
-          <div class="step__body">
-            <div class="step__inner">
-              <p>
-                Entramos em campo com você: seleção de editais, montagem de proposta, disputa,
-                impugnações, recursos e gestão do contrato. Estrutura deixa de ser custo e
-                vira faturamento recorrente.
-              </p>
-              <ul class="step__tags">
-                <li>Seleção de editais</li>
-                <li>Disputa e recursos</li>
-                <li>Gestão de contrato</li>
-              </ul>
-            </div>
-          </div>
-        </li>
-      </ol>
-
-      <!-- Anel de progresso: o anel da marca fechando a cada etapa -->
-      <figure class="gauge" id="gauge" data-reveal>
-        <figcaption>
-          <p class="descriptor text-cream/45">Percurso OSC</p>
-          <p class="mt-3 text-sm leading-relaxed text-cream/65">
-            O anel fecha conforme a empresa sobe de etapa. No fim, o ponto de encontro:
-            estrutura e crescimento no mesmo lugar.
+        <!-- ---------------------------------------------------------- -->
+        <article id="o-que-e" class="bloco" data-reveal>
+          <h2>O que é licitação</h2>
+          <p>
+            É o processo pelo qual o poder público contrata obras, serviços e compras.
+            Ele existe para dois fins: dar a todas as empresas a mesma chance e garantir
+            que o dinheiro público compre a proposta mais vantajosa.
           </p>
-        </figcaption>
+          <p>
+            Licitam a União, os estados, o Distrito Federal, os municípios e os três
+            poderes, além de fundos e entidades controladas pela Administração.
+          </p>
 
-        <div class="gauge__plot">
-          <svg class="gauge__svg" viewBox="0 0 100 100" aria-hidden="true">
-            <circle class="gauge__track" cx="50" cy="50" r="46" />
-            <circle class="gauge__fill" id="gauge-fill" cx="50" cy="50" r="46" />
-          </svg>
-          <div class="gauge__center">
-            <span class="gauge__step" id="gauge-step">Etapa 01</span>
-            <span class="gauge__name" id="gauge-name">Diagnóstico</span>
-            <span class="gauge__pct" id="gauge-pct">33%</span>
+          <div class="note">
+            <p>
+              <strong>Uma exceção que confunde muita gente.</strong> Empresas públicas e
+              sociedades de economia mista — Petrobras e Correios, por exemplo — não seguem
+              a Lei 14.133/2021. Elas têm regra própria, a Lei 13.303/2016. Os prazos e as
+              exigências são outros.
+            </p>
           </div>
-        </div>
 
-        <div class="gauge__legend" aria-hidden="true">
-          <span class="gauge__pip is-on"></span>
-          <span class="gauge__pip"></span>
-          <span class="gauge__pip"></span>
-        </div>
-      </figure>
+          <h3>O que a lei busca</h3>
+          <ul class="lista">
+            <li>A proposta mais vantajosa, considerando o ciclo de vida do que está sendo comprado — não só o preço da etiqueta.</li>
+            <li>Tratamento igual entre quem disputa.</li>
+            <li>Barrar sobrepreço, superfaturamento e preço inexequível.</li>
+            <li>Estimular inovação e desenvolvimento nacional sustentável.</li>
+          </ul>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="fases" class="bloco" data-reveal>
+          <h2>As fases do processo</h2>
+          <p>
+            A Lei 14.133/2021 organiza a licitação em sete fases. Saber em qual delas o
+            processo está diz o que você ainda pode fazer — e o que já passou.
+          </p>
+
+          <ol class="fases">
+            <li><span class="fases__n">01</span><div><strong>Preparatória.</strong> O órgão planeja: estudo técnico, termo de referência, pesquisa de preço e aprovação jurídica. Acontece antes de você ver qualquer edital.</div></li>
+            <li><span class="fases__n">02</span><div><strong>Divulgação do edital.</strong> Publicação obrigatória no PNCP. É aqui que a disputa fica pública.</div></li>
+            <li><span class="fases__n">03</span><div><strong>Propostas e lances.</strong> As empresas enviam proposta e, no pregão, disputam em sessão de lances ao vivo.</div></li>
+            <li><span class="fases__n">04</span><div><strong>Julgamento.</strong> As propostas são analisadas pelo critério que o edital definiu.</div></li>
+            <li><span class="fases__n">05</span><div><strong>Habilitação.</strong> Os documentos de quem venceu são conferidos. Papel vencido derruba a melhor proposta.</div></li>
+            <li><span class="fases__n">06</span><div><strong>Recursal.</strong> Janela para recorrer do resultado e para responder ao recurso dos outros.</div></li>
+            <li><span class="fases__n">07</span><div><strong>Homologação.</strong> A autoridade ratifica o resultado e adjudica o objeto. Depois vem o contrato.</div></li>
+          </ol>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="modalidades" class="bloco" data-reveal>
+          <h2>Modalidades</h2>
+          <p>
+            Na lei atual, a modalidade é escolhida pela <strong>natureza do que está sendo
+            comprado</strong>, não pelo valor. Isso mudou em relação à lei antiga.
+          </p>
+
+          <div class="tbl">
+            <table>
+              <thead>
+                <tr><th>Modalidade</th><th>Quando é usada</th><th>Como se julga</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Pregão</strong></td>
+                  <td>Bens e serviços comuns. É obrigatório nesse caso — e é onde a maioria das empresas começa.</td>
+                  <td>Menor preço ou maior desconto</td>
+                </tr>
+                <tr>
+                  <td><strong>Concorrência</strong></td>
+                  <td>Obras, serviços e bens especiais, concessões</td>
+                  <td>Menor preço, melhor técnica, técnica e preço, maior retorno ou maior desconto</td>
+                </tr>
+                <tr>
+                  <td><strong>Concurso</strong></td>
+                  <td>Trabalho técnico, científico ou artístico</td>
+                  <td>Melhor técnica ou conteúdo artístico</td>
+                </tr>
+                <tr>
+                  <td><strong>Leilão</strong></td>
+                  <td>Venda de bens do próprio órgão: imóveis, móveis inservíveis, apreendidos</td>
+                  <td>Maior lance</td>
+                </tr>
+                <tr>
+                  <td><strong>Diálogo competitivo</strong></td>
+                  <td>Soluções inovadoras e complexas — o órgão conversa com o mercado antes de receber propostas</td>
+                  <td>Proposta final, depois dos diálogos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note">
+            <p>
+              <strong>Convite e tomada de preços acabaram.</strong> Existiam na Lei 8.666/1993
+              e não existem mais. Se alguém ainda fala nelas para você, está trabalhando com
+              informação vencida. Contratos assinados sob a lei antiga continuam valendo por
+              ela até terminarem.
+            </p>
+          </div>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="sem-licitacao" class="bloco" data-reveal>
+          <h2>Quando não há licitação</h2>
+          <p>
+            Nem toda compra pública passa por disputa. Há dois caminhos, e eles não são a
+            mesma coisa.
+          </p>
+
+          <div class="duo">
+            <div class="duo__card">
+              <p class="descriptor text-growth">Dispensa</p>
+              <h3>A competição é possível, mas a lei permite não licitar</h3>
+              <p>Os casos estão listados na lei, e a lista é fechada. Os mais comuns:</p>
+              <ul class="lista">
+                <li>Contratações de valor baixo — o limite é atualizado por decreto todo ano.</li>
+                <li>Emergência ou calamidade pública.</li>
+                <li>Compra com entrega imediata, sem obrigação futura.</li>
+                <li>Segurança nacional.</li>
+                <li>Fornecedor único comprovado no mercado.</li>
+              </ul>
+            </div>
+
+            <div class="duo__card">
+              <p class="descriptor text-growth">Inexigibilidade</p>
+              <h3>A competição é inviável</h3>
+              <p>Não há como comparar propostas. Exemplos:</p>
+              <ul class="lista">
+                <li>Fabricante exclusivo por natureza.</li>
+                <li>Artista consagrado, contratado pelo nome.</li>
+                <li>Serviço técnico de notória especialização, de natureza singular.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note note--warn">
+            <p>
+              <strong>Sobre os valores.</strong> Os limites de dispensa são corrigidos por
+              decreto periodicamente. Não publicamos o número aqui de propósito: ele
+              envelhece. Confira o valor vigente no PNCP ou no texto atualizado da lei antes
+              de usar como referência — e desconfie de material que traz o número sem dizer
+              de quando é.
+            </p>
+          </div>
+
+          <p>
+            Dispensa não é atalho livre. O órgão precisa justificar, publicar e prestar
+            contas. Para a sua empresa, ela importa por um motivo prático: é onde quem está
+            cadastrado e com documentação em dia costuma ser chamado primeiro.
+          </p>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="onde" class="bloco" data-reveal>
+          <h2>Onde encontrar editais</h2>
+          <p>
+            O <strong>PNCP — Portal Nacional de Contratações Públicas</strong> é o portal
+            oficial. Todo edital, ata de registro de preços, contrato, aditivo e resultado
+            precisa ser publicado lá. É gratuito e aberto.
+          </p>
+
+          <h3>O que dá para fazer no PNCP</h3>
+          <ul class="lista">
+            <li>Buscar por órgão, estado, município, modalidade ou palavra-chave.</li>
+            <li>Acompanhar editais do seu segmento antes de abrirem.</li>
+            <li>Consultar contratos anteriores para entender o preço que o governo vem pagando.</li>
+          </ul>
+          <p>Parte das funções pede login pelo Gov.br.</p>
+
+          <h3>As plataformas onde a disputa acontece</h3>
+          <p>
+            O PNCP mostra o edital. A sessão de lances, porém, roda na plataforma que o
+            órgão escolheu. As principais:
+          </p>
+
+          <div class="tbl">
+            <table>
+              <thead><tr><th>Plataforma</th><th>Abrangência</th><th>Endereço</th></tr></thead>
+              <tbody>
+                <tr><td><strong>PNCP</strong></td><td>Todos os entes (divulgação obrigatória)</td><td><a href="https://pncp.gov.br" target="_blank" rel="noopener">pncp.gov.br</a></td></tr>
+                <tr><td><strong>Compras.gov.br</strong></td><td>Federal</td><td><a href="https://www.gov.br/compras" target="_blank" rel="noopener">gov.br/compras</a></td></tr>
+                <tr><td><strong>Licitações-e (BB)</strong></td><td>Federal, estadual e municipal</td><td><a href="https://licitacoes-e2.bb.com.br" target="_blank" rel="noopener">licitacoes-e2.bb.com.br</a></td></tr>
+                <tr><td><strong>BLL Compras</strong></td><td>Estadual e municipal</td><td><a href="https://bll.org.br" target="_blank" rel="noopener">bll.org.br</a></td></tr>
+                <tr><td><strong>Portal da Transparência</strong></td><td>Federal (consulta)</td><td><a href="https://portaldatransparencia.gov.br/licitacoes" target="_blank" rel="noopener">portaldatransparencia.gov.br</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note note--osc">
+            <p>
+              <strong>Onde a OSC entra.</strong> Garimpar edital consome horas por semana, e
+              a maior parte do que aparece não serve para a sua empresa. Nós filtramos e
+              levamos até você só o que dá para disputar e ganhar.
+            </p>
+            <a href="osc-landing-page.html#contato" class="btn btn--primary mt-5">
+              <span>Quero receber editais filtrados</span>
+              <span class="btn__dot" aria-hidden="true"></span>
+            </a>
+          </div>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="cadastro" class="bloco" data-reveal>
+          <h2>Cadastro: SICAF e Licitações-e</h2>
+          <p>
+            Cadastro se faz <strong>antes</strong> de aparecer o edital que interessa. Quem
+            deixa para a semana da sessão não participa: a análise leva dias.
+          </p>
+
+          <h3>SICAF — esfera federal</h3>
+          <ol class="passos">
+            <li>Entre no Compras.gov.br com conta <strong>Gov.br nível prata ou ouro</strong>.</li>
+            <li>Vá em Fornecedor e abra o cadastro.</li>
+            <li>Preencha os dados exatamente como constam no cartão CNPJ da Receita Federal. Divergência de uma letra trava a análise.</li>
+            <li>Envie os documentos em PDF legível.</li>
+            <li>Aguarde a análise de um órgão credenciador. Costuma levar de alguns dias a algumas semanas.</li>
+            <li>Renove cada documento conforme vence. Não há uma data única de renovação: cada certidão tem a sua.</li>
+          </ol>
+
+          <h3>Licitações-e — Banco do Brasil</h3>
+          <ol class="passos">
+            <li>Procure a agência do BB onde sua empresa tem conta.</li>
+            <li>Peça a adesão ao Licitações-e e assine o termo.</li>
+            <li>Indique quem terá poderes para dar lances em nome da empresa.</li>
+            <li>Receba as credenciais de acesso.</li>
+          </ol>
+
+          <div class="note">
+            <p>
+              <strong>Certificado digital.</strong> Sua empresa vai precisar de um e-CNPJ
+              (A1 ou A3) para assinar documentos e acessar boa parte dos sistemas. Providencie
+              junto com o cadastro, não depois.
+            </p>
+          </div>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="pregao" class="bloco" data-reveal>
+          <h2>Passo a passo do pregão eletrônico</h2>
+          <p>
+            O pregão é a modalidade mais comum e a porta de entrada da maioria das empresas.
+            Ele acontece inteiro pela internet.
+          </p>
+
+          <h3>Antes da sessão</h3>
+          <ol class="passos">
+            <li><strong>Leia o edital inteiro.</strong> Não só o objeto. Olhe critério de julgamento, exigências de habilitação, prazo de entrega, penalidades e condições de pagamento.</li>
+            <li><strong>Confira se você consegue entregar.</strong> Prazo apertado e multa pesada transformam vitória em prejuízo.</li>
+            <li><strong>Monte a documentação</strong> de habilitação exigida naquele edital.</li>
+            <li><strong>Calcule o preço com a conta fechada:</strong> custo, frete, impostos e o prazo que o governo leva para pagar. Preço de licitação não é preço de balcão.</li>
+            <li><strong>Cadastre a proposta</strong> dentro do prazo. Fora do prazo, o sistema simplesmente não aceita.</li>
+          </ol>
+
+          <h3>Durante a sessão</h3>
+          <ol class="passos">
+            <li>Entre na plataforma no horário marcado, com a credencial em mãos.</li>
+            <li>Acompanhe a abertura das propostas pelo pregoeiro.</li>
+            <li>Dê lances. É ao vivo, e o sistema avisa quando alguém passa você.</li>
+            <li>Ao final, o pregoeiro pode negociar diretamente com quem ficou em primeiro.</li>
+          </ol>
+
+          <h3>Depois dos lances</h3>
+          <ol class="passos">
+            <li>Quem venceu envia a documentação — ou ela já é puxada do SICAF.</li>
+            <li>O pregoeiro confere a habilitação.</li>
+            <li>Abre a janela de recurso.</li>
+            <li>A autoridade homologa o resultado.</li>
+            <li>Vem a assinatura do contrato.</li>
+          </ol>
+
+          <div class="note">
+            <p>
+              <strong>Nem sempre há contrato escrito.</strong> Em dispensa por valor e em
+              compra com entrega imediata sem obrigação futura, a Administração pode
+              substituir o contrato por nota de empenho, carta-contrato ou autorização de
+              compra. O compromisso é o mesmo.
+            </p>
+          </div>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="habilitacao" class="bloco" data-reveal>
+          <h2>Documentos de habilitação</h2>
+          <p>
+            É aqui que a maioria das empresas perde. A proposta era a melhor, e uma certidão
+            vencida derrubou tudo. Cada edital define a lista, mas estes aparecem quase sempre:
+          </p>
+
+          <div class="tbl">
+            <table>
+              <thead><tr><th>Documento</th><th>Prova o quê</th></tr></thead>
+              <tbody>
+                <tr><td>Contrato social e CNPJ</td><td>Habilitação jurídica</td></tr>
+                <tr><td>CND Federal (Receita e PGFN)</td><td>Regularidade tributária federal</td></tr>
+                <tr><td>CND Estadual</td><td>Regularidade tributária estadual</td></tr>
+                <tr><td>CND Municipal</td><td>Regularidade tributária municipal</td></tr>
+                <tr><td>Certidão de FGTS</td><td>Regularidade com o fundo de garantia</td></tr>
+                <tr><td>CNDT</td><td>Ausência de débito trabalhista</td></tr>
+                <tr><td>Balanço patrimonial</td><td>Saúde econômico-financeira</td></tr>
+                <tr><td>Certidão negativa de falência</td><td>Saúde econômico-financeira</td></tr>
+                <tr><td>Atestado de capacidade técnica</td><td>Que você já entregou algo parecido</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note note--osc">
+            <p>
+              <strong>Onde a OSC entra.</strong> Cuidamos dessa pasta o ano inteiro e avisamos
+              antes de cada vencimento. Quando o edital certo aparece, sua empresa já está
+              pronta — não corre atrás.
+            </p>
+            <a href="osc-landing-page.html#contato" class="btn btn--primary mt-5">
+              <span>Quero minha documentação em dia</span>
+              <span class="btn__dot" aria-hidden="true"></span>
+            </a>
+          </div>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="me-epp" class="bloco" data-reveal>
+          <h2>ME e EPP: o que muda a seu favor</h2>
+          <p>
+            A Lei Complementar 123/2006 dá tratamento diferenciado a microempresas e empresas
+            de pequeno porte. Na prática, ser pequeno é vantagem na licitação — desde que a
+            empresa esteja organizada.
+          </p>
+
+          <div class="tbl">
+            <table>
+              <thead><tr><th>Benefício</th><th>Como funciona</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Empate ficto</strong></td><td>Se a sua proposta ficou até 5% acima da melhor, você tem o direito de cobrir e ganhar.</td></tr>
+                <tr><td><strong>Regularidade fiscal com prazo</strong></td><td>Dá para participar com pendência fiscal e ter um prazo para regularizar depois de vencer.</td></tr>
+                <tr><td><strong>Itens exclusivos</strong></td><td>Contratações de menor valor podem ser reservadas só para ME e EPP, quando há concorrência suficiente entre elas.</td></tr>
+                <tr><td><strong>Cota reservada</strong></td><td>Em compras de bens divisíveis, parte do objeto pode ser separada para ME e EPP.</td></tr>
+                <tr><td><strong>Subcontratação</strong></td><td>O órgão pode exigir que a empresa grande vencedora subcontrate ME ou EPP.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note note--warn">
+            <p>
+              <strong>Sobre os valores de corte.</strong> Os limites que definem itens
+              exclusivos e cotas mudam com o tempo e dependem do enquadramento da empresa.
+              Confirme o valor vigente no edital — ele traz a regra aplicada àquela disputa.
+            </p>
+          </div>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="recursos" class="bloco" data-reveal>
+          <h2>Recursos e impugnação</h2>
+          <p>
+            Duas ferramentas diferentes, em momentos diferentes. Confundir as duas custa a
+            disputa.
+          </p>
+
+          <div class="duo">
+            <div class="duo__card">
+              <p class="descriptor text-growth">Impugnação</p>
+              <h3>Antes da sessão</h3>
+              <p>
+                Serve para questionar o próprio edital: exigência restritiva, erro na
+                especificação, prazo impossível. Qualquer interessado pode apresentar, dentro
+                do prazo que a lei fixa antes da data de abertura.
+              </p>
+            </div>
+
+            <div class="duo__card">
+              <p class="descriptor text-growth">Recurso</p>
+              <h3>Depois do resultado</h3>
+              <p>
+                Serve para contestar a habilitação, a inabilitação ou o julgamento das
+                propostas. Há prazo curto para manifestar a intenção e apresentar as razões,
+                e os demais licitantes podem responder.
+              </p>
+            </div>
+          </div>
+
+          <ul class="lista mt-8">
+            <li>Os prazos são contados em dias úteis e são curtos. Perdeu, acabou.</li>
+            <li>Recurso sobre habilitação e julgamento em regra suspende o processo até a decisão.</li>
+            <li>O protocolo costuma ser na própria plataforma eletrônica.</li>
+            <li>O edital sempre detalha os prazos daquela disputa. É ele que vale.</li>
+          </ul>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="checklist" class="bloco" data-reveal>
+          <h2>Checklist da primeira licitação</h2>
+          <p>Imprima, marque e só depois procure edital.</p>
+
+          <h3>Documentos da empresa</h3>
+          <ul class="checklist">
+            <li>CNPJ ativo e regular na Receita Federal</li>
+            <li>Contrato social atualizado</li>
+            <li>Certidões negativas válidas: federal, estadual, municipal, FGTS e CNDT</li>
+            <li>Balanço patrimonial do último exercício</li>
+            <li>Certidão negativa de falência ou recuperação judicial</li>
+          </ul>
+
+          <h3>Credenciamento</h3>
+          <ul class="checklist">
+            <li>Conta Gov.br nível prata ou ouro</li>
+            <li>Certificado digital e-CNPJ (A1 ou A3)</li>
+            <li>Cadastro no SICAF, pelo Compras.gov.br</li>
+            <li>Adesão ao Licitações-e, na agência do Banco do Brasil</li>
+          </ul>
+
+          <h3>Estratégia</h3>
+          <ul class="checklist">
+            <li>CNAE alinhado ao que você pretende fornecer</li>
+            <li>Pesquisa de contratos anteriores no PNCP, para saber o preço praticado</li>
+            <li>Leitura do edital inteiro: penalidades, obrigações e prazo de entrega</li>
+            <li>Margem calculada com frete, impostos e o prazo de pagamento do governo</li>
+          </ul>
+        </article>
+
+        <!-- ---------------------------------------------------------- -->
+        <article id="links" class="bloco" data-reveal>
+          <h2>Links oficiais</h2>
+          <p>Tudo aqui é fonte primária e gratuita. Na dúvida, vale mais que qualquer resumo.</p>
+
+          <div class="links">
+            <a class="linkcard" href="https://pncp.gov.br/app/editais" target="_blank" rel="noopener">
+              <span class="linkcard__t">PNCP — busca de editais</span>
+              <span class="linkcard__u">pncp.gov.br/app/editais</span>
+            </a>
+            <a class="linkcard" href="https://www.gov.br/compras" target="_blank" rel="noopener">
+              <span class="linkcard__t">Compras.gov.br — SICAF e pregões federais</span>
+              <span class="linkcard__u">gov.br/compras</span>
+            </a>
+            <a class="linkcard" href="https://licitacoes-e2.bb.com.br" target="_blank" rel="noopener">
+              <span class="linkcard__t">Licitações-e — Banco do Brasil</span>
+              <span class="linkcard__u">licitacoes-e2.bb.com.br</span>
+            </a>
+            <a class="linkcard" href="https://portaldatransparencia.gov.br/licitacoes" target="_blank" rel="noopener">
+              <span class="linkcard__t">Portal da Transparência — licitações</span>
+              <span class="linkcard__u">portaldatransparencia.gov.br</span>
+            </a>
+            <a class="linkcard" href="https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm" target="_blank" rel="noopener">
+              <span class="linkcard__t">Lei 14.133/2021 — texto integral</span>
+              <span class="linkcard__u">planalto.gov.br</span>
+            </a>
+            <a class="linkcard" href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13303.htm" target="_blank" rel="noopener">
+              <span class="linkcard__t">Lei 13.303/2016 — estatais</span>
+              <span class="linkcard__u">planalto.gov.br</span>
+            </a>
+            <a class="linkcard" href="https://www.escolavirtual.gov.br" target="_blank" rel="noopener">
+              <span class="linkcard__t">Escola Virtual de Governo — cursos gratuitos</span>
+              <span class="linkcard__u">escolavirtual.gov.br</span>
+            </a>
+          </div>
+
+          <div class="note note--info mt-10">
+            <p>
+              <strong>Uma última palavra.</strong> Este guia é ponto de partida, não
+              substituto do edital nem de orientação jurídica. Em disputa de valor alto ou
+              com exigência técnica complexa, vale ter apoio especializado desde a leitura
+              do edital.
+            </p>
+          </div>
+        </article>
+
+      </div>
     </div>
   </div>
 </section>
 
 
 <!-- ==========================================================================
-     F) SERVIÇOS — Creme documento
+     CTA FINAL
      ========================================================================== -->
-<section id="servicos" class="section sec-solid bg-cream text-deep">
-  <div class="mx-auto max-w-shell px-5 md:px-8">
-
-    <header class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
-      <div class="max-w-2xl">
-        <p class="label label--dark">
-          <span class="osc-ring osc-ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
-          O que fazemos
-        </p>
-        <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
-          Duas frentes.<br />Zero burocracia para você.
-        </h2>
-      </div>
-      <p class="max-w-sm leading-relaxed text-deep/65">
-        Você contrata uma frente ou as duas. Quem faz as duas cresce mais rápido — licitação
-        sem gestão não se sustenta.
-      </p>
-    </header>
-
-    <!-- Frente 1 -->
-    <div class="mt-16" data-reveal>
-      <div class="svc-head">
-        <span class="descriptor text-deep/45">Frente 01</span>
-        <h3 class="h-display text-2xl md:text-3xl">Gestão empresarial</h3>
-        <span class="svc-head__rule" aria-hidden="true"></span>
-      </div>
-
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
-        <article class="card" data-reveal>
-          <span class="card__num">01</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Diagnóstico e reestruturação</h4>
-          <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
-        </article>
-
-        <article class="card" data-reveal data-reveal-delay="80">
-          <span class="card__num">02</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Documentação e regularidade</h4>
-          <p class="card__text">Certidões, alvarás e obrigações em dia, com aviso antes de cada vencimento.</p>
-        </article>
-
-        <article class="card" data-reveal data-reveal-delay="160">
-          <span class="card__num">03</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Compliance e governança</h4>
-          <p class="card__text">Regras claras, responsabilidades definidas e a empresa pronta para auditoria.</p>
-        </article>
-
-        <article class="card" data-reveal data-reveal-delay="240">
-          <span class="card__num">04</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Processos e precificação</h4>
-          <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
-        </article>
-      </div>
-    </div>
-
-    <!-- Frente 2 -->
-    <div class="mt-16" data-reveal>
-      <div class="svc-head">
-        <span class="descriptor text-deep/45">Frente 02</span>
-        <h3 class="h-display text-2xl md:text-3xl">Licitações</h3>
-        <span class="svc-head__rule" aria-hidden="true"></span>
-      </div>
-
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
-        <article class="card card--alt" data-reveal>
-          <span class="card__num">05</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Cadastro em portais e SICAF</h4>
-          <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
-        </article>
-
-        <article class="card card--alt" data-reveal data-reveal-delay="80">
-          <span class="card__num">06</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Análise e seleção de editais</h4>
-          <p class="card__text">Filtramos o que vale disputar e descartamos o que só dá trabalho.</p>
-        </article>
-
-        <article class="card card--alt" data-reveal data-reveal-delay="160">
-          <span class="card__num">07</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Disputa, impugnação e recurso</h4>
-          <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando aperta.</p>
-        </article>
-
-        <article class="card card--alt" data-reveal data-reveal-delay="240">
-          <span class="card__num">08</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Gestão de contratos públicos</h4>
-          <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ==========================================================================
-     G) COMO FUNCIONA UMA LICITAÇÃO — resumo, com saída para o guia
-     ========================================================================== -->
-<section id="como-funciona" class="section relative overflow-hidden">
+<section class="section relative overflow-hidden border-t border-cream/12">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
-
-    <header class="max-w-3xl" data-reveal>
+    <div class="max-w-2xl" data-reveal>
       <p class="label label--growth">
         <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
-        Como funciona
+        Próximo passo
       </p>
-      <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
-        Vender para o governo tem um caminho.<br />Ele só parece difícil de fora.
+      <h2 class="h-display mt-6 text-[clamp(2rem,4.6vw,3.2rem)]">
+        Entender o processo é metade. A outra metade é execução.
       </h2>
-      <p class="mt-6 text-lg leading-relaxed text-cream/68">
-        Desde a Lei 14.133/2021 o processo é quase todo eletrônico e público. Quem entende
-        a sequência para de perder disputa por detalhe. Aqui está o resumo — e escrevemos
-        o guia completo para quem quiser se aprofundar.
+      <p class="mt-6 text-lg leading-relaxed text-cream/72">
+        Você acabou de ler o caminho inteiro. Fazer isso sozinho, toda semana, ao lado de
+        tocar a sua empresa, é outra história. É para isso que existimos.
       </p>
-    </header>
-
-    <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
-      <article class="miniblock" data-reveal>
-        <span class="miniblock__n">01</span>
-        <h3 class="miniblock__t">Cadastro</h3>
-        <p class="miniblock__d">
-          Sua empresa entra no SICAF e nas plataformas onde a disputa acontece. Isso se faz
-          antes de existir edital — a análise leva dias.
-        </p>
-      </article>
-
-      <article class="miniblock" data-reveal data-reveal-delay="80">
-        <span class="miniblock__n">02</span>
-        <h3 class="miniblock__t">Edital</h3>
-        <p class="miniblock__d">
-          Todo edital é publicado no PNCP, o portal oficial. O trabalho é achar os que a sua
-          empresa consegue entregar bem e descartar o resto.
-        </p>
-      </article>
-
-      <article class="miniblock" data-reveal data-reveal-delay="160">
-        <span class="miniblock__n">03</span>
-        <h3 class="miniblock__t">Disputa</h3>
-        <p class="miniblock__d">
-          No pregão, a sessão de lances é ao vivo e pela internet. Preço se calcula antes,
-          com frete, imposto e o prazo de pagamento do governo na conta.
-        </p>
-      </article>
-
-      <article class="miniblock" data-reveal data-reveal-delay="240">
-        <span class="miniblock__n">04</span>
-        <h3 class="miniblock__t">Habilitação</h3>
-        <p class="miniblock__d">
-          Os documentos de quem venceu são conferidos. É aqui que a maioria perde: melhor
-          proposta derrubada por uma certidão vencida.
-        </p>
-      </article>
-    </div>
-
-    <div class="mt-12 grid gap-6 lg:grid-cols-[1.25fr_1fr] lg:items-center" data-reveal>
-      <div class="guidecta">
-        <p class="descriptor text-cream/45">Guia gratuito</p>
-        <h3 class="h-display mt-4 text-[clamp(1.4rem,2.8vw,2rem)]">
-          O caminho inteiro, explicado em português.
-        </h3>
-        <p class="mt-4 leading-relaxed text-cream/68">
-          Modalidades, fases do processo, cadastro no SICAF, onde achar editais, documentos
-          de habilitação, o que muda para ME e EPP, prazos de recurso e um checklist da
-          primeira licitação.
-        </p>
-        <a href="osc-guia-licitacoes.html" class="btn btn--primary btn--lg mt-7">
-          <span>Ler o guia de licitações</span>
+      <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <a href="osc-landing-page.html#contato" class="btn btn--primary btn--lg">
+          <span>Falar com um especialista</span>
           <span class="btn__dot" aria-hidden="true"></span>
         </a>
-      </div>
-
-      <ul class="guidelist">
-        <li>Pregão, concorrência, concurso, leilão e diálogo competitivo</li>
-        <li>Como se cadastrar no SICAF e no Licitações-e</li>
-        <li>A lista de certidões que derruba mais empresa</li>
-        <li>Empate ficto e as outras vantagens de ME e EPP</li>
-        <li>Quando cabe impugnação e quando cabe recurso</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-
-<!-- ==========================================================================
-     H) SETORES
-     ========================================================================== -->
-<section id="setores" class="relative overflow-hidden border-y border-cream/12 py-16 md:py-20">
-  <div class="mx-auto max-w-shell px-5 md:px-8" data-reveal>
-    <p class="label label--growth">
-      <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
-      Para quem é
-    </p>
-    <h2 class="h-display mt-6 max-w-3xl text-[clamp(1.6rem,3.4vw,2.3rem)]">
-      Se o governo compra o que você vende, existe contrato esperando por você.
-    </h2>
-  </div>
-
-  <div class="marquee mt-12" aria-hidden="true">
-    <div class="marquee__track" id="marquee-track">
-      <span class="marquee__item">Serviços terceirizados</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Obras e engenharia</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Fornecimento de materiais</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Tecnologia e software</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Alimentação</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Locação de equipamentos</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Saúde e hospitalar</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Limpeza e conservação</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Transporte e logística</span><span class="marquee__dot"></span>
-      <span class="marquee__item">Uniformes e EPI</span><span class="marquee__dot"></span>
-    </div>
-  </div>
-
-  <p class="mx-auto mt-12 max-w-shell px-5 text-sm text-cream/55 md:px-8" data-reveal>
-    Não achou o seu segmento? Fale com a gente — a lista é maior do que cabe aqui.
-  </p>
-</section>
-
-
-<!-- ==========================================================================
-     I) DÚVIDAS — Verde profundo
-     ========================================================================== -->
-<section id="duvidas" class="section relative overflow-hidden">
-
-  <div class="relative mx-auto max-w-shell px-5 md:px-8">
-    <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-
-      <header data-reveal>
-        <p class="label label--growth">
-          <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
-          Dúvidas frequentes
-        </p>
-        <h2 class="h-display mt-6 text-[clamp(2rem,4.4vw,3.1rem)]">Direto ao ponto.</h2>
-        <p class="mt-6 leading-relaxed text-cream/65">
-          As perguntas que todo empresário faz antes de começar. Se a sua não estiver aqui,
-          é só chamar no WhatsApp.
-        </p>
-        <a href="#contato" class="btn btn--primary mt-8">
-          <span>Tirar minha dúvida</span>
-          <span class="btn__dot" aria-hidden="true"></span>
+        <a href="osc-landing-page.html#metodologia" class="btn btn--ghost btn--lg">
+          <span>Ver como trabalhamos</span>
         </a>
-      </header>
-
-      <div class="faq" id="faq" data-reveal>
-
-        <div class="faq__item">
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span class="faq__n">01</span>
-            <span>Minha empresa é pequena. Consigo vender para o governo?</span>
-            <span class="faq__icon" aria-hidden="true"></span>
-          </button>
-          <div class="faq__a"><p>
-            Consegue, e a legislação joga a seu favor: a Lei Complementar 123/2006 garante
-            tratamento diferenciado a microempresas e empresas de pequeno porte nas compras
-            públicas. O que costuma faltar não é porte, é organização documental.
-          </p></div>
-        </div>
-
-        <div class="faq__item">
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span class="faq__n">02</span>
-            <span>Quanto tempo até participar da primeira licitação?</span>
-            <span class="faq__icon" aria-hidden="true"></span>
-          </button>
-          <div class="faq__a"><p>
-            Depende do ponto de partida. Empresa com documentação em dia costuma estar apta
-            em poucas semanas. Com pendências fiscais ou cadastrais, leva mais tempo — e o
-            diagnóstico mostra esse prazo já na primeira conversa.
-          </p></div>
-        </div>
-
-        <div class="faq__item">
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span class="faq__n">03</span>
-            <span>Vocês atendem empresas de outros estados?</span>
-            <span class="faq__icon" aria-hidden="true"></span>
-          </button>
-          <div class="faq__a"><p>
-            Sim. Quase todo o processo é eletrônico: cadastro, envio de proposta, sessão de
-            disputa e recursos acontecem em portais online. Atendemos em todo o Brasil, com
-            reuniões remotas e acompanhamento contínuo.
-          </p></div>
-        </div>
-
-        <div class="faq__item">
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span class="faq__n">04</span>
-            <span>Preciso ter experiência anterior com o setor público?</span>
-            <span class="faq__icon" aria-hidden="true"></span>
-          </button>
-          <div class="faq__a"><p>
-            Não. A maior parte dos nossos clientes nunca tinha disputado um edital. Nós
-            conduzimos o processo do início ao fim e traduzimos o que importa — você segue
-            focado em entregar bem o que sua empresa já sabe fazer.
-          </p></div>
-        </div>
-
-        <div class="faq__item">
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span class="faq__n">05</span>
-            <span>E depois que a empresa vence? Vocês somem?</span>
-            <span class="faq__icon" aria-hidden="true"></span>
-          </button>
-          <div class="faq__a"><p>
-            Não. Vencer é meio do caminho. Acompanhamos assinatura, prazos, aditivos,
-            reajustes e obrigações do contrato — contrato público mal gerido vira multa,
-            não lucro.
-          </p></div>
-        </div>
-
-        <div class="faq__item">
-          <button class="faq__q" type="button" aria-expanded="false">
-            <span class="faq__n">06</span>
-            <span>Como funciona a contratação da OSC?</span>
-            <span class="faq__icon" aria-hidden="true"></span>
-          </button>
-          <div class="faq__a"><p>
-            Começa por uma conversa de diagnóstico, sem custo. A partir dela desenhamos o
-            escopo — só gestão, só licitações ou as duas frentes — e apresentamos uma
-            proposta com prazos e entregas claras. Sem letra miúda.
-          </p></div>
-        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ==========================================================================
-     J) CONTATO
-     ========================================================================== -->
-<section id="contato" class="section relative overflow-hidden">
-
-  <div class="relative mx-auto max-w-shell px-5 md:px-8">
-    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
-
-      <div data-reveal>
-        <p class="label label--growth">
-          <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
-          Próximo passo
-        </p>
-        <h2 class="h-display mt-6 text-[clamp(2rem,4.8vw,3.5rem)]">
-          Vamos destravar o seu <span class="text-growth-brand">faturamento</span>?
-        </h2>
-        <p class="mt-6 max-w-md text-lg leading-relaxed text-cream/72">
-          Conte em duas linhas o que a sua empresa faz. Respondemos com um diagnóstico
-          honesto do seu potencial no mercado público, sem compromisso.
-        </p>
-
-        <ul class="mt-10 space-y-5">
-          <li class="contact-line">
-            <span class="descriptor text-cream/45">E-mail</span>
-            <a href="mailto:contato.osc.gestao@gmail.com">contato.osc.gestao@gmail.com</a>
-          </li>
-          <li class="contact-line">
-            <span class="descriptor text-cream/45">WhatsApp</span>
-            <a class="js-whats" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC." target="_blank" rel="noopener">(86) 98837-2619</a>
-          </li>
-          <li class="contact-line">
-            <span class="descriptor text-cream/45">Redes sociais</span>
-            <a href="https://instagram.com/osc.gestao" target="_blank" rel="noopener">@osc.gestao</a>
-          </li>
-          <li class="contact-line">
-            <span class="descriptor text-cream/45">Atendimento</span>
-            <span>Segunda a sexta, 08h às 18h · Todo o Brasil</span>
-          </li>
-        </ul>
-      </div>
-
-      <form id="lead-form" class="form" data-reveal data-reveal-delay="120" novalidate>
-        <p class="descriptor text-cream/45">Diagnóstico gratuito</p>
-
-        <div class="mt-7 grid gap-5 sm:grid-cols-2">
-          <div class="field sm:col-span-2">
-            <label for="f-nome">Seu nome</label>
-            <input id="f-nome" name="nome" type="text" autocomplete="name" required placeholder="Como podemos te chamar?" />
-          </div>
-
-          <div class="field sm:col-span-2">
-            <label for="f-empresa">Empresa</label>
-            <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Razão social ou nome fantasia" />
-          </div>
-
-          <div class="field">
-            <label for="f-whats">WhatsApp</label>
-            <input id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000" />
-          </div>
-
-          <div class="field">
-            <label for="f-email">E-mail</label>
-            <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
-          </div>
-
-          <div class="field sm:col-span-2">
-            <label for="f-segmento">Segmento</label>
-            <select id="f-segmento" name="segmento" required>
-              <option value="">Selecione o que sua empresa faz</option>
-              <option>Serviços terceirizados</option>
-              <option>Obras e engenharia</option>
-              <option>Fornecimento de materiais</option>
-              <option>Tecnologia e software</option>
-              <option>Alimentação</option>
-              <option>Locação de equipamentos</option>
-              <option>Saúde e hospitalar</option>
-              <option>Limpeza e conservação</option>
-              <option>Transporte e logística</option>
-              <option>Outro</option>
-            </select>
-          </div>
-
-          <!-- Armadilha anti-robô: invisível para gente, irresistível para bot -->
-          <div class="field form__trap" aria-hidden="true">
-            <label for="f-website">Não preencha este campo</label>
-            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-
-          <div class="field sm:col-span-2">
-            <label for="f-msg">O que você precisa resolver?</label>
-            <textarea id="f-msg" name="mensagem" rows="3" placeholder="Ex.: nunca participei de licitação e quero começar."></textarea>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn--primary btn--lg mt-8 w-full justify-center">
-          <span>Enviar e falar com um especialista</span>
-          <span class="btn__dot" aria-hidden="true"></span>
-        </button>
-
-        <p class="mt-4 text-xs leading-relaxed text-cream/45">
-          Ao enviar, você vai para o nosso WhatsApp com a mensagem pronta. Usamos seus dados
-          apenas para este contato comercial.
-        </p>
-
-        <p id="form-ok" class="form__ok" role="status" hidden></p>
-        <p id="form-error" class="form__error" role="alert" hidden></p>
-      </form>
     </div>
   </div>
 </section>
@@ -2283,7 +2120,7 @@ textarea:focus-visible {
 
 
 <!-- ==========================================================================
-     K) RODAPÉ
+     RODAPÉ
      ========================================================================== -->
 <footer class="relative overflow-hidden border-t border-cream/12 pt-16 pb-8">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
@@ -2291,7 +2128,7 @@ textarea:focus-visible {
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
 
       <div>
-        <a href="#topo" class="logo logo--lg" aria-label="OSC — Gestão Empresarial e Licitações">
+        <a href="osc-landing-page.html" class="logo logo--lg" aria-label="OSC — Gestão Empresarial e Licitações">
           <span class="logo__sym">
             <svg class="mono mono--negativa" viewBox="0 0 100 100" aria-hidden="true">
               <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
@@ -2307,34 +2144,16 @@ textarea:focus-visible {
         <p class="mt-7 max-w-xs leading-relaxed text-cream/60">
           Parceria de verdade para o seu negócio ir além. Estrutura hoje, crescimento amanhã.
         </p>
-
-        <!-- EDITAR: confirme os perfis que existem e remova os que não usar -->
-        <div class="mt-8 flex gap-3">
-          <a class="social" href="https://instagram.com/osc.gestao" target="_blank" rel="noopener" aria-label="Instagram @osc.gestao">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a class="social" href="https://www.linkedin.com/company/osc.gestao" target="_blank" rel="noopener" aria-label="LinkedIn osc.gestao">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4V9Z"/></svg>
-          </a>
-          <a class="social" href="https://www.tiktok.com/@osc.gestao" target="_blank" rel="noopener" aria-label="TikTok @osc.gestao">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 2h-3v13.2a2.7 2.7 0 1 1-2.3-2.67V9.4a5.9 5.9 0 1 0 5.3 5.87V8.9a6.7 6.7 0 0 0 3.9 1.25V7.1a3.8 3.8 0 0 1-3.9-3.7V2Z"/></svg>
-          </a>
-          <a class="social js-whats" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC." target="_blank" rel="noopener" aria-label="WhatsApp">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.02 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-          </a>
-        </div>
       </div>
 
       <nav aria-label="Links rápidos">
         <p class="descriptor text-cream/40">Navegação</p>
         <ul class="mt-5 space-y-3 text-sm">
-          <li><a class="footlink" href="#valores">A OSC</a></li>
-          <li><a class="footlink" href="#problema">O cenário</a></li>
-          <li><a class="footlink" href="#metodologia">Metodologia</a></li>
-          <li><a class="footlink" href="#servicos">Serviços</a></li>
-          <li><a class="footlink" href="#setores">Para quem é</a></li>
+          <li><a class="footlink" href="osc-landing-page.html">Início</a></li>
+          <li><a class="footlink" href="osc-landing-page.html#metodologia">Metodologia</a></li>
+          <li><a class="footlink" href="osc-landing-page.html#servicos">Serviços</a></li>
           <li><a class="footlink" href="osc-guia-licitacoes.html">Guia de licitações</a></li>
-          <li><a class="footlink" href="#duvidas">Dúvidas</a></li>
+          <li><a class="footlink" href="osc-landing-page.html#duvidas">Dúvidas</a></li>
         </ul>
       </nav>
 
@@ -2344,9 +2163,8 @@ textarea:focus-visible {
           <li><a class="footlink" href="mailto:contato.osc.gestao@gmail.com">contato.osc.gestao@gmail.com</a></li>
           <li><a class="footlink js-whats" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC." target="_blank" rel="noopener">WhatsApp (86) 98837-2619</a></li>
           <li><a class="footlink" href="https://instagram.com/osc.gestao" target="_blank" rel="noopener">@osc.gestao</a></li>
-          <li><span class="text-cream/60">Atendimento em todo o Brasil</span></li>
         </ul>
-        <a href="#contato" class="btn btn--primary mt-7">
+        <a href="osc-landing-page.html#contato" class="btn btn--primary mt-7">
           <span>Fale com um especialista</span>
           <span class="btn__dot" aria-hidden="true"></span>
         </a>
@@ -2360,13 +2178,11 @@ textarea:focus-visible {
   </div>
 </footer>
 
-<!-- Botão flutuante WhatsApp -->
 <a class="wa-float js-whats" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC."
    target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.02 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
 </a>
 
-<!-- GSAP (animações) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
