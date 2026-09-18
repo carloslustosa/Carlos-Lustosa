@@ -417,11 +417,17 @@ body.is-locked { overflow: hidden; }
 .hero {
   min-height: min(100svh, 880px);
   display: flex;
+  /* "safe center" centraliza quando cabe e encosta no topo quando não cabe.
+     Só "center" empurrava o conteúdo para cima em tela baixa, e o título
+     sumia atrás do cabeçalho fixo. O navegador que não entende "safe"
+     ignora a segunda linha e fica com a primeira. */
   align-items: center;
+  align-items: safe center;
   overflow: hidden;
 }
 
-.hero-anim {
+.hero-anim { opacity: 1; }
+.js .hero-anim {
   opacity: 0;
   transform: translateY(26px);
   animation: heroIn 0.85s var(--ease-out) both;
@@ -450,13 +456,15 @@ body.is-locked { overflow: hidden; }
 /* -------------------------------------------------------------------------
    07. SCROLL REVEAL
    ---------------------------------------------------------------------- */
-[data-reveal] {
+/* Só escondemos para revelar depois se o JavaScript estiver de pé. Sem ele,
+   o conteúdo aparece normalmente — é melhor sem animação do que invisível. */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(32px);
   transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
   will-change: opacity, transform;
 }
-[data-reveal].is-visible { opacity: 1; transform: none; }
+.js [data-reveal].is-visible { opacity: 1; transform: none; }
 
 /* -------------------------------------------------------------------------
    08. VALORES — faixa institucional
@@ -1556,7 +1564,7 @@ textarea:focus-visible {
 @media print {
   #bg-canvas, .wa-float, .nav, .mobile-menu, .marquee, .toc { display: none !important; }
   body { background: #fff; color: #000; }
-  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .js [data-reveal] { opacity: 1 !important; transform: none !important; }
   .step__body, .faq__a { grid-template-rows: 1fr !important; }
   /* o guia precisa sair legível no papel */
   .prose, .prose p, .lista li, .passos li, .checklist li, .tbl td, .fases li { color: #000 !important; }
@@ -1583,7 +1591,7 @@ textarea:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .hero-anim  { opacity: 1 !important; transform: none !important; }
+  .js [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .js .hero-anim    { opacity: 1 !important; transform: none !important; }
   .btn--pulse::after { display: none; }
 }

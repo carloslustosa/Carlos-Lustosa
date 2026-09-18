@@ -788,3 +788,95 @@
   color: rgba(242, 239, 228, 0.45);
   margin-bottom: 10px;
 }
+
+/* =========================================================================
+   12. AJUSTE PARA TELA PEQUENA
+   -------------------------------------------------------------------------
+   Rótulo em IBM Plex Mono com espaçamento largo fica elegante no monitor e
+   ilegível no telefone. Aqui todo texto miúdo sobe para um tamanho que se lê
+   de braço esticado, e todo alvo de toque chega aos 44px que o dedo pede.
+   Vale até 1023px: tablet e celular deitado são segurados na mão igual,
+   e o texto ali é tão pequeno quanto no telefone em pé.
+   ========================================================================= */
+@media (max-width: 1023px) {
+
+  /* ---- Texto miúdo ---- */
+  .logo__desc        { font-size: 0.66rem; letter-spacing: 0.18em; }
+  .descriptor        { font-size: 0.78rem; letter-spacing: 0.2em; }
+  .label             { font-size: 0.76rem; letter-spacing: 0.14em; }
+  .artigo__cat       { font-size: 0.78rem; letter-spacing: 0.2em; }
+  .artigo__rodape    { font-size: 0.78rem; letter-spacing: 0.12em; }
+  .card__num         { font-size: 0.78rem; letter-spacing: 0.2em; }
+  .miniblock__n      { font-size: 0.78rem; letter-spacing: 0.2em; }
+  .setor__linha      { font-size: 0.78rem; letter-spacing: 0.18em; }
+  .setor__n          { font-size: 0.78rem; }
+  .step__num         { font-size: 0.78rem; }
+  .faq__n            { font-size: 0.78rem; }
+  .gauge__step       { font-size: 0.78rem; letter-spacing: 0.2em; }
+  .gauge__pct        { font-size: 0.9rem; }
+  .linkcard__u       { font-size: 0.78rem; }
+  .crumbs            { font-size: 0.78rem; letter-spacing: 0.12em; }
+  .carrossel__contador { font-size: 0.76rem; }
+  .rel__espera-sub   { font-size: 0.78rem !important; letter-spacing: 0.12em; }
+  .upload__dica      { font-size: 0.78rem; letter-spacing: 0.1em; }
+  .tbl th            { font-size: 0.78rem; letter-spacing: 0.12em; }
+  .tbl td            { font-size: 0.95rem; }
+  .step__tags li     { font-size: 0.78rem; letter-spacing: 0.12em; }
+  .mega__col > p:first-child,
+  .mobile-menu__grupo > p { font-size: 0.78rem; letter-spacing: 0.2em; }
+
+  /* rótulo de campo: precisa ser lido antes de digitar */
+  .field label       { font-size: 0.76rem; letter-spacing: 0.12em; }
+  .field__ajuda,
+  .field__erro       { font-size: 0.85rem; }
+  .field__obrig      { font-size: 1em; }
+
+  /* textos de apoio que o Tailwind deixa em 12px */
+  .text-xs           { font-size: 0.82rem; line-height: 1.5; }
+
+  /* ---- Alvos de toque ---- */
+  /* Link solto numa célula ou numa lista precisa de área para o dedo.
+     Link no meio de uma frase é exceção na própria norma de acessibilidade,
+     então esse fica como está para não esticar a entrelinha do texto. */
+  .crumbs a,
+  .tbl a,
+  .linkcard          { display: inline-block; padding-block: 11px; }
+  .linkcard          { display: flex; padding-block: 16px; }
+
+  .toclink           { padding-block: 14px; }
+  .logo              { padding-block: 4px; }
+
+  /* o marcador do carrossel continua pequeno aos olhos, mas ganha área
+     invisível em volta para o dedo acertar */
+  .carrossel__pontos { gap: 2px; }
+  .carrossel__ponto  {
+    width: 40px; height: 40px;
+    background: transparent;
+    display: grid;
+    place-items: center;
+  }
+  .carrossel__ponto::after {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: rgba(242, 239, 228, 0.25);
+    transition: background-color 0.28s var(--ease-out), transform 0.28s var(--ease-out);
+  }
+  .carrossel__ponto.is-ativo { background: transparent; transform: none; }
+  .carrossel__ponto.is-ativo::after { background: var(--growth); transform: scale(1.3); }
+  .carrossel--claro .carrossel__ponto::after { background: rgba(18, 48, 31, 0.2); }
+  .carrossel--claro .carrossel__ponto.is-ativo::after { background: var(--mid); }
+
+  /* ---- Respiro ---- */
+  .rel               { padding: 22px 18px; border-radius: 22px; }
+  .rel__passos li    { gap: 6px; }
+  .rel__prazo        { min-width: auto; }
+  .entrar-caixa      { border-radius: 22px; }
+}
+
+/* Telefone bem estreito: o descritor do logo sai de cena para a marca
+   não virar um amontoado. */
+@media (max-width: 359px) {
+  .logo__desc { display: none; }
+  .logo__name { font-size: 1.35rem; }
+}

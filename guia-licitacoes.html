@@ -17,37 +17,15 @@
 <meta property="og:image" content="assets/img/og-cover.svg" />
 <meta name="twitter:card" content="summary_large_image" />
 
-<!-- Google Fonts: Archivo + IBM Plex Mono -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-<!-- Tailwind CSS (CDN) -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  window.tailwind = window.tailwind || {};
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          deep:     '#12301F',
-          deeper:   '#0F1F14',
-          mid:      '#3F8A4B',
-          growth:   '#87D06A',
-          cream:    '#F2EFE4',
-          creamdim: '#E3DFD0',
-          rule:     '#CFD3C5'
-        },
-        fontFamily: {
-          sans: ['Archivo', 'system-ui', 'Segoe UI', 'sans-serif'],
-          mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace']
-        },
-        maxWidth: { shell: '1240px' }
-      }
-    }
-  };
-</script>
 
+<script>document.documentElement.className += ' js';</script>
+<!-- Fontes e CSS servidos pelo próprio site: nada de esperar terceiro para
+     a página aparecer montada. -->
+<link rel="preload" href="assets/fonts/archivo-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/archivo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="assets/css/fontes.css" />
+<link rel="stylesheet" href="assets/css/tailwind.css" />
 <link rel="stylesheet" href="assets/css/styles.css" />
 <link rel="stylesheet" href="assets/css/componentes.css" />
 </head>

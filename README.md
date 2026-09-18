@@ -12,9 +12,25 @@ construída sobre o Manual de Identidade Visual **V2.0**.
 | Camada | Tecnologia |
 |---|---|
 | Marcação | HTML5 semântico |
-| Estilo | Tailwind CSS (Play CDN) + `assets/css/styles.css` |
-| Animação | GSAP 3.12 + ScrollTrigger (CDN) e CSS/IntersectionObserver |
-| Tipografia | Archivo (400/500/600/800/900) + IBM Plex Mono (400/500) |
+| Estilo | Tailwind **compilado** (`assets/css/tailwind.css`) + CSS próprio |
+| Animação | CSS e IntersectionObserver, com GSAP opcional por CDN |
+| Tipografia | Archivo e IBM Plex Mono **hospedadas no próprio site** |
+
+### Por que o Tailwind é compilado, e não por CDN
+
+O Play CDN do Tailwind é um **script**: ele só gera o CSS depois de carregar e
+rodar. Até lá — e sempre, se o CDN falhar ou demorar — a página aparece sem
+layout nenhum: menu de celular e de computador ao mesmo tempo, sem respiro, sem
+largura máxima. Era exatamente esse o bug que o site tinha no topo.
+
+Agora o CSS é um arquivo pronto de ~39 KB, e as fontes moram em `assets/fonts/`.
+O site monta certo **sem depender de nada externo**. Só o GSAP continua vindo de
+fora, e ele é enfeite: sem ele, tudo funciona igual.
+
+> **Se você editar o HTML e usar uma classe nova do Tailwind**, rode
+> `npm run build:css` para regenerar. O `tailwind.config.js` já tem uma lista de
+> segurança com as classes mais comuns (espaçamento, cores da marca, colunas,
+> tamanhos de texto), então a maioria das edições rápidas não precisa disso.
 
 Não há build step. Duas formas de usar, com o **mesmo resultado**:
 
@@ -69,11 +85,14 @@ python3 build.py              # gera osc-landing-page.html
 |---|---|
 | `npm start` | sobe o site em `http://localhost:3000` e liga `/api/relatorio` (é o que a Hostinger executa) |
 | `npm run dev` | o mesmo, para desenvolver |
-| `npm run build` | não faz nada — o site é estático, não há o que compilar |
-| `npm run build:single` | regenera o `osc-landing-page.html` (precisa de Python 3) |
+| `npm run build` | regenera o CSS e os arquivos únicos |
+| `npm run build:css` | recompila o `assets/css/tailwind.css` |
+| `npm run watch:css` | recompila sozinho enquanto você edita o HTML |
+| `npm run build:single` | regenera as versões de arquivo único (precisa de Python 3) |
 
-Não há dependências: `npm install` não baixa nada e o `server.js` usa só o que
-já vem no Node.
+O `server.js` não tem dependência nenhuma — usa só o que vem no Node. O Tailwind
+e as fontes estão em `devDependencies`: servem para **construir** o CSS, não para
+servir o site. Em produção nada disso é carregado pelo navegador.
 
 ---
 
@@ -118,6 +137,34 @@ Se a base de clientes crescer muito, o caminho é migrar para o Supabase Storage
 Cada pessoa só enxerga e edita o próprio perfil. A regra está na Row Level
 Security do `002-contas.sql` e vale mesmo se alguém chamar a API direto, sem
 passar pelo site.
+
+---
+
+## Adaptação a celular e tablet
+
+O site é o mesmo em qualquer tela, com ajustes onde o aparelho pede:
+
+| Faixa | O que muda |
+|---|---|
+| Até 359 px | o descritor sob o logo sai, para a marca não virar amontoado |
+| Até 640 px | botões ocupam a linha inteira, cantos menores, dock de ações empilhado |
+| **Até 1023 px** | **rótulo em mono sobe para 12,5 px** e **todo alvo de toque chega a 44 px**; menu vira hambúrguer; os 8 cards de serviço viram carrossel |
+| Celular deitado | o hero perde a altura mínima e o menu vira rolável |
+| 640–1023 px | o anel da metodologia fica ao lado do texto |
+| A partir de 1024 px | menu em links com mega menu, grade de 4 colunas |
+| Sem hover | os cards já nascem no estado final |
+
+Decisões que valem registrar:
+
+- **A faixa de tipografia vai até 1023 px, não 640.** Tablet e celular deitado
+  são segurados na mão do mesmo jeito; o texto ali é tão pequeno quanto no
+  telefone em pé.
+- **Campo de formulário tem 16 px.** Abaixo disso o Safari do iPhone dá zoom
+  sozinho quando a pessoa toca no campo, e a tela sai do lugar.
+- **O marcador do carrossel continua com 8 px aos olhos**, mas tem 40 px de área
+  invisível em volta, para o dedo acertar.
+- **Link no meio de uma frase fica como está.** A própria norma de
+  acessibilidade abre exceção para ele, e esticá-lo estragaria a entrelinha.
 
 ---
 

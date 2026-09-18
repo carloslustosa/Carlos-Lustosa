@@ -49,7 +49,8 @@ const TIPOS = {
 };
 
 /* Arquivos que nunca devem ser servidos pela web */
-const BLOQUEADOS = new Set(['.git', 'node_modules', 'database', 'build.py', 'server.js', 'package.json', 'package-lock.json']);
+const BLOQUEADOS = new Set(['.git', 'node_modules', 'database', 'build.py', 'server.js',
+                            'package.json', 'package-lock.json', 'tailwind.config.js']);
 
 function ehBloqueado(relativo) {
   const primeiro = relativo.split(path.sep)[0];

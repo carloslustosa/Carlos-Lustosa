@@ -8,6 +8,8 @@ externos — precisam de internet, mas não de arquivos ao lado.
 
 Uso:  python3 build.py
 """
+import base64
+import os
 import re
 import urllib.parse
 
@@ -31,9 +33,22 @@ LINKS = {
 
 def embutir(entrada, saida):
     html = open(entrada, encoding='utf-8').read()
-    css  = open('assets/css/styles.css', encoding='utf-8').read()
-    css += '\n\n' + open('assets/css/componentes.css', encoding='utf-8').read()
     fav  = open('assets/img/favicon.svg', encoding='utf-8').read()
+
+    # As fontes viram data URI para o arquivo único funcionar sozinho mesmo
+    # aberto do disco, sem pasta ao lado e sem internet.
+    fontes = open('assets/css/fontes.css', encoding='utf-8').read()
+    for nome in sorted(os.listdir('assets/fonts')):
+        if not nome.endswith('.woff2'):
+            continue
+        dados = base64.b64encode(open('assets/fonts/' + nome, 'rb').read()).decode('ascii')
+        fontes = fontes.replace("url('../fonts/%s')" % nome,
+                                "url('data:font/woff2;base64,%s')" % dados)
+
+    css = (fontes
+           + '\n\n' + open('assets/css/tailwind.css', encoding='utf-8').read()
+           + '\n\n' + open('assets/css/styles.css', encoding='utf-8').read()
+           + '\n\n' + open('assets/css/componentes.css', encoding='utf-8').read())
 
     # favicon -> data URI
     fav_min = re.sub(r'<!--.*?-->', '', fav, flags=re.S)
@@ -48,7 +63,10 @@ def embutir(entrada, saida):
          '<!-- EDITAR: suba uma imagem 1200x630 (PNG/JPG) e aponte a URL absoluta aqui -->\n'
          '<meta property="og:image" content="https://oscgestao.com.br/og-cover.png" />'),
 
-        ('<link rel="stylesheet" href="assets/css/styles.css" />\n<link rel="stylesheet" href="assets/css/componentes.css" />',
+        ('<link rel="stylesheet" href="assets/css/fontes.css" />\n'
+         '<link rel="stylesheet" href="assets/css/tailwind.css" />\n'
+         '<link rel="stylesheet" href="assets/css/styles.css" />\n'
+         '<link rel="stylesheet" href="assets/css/componentes.css" />',
          '<style>\n' + css.rstrip() + '\n</style>'),
     ]
 
@@ -57,6 +75,9 @@ def embutir(entrada, saida):
         js = open('assets/js/' + arquivo, encoding='utf-8').read()
         trocas.append(('<script src="assets/js/%s"></script>' % arquivo,
                        '<script>\n' + js.rstrip() + '\n</script>'))
+
+    # sem arquivo de fonte ao lado, o preload apontaria para o nada
+    html = re.sub(r'<link rel="preload" href="assets/fonts/[^>]*/>\n', '', html)
 
     for velho, novo in trocas:
         ocorrencias = html.count(velho)
