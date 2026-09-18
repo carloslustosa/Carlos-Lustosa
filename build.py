@@ -15,6 +15,7 @@ import urllib.parse
 PAGINAS = [
     ('index.html',           'osc-landing-page.html'),
     ('guia-licitacoes.html', 'osc-guia-licitacoes.html'),
+    ('setores.html',         'osc-setores.html'),
 ]
 
 # entrar.html e conta.html dependem do servidor (/api/conta), então não têm
@@ -24,6 +25,7 @@ PAGINAS = [
 LINKS = {
     'index.html':           'osc-landing-page.html',
     'guia-licitacoes.html': 'osc-guia-licitacoes.html',
+    'setores.html':         'osc-setores.html',
 }
 
 

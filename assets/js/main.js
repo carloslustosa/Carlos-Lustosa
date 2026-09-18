@@ -474,6 +474,93 @@
   }
 
   /* ----------------------------------------------------------------------
+     08b. ALERTA DE EDITAIS
+     Cadastro leve: e-mail, segmento e estado. Entra no mesmo banco de leads,
+     com origem própria, para o time saber de onde veio.
+     ------------------------------------------------------------------- */
+  function initAlerta() {
+    var form = $('#alerta-form');
+    if (!form) return;
+
+    var okBox  = $('#alerta-ok');
+    var errBox = $('#alerta-erro');
+    var botao  = form.querySelector('button[type="submit"]');
+    var enviando = false;
+
+    var mostra = function (box, texto) {
+      if (!box) return;
+      box.textContent = texto || '';
+      box.hidden = !texto;
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (enviando) return;
+
+      var pega = function (n) {
+        var el = form.elements[n];
+        return el ? el.value.trim() : '';
+      };
+
+      // armadilha anti-robô: finge que deu certo, para não avisar o robô
+      if (pega('website')) { mostra(okBox, 'Pronto! Você vai receber os avisos.'); form.reset(); return; }
+
+      var falho = null;
+      $$('input[required], select[required]', form).forEach(function (f) {
+        var ok = f.value.trim() !== '' &&
+                 (f.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.value.trim()));
+        f.classList.toggle('is-invalid', !ok);
+        if (!ok && !falho) falho = f;
+      });
+      if (falho) {
+        mostra(okBox, '');
+        mostra(errBox, 'Confira os campos destacados.');
+        falho.focus();
+        return;
+      }
+      mostra(errBox, '');
+
+      var lead = {
+        nome:     'Alerta de editais',
+        empresa:  pega('empresa') || 'não informada',
+        whatsapp: '—',
+        email:    pega('email'),
+        segmento: pega('segmento') || null,
+        mensagem: 'Assinou o alerta de editais. Estado: ' + (pega('estado') || '—')
+      };
+      var origem = origemDoLead();
+      for (var k in origem) { if (origem[k]) lead[k] = origem[k]; }
+      lead.origem = 'alerta-editais';
+
+      enviando = true;
+      if (botao) botao.disabled = true;
+      mostra(okBox, 'Enviando…');
+
+      salvarLead(lead).then(function (res) {
+        enviando = false;
+        if (botao) botao.disabled = false;
+
+        if (res.ok) {
+          mostra(okBox, 'Pronto! Avisamos você quando aparecer edital do seu segmento.');
+          form.reset();
+        } else if (res.motivo === 'nao-configurado') {
+          // sem banco ligado, manda pelo WhatsApp para não perder o contato
+          var texto = 'Oi! Quero receber o alerta de editais.\n\n' +
+                      'E-mail: ' + lead.email + '\n' +
+                      'Segmento: ' + (lead.segmento || '—') + '\n' +
+                      'Estado: ' + (pega('estado') || '—');
+          window.open(whatsBase() + encodeURIComponent(texto), '_blank', 'noopener');
+          mostra(okBox, 'Abrimos o WhatsApp com seu pedido pronto. É só enviar.');
+          form.reset();
+        } else {
+          mostra(okBox, '');
+          mostra(errBox, 'Não conseguimos registrar agora. Tente de novo em alguns minutos.');
+        }
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------------
      09. ANO NO RODAPÉ
      ------------------------------------------------------------------- */
   function initYear() {
@@ -495,6 +582,7 @@
     initMarquee();
     initParallax();
     initForm();
+    initAlerta();
     initYear();
   }
 

@@ -516,3 +516,275 @@
   .conta-cabeca { flex-direction: column; align-items: flex-start; }
   .avt--3xl { --avt-tam: 96px; --avt-fonte: 2.1rem; }
 }
+
+/* -------------------------------------------------------------------------
+   08. MEGA MENU
+   Padrão de site de consultoria: o item do menu abre um painel largo com os
+   caminhos agrupados e uma linha explicando cada um. Cabe mais navegação sem
+   encher a barra de links soltos.
+   ---------------------------------------------------------------------- */
+.mega { position: relative; }
+
+.mega__gatilho {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 0;
+  padding: 6px 0;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: rgba(242, 239, 228, 0.76);
+  cursor: pointer;
+  transition: color 0.25s var(--ease-out);
+}
+.mega__gatilho:hover,
+.mega__gatilho[aria-expanded="true"] { color: var(--cream); }
+
+.mega__seta {
+  width: 10px; height: 10px;
+  transition: transform 0.3s var(--ease-out);
+}
+.mega__gatilho[aria-expanded="true"] .mega__seta { transform: rotate(180deg); }
+
+.mega__painel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 49;
+  background: var(--deeper);
+  border-top: 1px solid rgba(242, 239, 228, 0.12);
+  border-bottom: 1px solid rgba(242, 239, 228, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0.25s;
+}
+.mega__painel.is-aberto { opacity: 1; visibility: visible; transform: none; }
+
+.mega__grade {
+  margin-inline: auto;
+  max-width: 1240px;
+  padding: 36px 20px 40px;
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 900px) { .mega__grade { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: 32px; } }
+
+.mega__col > p:first-child {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--growth);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.14);
+}
+
+.mega__link {
+  display: block;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.08);
+  text-decoration: none;
+  transition: padding-left 0.25s var(--ease-out);
+}
+.mega__link:hover { padding-left: 8px; }
+.mega__link:last-child { border-bottom: 0; }
+.mega__link strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--cream);
+  transition: color 0.2s var(--ease-out);
+}
+.mega__link:hover strong { color: var(--growth); }
+.mega__link span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(242, 239, 228, 0.55);
+}
+
+/* Destaque dentro do painel */
+.mega__destaque {
+  /* coluna, e não block: os pedaços do cartão (.artigo__*) empilham sozinhos */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(135, 208, 106, 0.35);
+  border-radius: 20px;
+  padding: 22px;
+  background: rgba(18, 48, 31, 0.6);
+  text-decoration: none;
+  transition: border-color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+}
+.mega__destaque:hover { border-color: var(--growth); transform: translateY(-3px); }
+
+.mega__fundo {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: rgba(4, 18, 10, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s, visibility 0.25s;
+}
+.mega__fundo.is-aberto { opacity: 1; visibility: visible; }
+
+/* Grupos no menu do celular */
+.mobile-menu__grupo {
+  padding: 16px 0 6px;
+  border-bottom: 1px solid rgba(242, 239, 228, 0.12);
+}
+.mobile-menu__grupo > p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--growth);
+  margin-bottom: 4px;
+}
+.mobile-menu__sub {
+  display: block;
+  padding: 9px 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: rgba(242, 239, 228, 0.8);
+  text-decoration: none;
+}
+.mobile-menu__sub:hover { color: var(--growth); }
+
+/* -------------------------------------------------------------------------
+   09. BARRA DE PROGRESSO DE LEITURA
+   ---------------------------------------------------------------------- */
+.progresso {
+  position: fixed;
+  left: 0; top: 0;
+  z-index: 60;
+  height: 3px;
+  width: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+.progresso__barra {
+  height: 100%;
+  width: 0;
+  background: var(--growth);
+  transform-origin: left center;
+  transition: width 0.1s linear;
+}
+
+/* -------------------------------------------------------------------------
+   10. CARTÕES DE CONTEÚDO
+   Cartão editorial: rótulo de categoria, título, resumo e tempo de leitura.
+   ---------------------------------------------------------------------- */
+.artigo {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 24px;
+  padding: 26px;
+  text-decoration: none;
+  background: rgba(15, 31, 20, 0.45);
+  transition: border-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.artigo:hover { border-color: var(--growth); transform: translateY(-5px); }
+
+.artigo__cat {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--growth);
+}
+.artigo__titulo {
+  margin-top: 16px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--cream);
+}
+.artigo__resumo {
+  margin-top: 10px;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: rgba(242, 239, 228, 0.65);
+  flex: 1;
+}
+.artigo__rodape {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(242, 239, 228, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.45);
+}
+.artigo__ir { color: var(--growth); display: inline-flex; align-items: center; gap: 7px; }
+.artigo__ir span { width: 6px; height: 6px; border-radius: 50%; background: currentColor; transition: transform 0.28s var(--ease-out); }
+.artigo:hover .artigo__ir span { transform: translateX(4px) scale(1.3); }
+
+/* Destaque editorial: o artigo principal ocupa mais espaço */
+.artigo--destaque { border-color: rgba(135, 208, 106, 0.4); background: rgba(18, 48, 31, 0.7); padding: clamp(28px, 4vw, 44px); }
+.artigo--destaque .artigo__titulo { font-size: clamp(1.5rem, 3.2vw, 2.2rem); font-weight: 900; letter-spacing: -0.035em; }
+.artigo--destaque .artigo__resumo { font-size: 1.02rem; }
+
+/* Sobre creme */
+.artigo--claro { background: transparent; border-color: var(--rule); }
+.artigo--claro .artigo__titulo { color: var(--deep); }
+.artigo--claro .artigo__resumo { color: rgba(18, 48, 31, 0.68); }
+.artigo--claro .artigo__cat { color: var(--mid-ink); }
+.artigo--claro .artigo__rodape { border-color: rgba(18, 48, 31, 0.14); color: rgba(18, 48, 31, 0.5); }
+.artigo--claro .artigo__ir { color: var(--mid-ink); }
+.artigo--claro:hover { border-color: var(--deep); }
+
+/* -------------------------------------------------------------------------
+   11. SETOR — bloco de segmento atendido
+   ---------------------------------------------------------------------- */
+.setor {
+  border-top: 1px solid rgba(242, 239, 228, 0.16);
+  padding-top: 32px;
+  scroll-margin-top: 110px;
+}
+.setor + .setor { margin-top: 48px; }
+.setor__topo { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.setor__n {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  color: var(--growth);
+  flex: none;
+}
+.setor__nome {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--cream);
+}
+.setor__corpo { margin-top: 18px; display: grid; gap: 26px; }
+@media (min-width: 860px) { .setor__corpo { grid-template-columns: 1.1fr 1fr; gap: 40px; } }
+.setor__linha {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.45);
+  margin-bottom: 10px;
+}

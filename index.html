@@ -56,6 +56,7 @@
 <body class="font-sans text-cream antialiased">
 
 <!-- Fundo interativo: cor sólida + campo de monogramas da marca em canvas -->
+<div class="progresso" aria-hidden="true"><div class="progresso__barra" id="progresso-barra"></div></div>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
 <!-- ==========================================================================
@@ -78,13 +79,24 @@
       </span>
     </a>
 
-    <nav class="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Navegação principal">
-      <a href="#valores"       class="navlink">A OSC</a>
-      <a href="#metodologia"   class="navlink">Metodologia</a>
-      <a href="#servicos"      class="navlink">Serviços</a>
-      <a href="#diagnostico"   class="navlink">Diagnóstico IA</a>
-      <a href="guia-licitacoes.html" class="navlink">Guia</a>
-      <a href="#duvidas"       class="navlink">Dúvidas</a>
+    <nav class="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Navegação principal">
+      <a href="#valores" class="navlink">A OSC</a>
+
+      <span class="mega">
+        <button type="button" class="mega__gatilho" data-mega="mega-solucoes">
+          Soluções
+          <svg class="mega__seta" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4.5L6 8.5l4-4"/></svg>
+        </button>
+      </span>
+
+      <span class="mega">
+        <button type="button" class="mega__gatilho" data-mega="mega-conteudo">
+          Conteúdo
+          <svg class="mega__seta" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4.5L6 8.5l4-4"/></svg>
+        </button>
+      </span>
+
+      <a href="#diagnostico" class="navlink">Diagnóstico IA</a>
     </nav>
 
     <div class="flex items-center gap-3">
@@ -103,17 +115,95 @@
   <div class="nav__line" aria-hidden="true"></div>
 </header>
 
-<!-- Menu mobile -->
+<!-- Painel: Soluções -->
+<div class="mega__painel" id="mega-solucoes">
+  <div class="mega__grade">
+    <div class="mega__col">
+      <p>Gestão empresarial</p>
+      <a class="mega__link" href="#servicos"><strong>Diagnóstico e reestruturação</strong><span>Leitura do negócio e o plano do que arrumar primeiro.</span></a>
+      <a class="mega__link" href="#servicos"><strong>Documentação e regularidade</strong><span>Certidões e obrigações em dia, com aviso de vencimento.</span></a>
+      <a class="mega__link" href="#servicos"><strong>Compliance e governança</strong><span>A empresa pronta para auditoria.</span></a>
+      <a class="mega__link" href="#servicos"><strong>Processos e precificação</strong><span>Custo real na ponta do lápis e preço que fecha a conta.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Licitações</p>
+      <a class="mega__link" href="#servicos"><strong>Cadastro em portais e SICAF</strong><span>Habilitada onde as compras acontecem.</span></a>
+      <a class="mega__link" href="#servicos"><strong>Análise e seleção de editais</strong><span>Só o que vale disputar chega até você.</span></a>
+      <a class="mega__link" href="#servicos"><strong>Disputa, impugnação e recurso</strong><span>Proposta, sessão e defesa técnica.</span></a>
+      <a class="mega__link" href="#servicos"><strong>Gestão de contratos públicos</strong><span>Prazos, aditivos e entregas sob controle.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Comece por aqui</p>
+      <a class="mega__destaque" href="#diagnostico">
+        <span class="artigo__cat">Gratuito</span>
+        <strong class="artigo__titulo" style="font-size:1.2rem">Diagnóstico com IA</strong>
+        <span class="artigo__resumo">Oito perguntas e você recebe na tela o potencial da sua empresa no mercado público.</span>
+        <span class="artigo__rodape" style="margin-top:16px">
+          <span>2 minutos</span>
+          <span class="artigo__ir">Gerar <span></span></span>
+        </span>
+      </a>
+      <a class="mega__link" href="#metodologia" style="margin-top:14px"><strong>Como trabalhamos</strong><span>Os três degraus: diagnóstico, estruturação e crescimento.</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- Painel: Conteúdo -->
+<div class="mega__painel" id="mega-conteudo">
+  <div class="mega__grade">
+    <div class="mega__col">
+      <p>Aprender</p>
+      <a class="mega__link" href="guia-licitacoes.html"><strong>Guia de licitações</strong><span>Do cadastro à assinatura do contrato, em português.</span></a>
+      <a class="mega__link" href="setores.html"><strong>Setores que atendemos</strong><span>O que o governo compra em nove segmentos.</span></a>
+      <a class="mega__link" href="#duvidas"><strong>Dúvidas frequentes</strong><span>As perguntas que todo empresário faz antes de começar.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Entender o cenário</p>
+      <a class="mega__link" href="#problema"><strong>O cenário do mercado público</strong><span>Por que boas empresas ficam de fora da disputa.</span></a>
+      <a class="mega__link" href="#como-funciona"><strong>Como funciona uma licitação</strong><span>O caminho em quatro passos.</span></a>
+      <a class="mega__link" href="#valores"><strong>A essência da OSC</strong><span>Clareza, método, presença e ambição.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Receber por e-mail</p>
+      <a class="mega__destaque" href="#alerta">
+        <span class="artigo__cat">Sem custo</span>
+        <strong class="artigo__titulo" style="font-size:1.2rem">Alerta de editais</strong>
+        <span class="artigo__resumo">Diga seu segmento e seu estado. Avisamos quando aparecer oportunidade que dá para disputar.</span>
+        <span class="artigo__rodape" style="margin-top:16px">
+          <span>1 minuto</span>
+          <span class="artigo__ir">Assinar <span></span></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Menu do celular -->
 <div id="mobile-menu" class="mobile-menu" hidden>
   <nav class="mobile-menu__inner" aria-label="Navegação mobile">
-    <a href="#valores"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> A OSC</a>
-    <a href="#problema"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> O cenário</a>
-    <a href="#metodologia" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Metodologia</a>
-    <a href="#servicos"    class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Serviços</a>
-    <a href="#como-funciona" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Como funciona</a>
+    <a href="#valores" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> A OSC</a>
+
+    <div class="mobile-menu__grupo">
+      <p>Soluções</p>
+      <a class="mobile-menu__sub" href="#servicos">Gestão empresarial</a>
+      <a class="mobile-menu__sub" href="#servicos">Licitações</a>
+      <a class="mobile-menu__sub" href="#metodologia">Como trabalhamos</a>
+    </div>
+
+    <div class="mobile-menu__grupo">
+      <p>Conteúdo</p>
+      <a class="mobile-menu__sub" href="guia-licitacoes.html">Guia de licitações</a>
+      <a class="mobile-menu__sub" href="setores.html">Setores que atendemos</a>
+      <a class="mobile-menu__sub" href="#duvidas">Dúvidas frequentes</a>
+    </div>
+
     <a href="#diagnostico" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Diagnóstico IA</a>
-    <a href="guia-licitacoes.html" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Guia</a>
-    <a href="#duvidas"     class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Dúvidas</a>
+    <a href="#alerta" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Alerta de editais</a>
+
     <a href="#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
       <span>Fale com um especialista</span>
       <span class="btn__dot" aria-hidden="true"></span>
@@ -866,14 +956,184 @@
     </div>
   </div>
 
-  <p class="mx-auto mt-12 max-w-shell px-5 text-sm text-cream/55 md:px-8" data-reveal>
-    Não achou o seu segmento? Fale com a gente — a lista é maior do que cabe aqui.
-  </p>
+  <div class="mx-auto mt-12 flex max-w-shell flex-col items-start gap-5 px-5 sm:flex-row sm:items-center sm:justify-between md:px-8" data-reveal>
+    <p class="text-sm text-cream/55">
+      Cada segmento tem uma lógica própria. Escrevemos a de nove deles.
+    </p>
+    <a href="setores.html" class="btn btn--ghost">
+      <span>Ver os setores em detalhe</span>
+      <span class="btn__dot" aria-hidden="true"></span>
+    </a>
+  </div>
 </section>
 
 
 <!-- ==========================================================================
-     J) DÚVIDAS — Verde profundo
+     J) CONTEÚDO — o que publicamos
+     ========================================================================== -->
+<section id="conteudo" class="section sec-solid bg-cream text-deep">
+  <div class="mx-auto max-w-shell px-5 md:px-8">
+
+    <header class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-reveal>
+      <div class="max-w-2xl">
+        <p class="label label--dark">
+          <span class="osc-ring osc-ring--sm" style="--ring-color:#2F6A3A" aria-hidden="true"></span>
+          Conteúdo
+        </p>
+        <h2 class="h-display mt-6 text-[clamp(2rem,5vw,3.5rem)]">
+          O que sabemos, escrito por extenso.
+        </h2>
+      </div>
+      <p class="max-w-sm leading-relaxed text-deep/65">
+        Material aberto, sem cadastro e sem pegadinha. Se resolver o seu problema sozinho,
+        ótimo. Se der trabalho demais, a gente faz com você.
+      </p>
+    </header>
+
+    <div class="mt-14 grid gap-6 lg:grid-cols-[1.35fr_1fr]" data-reveal>
+
+      <a href="guia-licitacoes.html" class="artigo artigo--claro artigo--destaque">
+        <span class="artigo__cat">Guia completo</span>
+        <span class="artigo__titulo">Como funciona uma licitação pública</span>
+        <span class="artigo__resumo">
+          Do cadastro à assinatura do contrato: as fases do processo, as modalidades da
+          Lei 14.133/2021, onde achar editais, os documentos de habilitação, o que muda
+          para ME e EPP, prazos de recurso e um checklist da primeira disputa.
+        </span>
+        <span class="artigo__rodape">
+          <span>12 capítulos · leitura de 15 min</span>
+          <span class="artigo__ir">Ler o guia <span></span></span>
+        </span>
+      </a>
+
+      <div class="grid gap-6">
+        <a href="setores.html" class="artigo artigo--claro">
+          <span class="artigo__cat">Setores</span>
+          <span class="artigo__titulo">O que o governo compra no seu segmento</span>
+          <span class="artigo__resumo">
+            Nove setores, quem compra em cada um, o que costuma ser exigido e onde as
+            empresas mais perdem.
+          </span>
+          <span class="artigo__rodape">
+            <span>9 setores</span>
+            <span class="artigo__ir">Ver setores <span></span></span>
+          </span>
+        </a>
+
+        <a href="#diagnostico" class="artigo artigo--claro">
+          <span class="artigo__cat">Ferramenta</span>
+          <span class="artigo__titulo">Diagnóstico da sua empresa com IA</span>
+          <span class="artigo__resumo">
+            Oito perguntas e você recebe na tela o nível de maturidade do seu negócio e um
+            plano com prazos.
+          </span>
+          <span class="artigo__rodape">
+            <span>2 minutos · gratuito</span>
+            <span class="artigo__ir">Gerar agora <span></span></span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     K) ALERTA DE EDITAIS
+     ========================================================================== -->
+<section id="alerta" class="relative overflow-hidden border-y border-cream/12 py-20 md:py-24">
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
+
+      <div data-reveal>
+        <p class="label label--growth">
+          <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
+          Alerta de editais
+        </p>
+        <h2 class="h-display mt-6 text-[clamp(1.8rem,4.2vw,2.8rem)]">
+          Oportunidade boa não espera você descobrir.
+        </h2>
+        <p class="mt-6 max-w-md leading-relaxed text-cream/70">
+          Diga o seu segmento e o seu estado. Quando aparecer edital que a sua empresa
+          consegue disputar, a gente avisa. Sem custo e sem compromisso — você sai quando
+          quiser.
+        </p>
+        <ul class="guidelist mt-8">
+          <li>Só o que faz sentido para o seu porte e segmento</li>
+          <li>Com o prazo destacado, para não perder a data</li>
+          <li>Sem spam: avisamos quando tem, não toda semana</li>
+        </ul>
+      </div>
+
+      <form id="alerta-form" class="form" data-reveal data-reveal-delay="120" novalidate>
+        <p class="descriptor text-cream/45">Quero receber</p>
+
+        <div class="mt-7 grid gap-5 sm:grid-cols-2">
+          <div class="field sm:col-span-2">
+            <label for="a-email">E-mail <span class="field__obrig">*</span></label>
+            <input id="a-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
+          </div>
+          <div class="field">
+            <label for="a-segmento">Segmento <span class="field__obrig">*</span></label>
+            <select id="a-segmento" name="segmento" required>
+              <option value="">Selecione</option>
+              <option>Serviços terceirizados</option>
+              <option>Obras e engenharia</option>
+              <option>Fornecimento de materiais</option>
+              <option>Tecnologia e software</option>
+              <option>Alimentação</option>
+              <option>Locação de equipamentos</option>
+              <option>Saúde e hospitalar</option>
+              <option>Limpeza e conservação</option>
+              <option>Transporte e logística</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="a-estado">Estado <span class="field__obrig">*</span></label>
+            <select id="a-estado" name="estado" required>
+              <option value="">Selecione</option>
+              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+              <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+              <option>SP</option><option>SE</option><option>TO</option>
+              <option>Todo o Brasil</option>
+            </select>
+          </div>
+          <div class="field sm:col-span-2">
+            <label for="a-empresa">Empresa</label>
+            <input id="a-empresa" name="empresa" type="text" autocomplete="organization" placeholder="Opcional" />
+          </div>
+
+          <!-- Armadilha anti-robô -->
+          <div class="field form__trap" aria-hidden="true">
+            <label for="a-website">Não preencha este campo</label>
+            <input id="a-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--lg mt-7 w-full justify-center">
+          <span>Quero receber os editais</span>
+          <span class="btn__dot" aria-hidden="true"></span>
+        </button>
+
+        <p class="mt-4 text-xs leading-relaxed text-cream/45">
+          Usamos seu e-mail só para o alerta e para o contato comercial. Não repassamos a ninguém.
+        </p>
+
+        <p id="alerta-ok" class="form__ok" role="status" hidden></p>
+        <p id="alerta-erro" class="form__error" role="alert" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- ==========================================================================
+     L) DÚVIDAS — Verde profundo
      ========================================================================== -->
 <section id="duvidas" class="section relative overflow-hidden">
 
@@ -982,7 +1242,7 @@
 
 
 <!-- ==========================================================================
-     K) CONTATO
+     M) CONTATO
      ========================================================================== -->
 <section id="contato" class="section relative overflow-hidden">
 
@@ -1100,7 +1360,7 @@
 <footer class="relative overflow-hidden border-t border-cream/12 pt-16 pb-8">
   <div class="relative mx-auto max-w-shell px-5 md:px-8">
 
-    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
+    <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-10">
 
       <div>
         <a href="#topo" class="logo logo--lg" aria-label="OSC — Gestão Empresarial e Licitações">
@@ -1137,17 +1397,24 @@
         </div>
       </div>
 
-      <nav aria-label="Links rápidos">
-        <p class="descriptor text-cream/40">Navegação</p>
+      <nav aria-label="Soluções">
+        <p class="descriptor text-cream/40">Soluções</p>
         <ul class="mt-5 space-y-3 text-sm">
-          <li><a class="footlink" href="#valores">A OSC</a></li>
-          <li><a class="footlink" href="#problema">O cenário</a></li>
+          <li><a class="footlink" href="#servicos">Gestão empresarial</a></li>
+          <li><a class="footlink" href="#servicos">Licitações</a></li>
           <li><a class="footlink" href="#metodologia">Metodologia</a></li>
-          <li><a class="footlink" href="#servicos">Serviços</a></li>
-          <li><a class="footlink" href="#setores">Para quem é</a></li>
           <li><a class="footlink" href="#diagnostico">Diagnóstico com IA</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Conteúdo">
+        <p class="descriptor text-cream/40">Conteúdo</p>
+        <ul class="mt-5 space-y-3 text-sm">
           <li><a class="footlink" href="guia-licitacoes.html">Guia de licitações</a></li>
-          <li><a class="footlink" href="#duvidas">Dúvidas</a></li>
+          <li><a class="footlink" href="setores.html">Setores que atendemos</a></li>
+          <li><a class="footlink" href="#como-funciona">Como funciona</a></li>
+          <li><a class="footlink" href="#duvidas">Dúvidas frequentes</a></li>
+          <li><a class="footlink" href="#alerta">Alerta de editais</a></li>
         </ul>
       </nav>
 
@@ -1157,12 +1424,9 @@
           <li><a class="footlink" href="mailto:contato.osc.gestao@gmail.com">contato.osc.gestao@gmail.com</a></li>
           <li><a class="footlink js-whats" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC." target="_blank" rel="noopener">WhatsApp (86) 98837-2619</a></li>
           <li><a class="footlink" href="https://instagram.com/osc.gestao" target="_blank" rel="noopener">@osc.gestao</a></li>
+          <li><a class="footlink" href="entrar.html">Entrar na minha conta</a></li>
           <li><span class="text-cream/60">Atendimento em todo o Brasil</span></li>
         </ul>
-        <a href="#contato" class="btn btn--primary mt-7">
-          <span>Fale com um especialista</span>
-          <span class="btn__dot" aria-hidden="true"></span>
-        </a>
       </div>
     </div>
 

@@ -306,3 +306,103 @@
     iniciarTudo(document);
   }
 })();
+
+/* ==========================================================================
+   OSC — Mega menu e barra de progresso
+   Carregado depois do bloco principal, no mesmo arquivo.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ----------------------------------------------------------------------
+     MEGA MENU
+     Abre no clique (não no passar do mouse: no toque não existe hover, e
+     abrir sem querer atrapalha mais do que ajuda). Fecha no Esc, no clique
+     fora e ao escolher um caminho.
+     ------------------------------------------------------------------- */
+  function iniciarMega() {
+    var gatilhos = $$('[data-mega]');
+    if (!gatilhos.length) return;
+
+    var fundo = $('.mega__fundo');
+    if (!fundo) {
+      fundo = document.createElement('div');
+      fundo.className = 'mega__fundo';
+      document.body.appendChild(fundo);
+    }
+
+    var aberto = null;
+
+    function posicionar(painel) {
+      var nav = $('#navbar');
+      var alturaNav = nav ? nav.getBoundingClientRect().bottom : 72;
+      painel.style.top = Math.round(alturaNav) + 'px';
+    }
+
+    function fechar() {
+      if (!aberto) return;
+      aberto.painel.classList.remove('is-aberto');
+      aberto.gatilho.setAttribute('aria-expanded', 'false');
+      fundo.classList.remove('is-aberto');
+      aberto = null;
+    }
+
+    function abrir(gatilho, painel) {
+      fechar();
+      posicionar(painel);
+      painel.classList.add('is-aberto');
+      gatilho.setAttribute('aria-expanded', 'true');
+      fundo.classList.add('is-aberto');
+      aberto = { gatilho: gatilho, painel: painel };
+    }
+
+    gatilhos.forEach(function (g) {
+      var painel = $('#' + g.getAttribute('data-mega'));
+      if (!painel) return;
+
+      g.setAttribute('aria-expanded', 'false');
+      g.setAttribute('aria-controls', painel.id);
+
+      g.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (aberto && aberto.gatilho === g) fechar();
+        else abrir(g, painel);
+      });
+
+      painel.addEventListener('click', function (e) { e.stopPropagation(); });
+      $$('a', painel).forEach(function (a) { a.addEventListener('click', fechar); });
+    });
+
+    document.addEventListener('click', fechar);
+    fundo.addEventListener('click', fechar);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fechar(); });
+    window.addEventListener('scroll', function () { if (aberto) posicionar(aberto.painel); }, { passive: true });
+    window.addEventListener('resize', fechar);
+  }
+
+  /* ----------------------------------------------------------------------
+     BARRA DE PROGRESSO DE LEITURA
+     Só aparece em página longa — numa curta ela não diz nada.
+     ------------------------------------------------------------------- */
+  function iniciarProgresso() {
+    var barra = $('#progresso-barra');
+    if (!barra) return;
+
+    function medir() {
+      var total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total < 800) { barra.style.width = '0%'; return; }
+      var pct = Math.min(100, Math.max(0, (window.scrollY / total) * 100));
+      barra.style.width = pct.toFixed(1) + '%';
+    }
+    medir();
+    window.addEventListener('scroll', medir, { passive: true });
+    window.addEventListener('resize', medir);
+  }
+
+  function boot() { iniciarMega(); iniciarProgresso(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();

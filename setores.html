@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Setores que atendemos | OSC Gestão Empresarial e Licitações</title>
+<meta name="description" content="Como funciona o mercado público em nove setores: serviços terceirizados, obras, materiais, tecnologia, alimentação, locação, saúde, transporte e uniformes. O que cada um exige e onde as empresas tropeçam." />
+<meta name="theme-color" content="#12301F" />
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+<link rel="canonical" href="https://oscgestao.com.br/setores.html" />
+
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:title" content="Setores que atendemos | OSC" />
+<meta property="og:description" content="O que o poder público compra no seu segmento, quem compra e o que costuma ser exigido." />
+<meta property="og:image" content="assets/img/og-cover.svg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  window.tailwind = window.tailwind || {};
+  tailwind.config = { theme: { extend: {
+    colors: { deep:'#12301F', deeper:'#0F1F14', mid:'#3F8A4B', growth:'#87D06A', cream:'#F2EFE4', creamdim:'#E3DFD0', rule:'#CFD3C5' },
+    fontFamily: { sans:['Archivo','system-ui','Segoe UI','sans-serif'], mono:['"IBM Plex Mono"','ui-monospace','monospace'] },
+    maxWidth: { shell:'1240px' }
+  }}};
+</script>
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+<link rel="stylesheet" href="assets/css/componentes.css" />
+</head>
+
+<body class="font-sans text-cream antialiased">
+
+<div class="progresso" aria-hidden="true"><div class="progresso__barra" id="progresso-barra"></div></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header id="navbar" class="nav fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-4 md:px-8">
+
+    <a href="index.html" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
+      <span class="logo__sym">
+        <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
+        </svg>
+      </span>
+      <span class="logo__txt">
+        <span class="logo__name">OSC</span>
+        <span class="logo__desc">Gestão e Licitações</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Navegação principal">
+      <a href="index.html#valores" class="navlink">A OSC</a>
+
+      <span class="mega">
+        <button type="button" class="mega__gatilho" data-mega="mega-solucoes">
+          Soluções
+          <svg class="mega__seta" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4.5L6 8.5l4-4"/></svg>
+        </button>
+      </span>
+
+      <span class="mega">
+        <button type="button" class="mega__gatilho" data-mega="mega-conteudo">
+          Conteúdo
+          <svg class="mega__seta" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 4.5L6 8.5l4-4"/></svg>
+        </button>
+      </span>
+
+      <a href="index.html#diagnostico" class="navlink">Diagnóstico IA</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="index.html#contato" class="btn btn--primary hidden sm:inline-flex">
+        <span>Fale com um especialista</span>
+        <span class="btn__dot" aria-hidden="true"></span>
+      </a>
+
+      <span id="conta-topo"></span>
+
+      <button id="menu-toggle" class="burger lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav__line" aria-hidden="true"></div>
+</header>
+
+<!-- Painel: Soluções -->
+<div class="mega__painel" id="mega-solucoes">
+  <div class="mega__grade">
+    <div class="mega__col">
+      <p>Gestão empresarial</p>
+      <a class="mega__link" href="index.html#servicos"><strong>Diagnóstico e reestruturação</strong><span>Leitura do negócio e o plano do que arrumar primeiro.</span></a>
+      <a class="mega__link" href="index.html#servicos"><strong>Documentação e regularidade</strong><span>Certidões e obrigações em dia, com aviso de vencimento.</span></a>
+      <a class="mega__link" href="index.html#servicos"><strong>Compliance e governança</strong><span>A empresa pronta para auditoria.</span></a>
+      <a class="mega__link" href="index.html#servicos"><strong>Processos e precificação</strong><span>Custo real na ponta do lápis e preço que fecha a conta.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Licitações</p>
+      <a class="mega__link" href="index.html#servicos"><strong>Cadastro em portais e SICAF</strong><span>Habilitada onde as compras acontecem.</span></a>
+      <a class="mega__link" href="index.html#servicos"><strong>Análise e seleção de editais</strong><span>Só o que vale disputar chega até você.</span></a>
+      <a class="mega__link" href="index.html#servicos"><strong>Disputa, impugnação e recurso</strong><span>Proposta, sessão e defesa técnica.</span></a>
+      <a class="mega__link" href="index.html#servicos"><strong>Gestão de contratos públicos</strong><span>Prazos, aditivos e entregas sob controle.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Comece por aqui</p>
+      <a class="mega__destaque" href="index.html#diagnostico">
+        <span class="artigo__cat">Gratuito</span>
+        <strong class="artigo__titulo" style="font-size:1.2rem">Diagnóstico com IA</strong>
+        <span class="artigo__resumo">Oito perguntas e você recebe na tela o potencial da sua empresa no mercado público.</span>
+        <span class="artigo__rodape" style="margin-top:16px">
+          <span>2 minutos</span>
+          <span class="artigo__ir">Gerar <span></span></span>
+        </span>
+      </a>
+      <a class="mega__link" href="index.html#metodologia" style="margin-top:14px"><strong>Como trabalhamos</strong><span>Os três degraus: diagnóstico, estruturação e crescimento.</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- Painel: Conteúdo -->
+<div class="mega__painel" id="mega-conteudo">
+  <div class="mega__grade">
+    <div class="mega__col">
+      <p>Aprender</p>
+      <a class="mega__link" href="guia-licitacoes.html"><strong>Guia de licitações</strong><span>Do cadastro à assinatura do contrato, em português.</span></a>
+      <a class="mega__link" href="setores.html"><strong>Setores que atendemos</strong><span>O que o governo compra em nove segmentos.</span></a>
+      <a class="mega__link" href="index.html#duvidas"><strong>Dúvidas frequentes</strong><span>As perguntas que todo empresário faz antes de começar.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Entender o cenário</p>
+      <a class="mega__link" href="index.html#problema"><strong>O cenário do mercado público</strong><span>Por que boas empresas ficam de fora da disputa.</span></a>
+      <a class="mega__link" href="index.html#como-funciona"><strong>Como funciona uma licitação</strong><span>O caminho em quatro passos.</span></a>
+      <a class="mega__link" href="index.html#valores"><strong>A essência da OSC</strong><span>Clareza, método, presença e ambição.</span></a>
+    </div>
+
+    <div class="mega__col">
+      <p>Receber por e-mail</p>
+      <a class="mega__destaque" href="index.html#alerta">
+        <span class="artigo__cat">Sem custo</span>
+        <strong class="artigo__titulo" style="font-size:1.2rem">Alerta de editais</strong>
+        <span class="artigo__resumo">Diga seu segmento e seu estado. Avisamos quando aparecer oportunidade que dá para disputar.</span>
+        <span class="artigo__rodape" style="margin-top:16px">
+          <span>1 minuto</span>
+          <span class="artigo__ir">Assinar <span></span></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Menu do celular -->
+<div id="mobile-menu" class="mobile-menu" hidden>
+  <nav class="mobile-menu__inner" aria-label="Navegação mobile">
+    <a href="index.html#valores" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> A OSC</a>
+
+    <div class="mobile-menu__grupo">
+      <p>Soluções</p>
+      <a class="mobile-menu__sub" href="index.html#servicos">Gestão empresarial</a>
+      <a class="mobile-menu__sub" href="index.html#servicos">Licitações</a>
+      <a class="mobile-menu__sub" href="index.html#metodologia">Como trabalhamos</a>
+    </div>
+
+    <div class="mobile-menu__grupo">
+      <p>Conteúdo</p>
+      <a class="mobile-menu__sub" href="guia-licitacoes.html">Guia de licitações</a>
+      <a class="mobile-menu__sub" href="setores.html">Setores que atendemos</a>
+      <a class="mobile-menu__sub" href="index.html#duvidas">Dúvidas frequentes</a>
+    </div>
+
+    <a href="index.html#diagnostico" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Diagnóstico IA</a>
+    <a href="index.html#alerta" class="mobile-menu__link"><span class="osc-ring osc-ring--sm" aria-hidden="true"></span> Alerta de editais</a>
+
+    <a href="index.html#contato" class="btn btn--primary btn--lg mt-8 w-full justify-center">
+      <span>Fale com um especialista</span>
+      <span class="btn__dot" aria-hidden="true"></span>
+    </a>
+  </nav>
+</div>
+
+<main id="topo">
+
+<section class="relative pt-32 pb-14 md:pt-40 md:pb-16">
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+    <nav class="crumbs" aria-label="Você está em">
+      <a href="index.html">Início</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Setores</span>
+    </nav>
+
+    <p class="label label--growth mt-8">
+      <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
+      Setores que atendemos
+    </p>
+
+    <h1 class="h-display mt-7 max-w-4xl text-[clamp(2.2rem,6vw,4.2rem)]">
+      O que o governo compra no seu segmento.
+    </h1>
+
+    <p class="h-sub mt-7 max-w-2xl text-lg text-cream/85 md:text-xl">
+      Nove setores, o que cada um exige e onde as empresas costumam perder.
+    </p>
+
+    <p class="mt-5 max-w-2xl leading-relaxed text-cream/65">
+      Cada mercado tem uma lógica própria: quem compra, com que frequência, sob quais
+      exigências. Conhecer a do seu segmento encurta muito o caminho da primeira disputa.
+    </p>
+  </div>
+</section>
+
+<section class="pb-20 md:pb-28">
+  <div class="mx-auto max-w-shell px-5 md:px-8">
+    <div class="guide">
+
+      <aside class="toc" aria-label="Setores">
+        <p class="descriptor text-cream/45">Nesta página</p>
+        <nav class="toc__list mt-5">
+          <a class="toclink" href="#servicos-terceirizados">Serviços terceirizados</a>
+          <a class="toclink" href="#obras-engenharia">Obras e engenharia</a>
+          <a class="toclink" href="#materiais">Fornecimento de materiais e mobiliário</a>
+          <a class="toclink" href="#tecnologia">Tecnologia e software</a>
+          <a class="toclink" href="#alimentacao">Alimentação</a>
+          <a class="toclink" href="#locacao">Locação de equipamentos e frota</a>
+          <a class="toclink" href="#saude">Saúde e hospitalar</a>
+          <a class="toclink" href="#transporte">Transporte e logística</a>
+          <a class="toclink" href="#uniformes-epi">Uniformes e EPI</a>
+        </nav>
+      </aside>
+
+      <div class="prose" style="max-width:none">
+        <article class="setor" id="servicos-terceirizados" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">01</span>
+            <h2 class="setor__nome">Serviços terceirizados</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Limpeza, portaria, recepção, copeiragem, apoio administrativo e manutenção predial.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">É o segmento que mais movimenta contrato continuado no país. Órgão público não costuma ter equipe própria para essas funções: contrata por 12 meses, com renovação.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Atestado de capacidade técnica com número de postos parecido</li>
+              <li>Comprovação de regularidade trabalhista e do FGTS em dia</li>
+              <li>Planilha de custo aberta, posto a posto</li>
+              <li>Capital de giro para bancar folha antes do primeiro pagamento</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Prefeituras e secretarias municipais</li>
+              <li>Tribunais e Ministério Público</li>
+              <li>Universidades e institutos federais</li>
+              <li>Hospitais e unidades de saúde</li>
+              <li>Autarquias e agências reguladoras</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Montar preço sem contar o intervalo entre a folha e o pagamento do órgão. Contrato de mão de obra exige caixa: a empresa paga a equipe todo mês e recebe depois.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="obras-engenharia" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">02</span>
+            <h2 class="setor__nome">Obras e engenharia</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Reforma, construção, pavimentação, instalações e manutenção predial de maior porte.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">Vai de pequena reforma até obra grande. Em regra é concorrência, não pregão, e o critério nem sempre é só o menor preço.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Registro da empresa e do responsável técnico no CREA ou CAU</li>
+              <li>Acervo técnico compatível com o objeto</li>
+              <li>Qualificação econômico-financeira, com índices mínimos de balanço</li>
+              <li>Garantia de proposta e de execução, conforme o edital</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Prefeituras e governos estaduais</li>
+              <li>DNIT e departamentos de estrada</li>
+              <li>Secretarias de educação e saúde</li>
+              <li>Companhias de habitação</li>
+              <li>Universidades federais</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Assumir obra sem conferir o projeto básico. Projeto malfeito vira aditivo — e aditivo depende de aprovação, não de boa vontade.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="materiais" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">03</span>
+            <h2 class="setor__nome">Fornecimento de materiais e mobiliário</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Material de escritório, de limpeza, mobiliário, equipamentos e insumos em geral.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">É a porta de entrada mais comum para quem nunca disputou. Muita compra sai por registro de preços, o que espalha a demanda ao longo do ano.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Catálogo e ficha técnica que batam com a descrição do edital</li>
+              <li>Amostra, quando exigida — e o prazo é curto</li>
+              <li>Prova de que o produto atende à norma técnica citada</li>
+              <li>Logística de entrega no prazo e no local certos</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Todas as esferas, em volume alto</li>
+              <li>Escolas e secretarias de educação</li>
+              <li>Hospitais e unidades de saúde</li>
+              <li>Quartéis e órgãos de segurança</li>
+              <li>Câmaras e assembleias</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Ofertar um produto 'equivalente' que não atende à especificação ao pé da letra. No mercado público, equivalente não basta: tem que cumprir o que está escrito.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="tecnologia" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">04</span>
+            <h2 class="setor__nome">Tecnologia e software</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Sistemas, licenças, suporte, infraestrutura, redes e equipamentos de informática.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">Cresce todo ano e costuma valorizar técnica além de preço. Contrato de suporte e manutenção dá receita recorrente.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Atestado de projeto parecido, com porte comprovado</li>
+              <li>Certificações do fabricante, quando o edital pede</li>
+              <li>Equipe técnica com vínculo comprovado</li>
+              <li>Plano de suporte com prazo de atendimento definido</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Tribunais e Ministério Público</li>
+              <li>Secretarias de administração e fazenda</li>
+              <li>Universidades e institutos de pesquisa</li>
+              <li>Empresas públicas de processamento de dados</li>
+              <li>Prefeituras de porte médio e grande</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Subestimar o nível de serviço cobrado no contrato. Multa por atraso de atendimento come a margem rápido.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="alimentacao" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">05</span>
+            <h2 class="setor__nome">Alimentação</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Merenda escolar, refeições prontas, gêneros alimentícios e serviços de cozinha.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">Demanda constante e previsível: escola, hospital e presídio comem todo dia. É um dos segmentos com mais contrato continuado.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Alvará sanitário em dia</li>
+              <li>Responsável técnico, quando exigido</li>
+              <li>Estrutura de cozinha ou de distribuição compatível</li>
+              <li>Rastreabilidade e controle de qualidade documentados</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Secretarias de educação</li>
+              <li>Hospitais e unidades de saúde</li>
+              <li>Sistema prisional</li>
+              <li>Forças armadas</li>
+              <li>Creches e instituições de acolhimento</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Ignorar a exigência de percentual de agricultura familiar, quando o edital traz. Ela muda a cadeia de fornecimento e o preço.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="locacao" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">06</span>
+            <h2 class="setor__nome">Locação de equipamentos e frota</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Veículos, máquinas, impressoras, equipamentos de obra, geradores e estruturas.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">Contrato longo e receita previsível. O órgão prefere alugar a comprar, porque manutenção e substituição ficam com a contratada.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Comprovar propriedade ou disponibilidade do bem</li>
+              <li>Plano de manutenção e substituição em caso de pane</li>
+              <li>Seguro compatível com o objeto</li>
+              <li>Capacidade de atender o prazo de reposição do edital</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Prefeituras e secretarias de obras</li>
+              <li>Órgãos de segurança e defesa civil</li>
+              <li>Hospitais</li>
+              <li>Secretarias de administração</li>
+              <li>Empresas públicas de saneamento</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Fechar preço sem prever a substituição. Equipamento parado gera glosa, e glosa é desconto na fatura.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="saude" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">07</span>
+            <h2 class="setor__nome">Saúde e hospitalar</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Medicamentos, material hospitalar, equipamentos médicos, órteses e próteses.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">Mercado grande e muito regulado. A exigência documental é mais pesada que na média, e por isso afasta quem não está organizado.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Autorização de funcionamento junto à Anvisa</li>
+              <li>Registro do produto e certificado de boas práticas</li>
+              <li>Licença sanitária estadual ou municipal</li>
+              <li>Cadeia de frio comprovada, quando o produto exige</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Secretarias estaduais e municipais de saúde</li>
+              <li>Hospitais universitários</li>
+              <li>Ministério da Saúde e fundações</li>
+              <li>Institutos e hemocentros</li>
+              <li>Consórcios intermunicipais</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Deixar um registro vencer no meio da disputa. Em saúde, documento vencido não tem conversa: é desclassificação.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="transporte" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">08</span>
+            <h2 class="setor__nome">Transporte e logística</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Transporte escolar, fretamento, transporte de pacientes, mudança e distribuição.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">Contrato longo, geralmente por rota ou por quilômetro rodado. Muito comum em município de qualquer porte.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Frota compatível, própria ou com contrato de disponibilidade</li>
+              <li>Motoristas com habilitação e curso exigidos</li>
+              <li>Seguro de passageiros</li>
+              <li>Regularidade junto ao órgão de trânsito</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Secretarias de educação</li>
+              <li>Secretarias de saúde</li>
+              <li>Prefeituras e câmaras</li>
+              <li>Órgãos estaduais com equipe em campo</li>
+              <li>Universidades</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Calcular por rota sem visitar o trajeto. Estrada ruim muda o custo de manutenção e o consumo, e isso não volta depois.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="setor" id="uniformes-epi" data-reveal>
+          <div class="setor__topo">
+            <span class="setor__n">09</span>
+            <h2 class="setor__nome">Uniformes e EPI</h2>
+          </div>
+          <p class="mt-4 max-w-3xl text-lg leading-relaxed text-cream/72">Uniforme escolar e profissional, calçado, e equipamento de proteção individual.</p>
+
+          <div class="setor__corpo">
+            <div>
+              <p class="setor__linha">Como esse mercado funciona</p>
+              <p class="leading-relaxed text-cream/68">Compra sazonal e de volume alto, quase sempre por registro de preços. Muito item é reservado a empresa de pequeno porte.</p>
+
+              <p class="setor__linha mt-8">O que costuma ser exigido</p>
+              <ul class="lista">
+              <li>Certificado de Aprovação do EPI, emitido pelo Ministério do Trabalho</li>
+              <li>Amostra e ficha técnica dentro do prazo</li>
+              <li>Capacidade de produção para o volume e o prazo</li>
+              <li>Grade de tamanhos completa, quando exigida</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="setor__linha">Quem costuma comprar</p>
+              <ul class="lista">
+              <li>Secretarias de educação</li>
+              <li>Prefeituras e autarquias</li>
+              <li>Hospitais e unidades de saúde</li>
+              <li>Órgãos de segurança</li>
+              <li>Empresas públicas com equipe operacional</li>
+              </ul>
+
+              <div class="note note--warn mt-7">
+                <p><strong>Onde esse setor tropeça.</strong> Perder o prazo da amostra. O edital dá poucos dias, e sem amostra aprovada a proposta cai, por melhor que seja o preço.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section relative overflow-hidden border-t border-cream/12">
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+    <div class="max-w-2xl" data-reveal>
+      <p class="label label--growth">
+        <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
+        Não achou o seu
+      </p>
+      <h2 class="h-display mt-6 text-[clamp(2rem,4.6vw,3.2rem)]">
+        A lista é maior do que cabe nesta página.
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-cream/72">
+        O poder público compra praticamente tudo. Se a sua empresa entrega bem alguma
+        coisa, provavelmente existe órgão comprando. Conte o que você faz e a gente
+        diz se dá para disputar.
+      </p>
+      <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <a href="index.html#diagnostico" class="btn btn--primary btn--lg">
+          <span>Gerar meu diagnóstico</span><span class="btn__dot" aria-hidden="true"></span>
+        </a>
+        <a href="guia-licitacoes.html" class="btn btn--ghost btn--lg"><span>Ler o guia</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="relative overflow-hidden border-t border-cream/12 pt-16 pb-8">
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+
+    <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-10">
+
+      <div>
+        <a href="index.html" class="logo logo--lg" aria-label="OSC — Gestão Empresarial e Licitações">
+          <span class="logo__sym">
+            <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
+        </svg>
+          </span>
+          <span class="logo__txt">
+            <span class="logo__name">OSC</span>
+            <span class="logo__desc">Gestão empresarial e licitações</span>
+          </span>
+        </a>
+        <p class="mt-7 max-w-xs leading-relaxed text-cream/60">
+          Parceria de verdade para o seu negócio ir além. Estrutura hoje, crescimento amanhã.
+        </p>
+
+        <!-- EDITAR: confirme os perfis que existem e remova os que não usar -->
+        <div class="mt-8 flex gap-3">
+          <a class="social" href="https://instagram.com/osc.gestao" target="_blank" rel="noopener" aria-label="Instagram @osc.gestao">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="social" href="https://www.linkedin.com/company/osc.gestao" target="_blank" rel="noopener" aria-label="LinkedIn osc.gestao">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4V9Z"/></svg>
+          </a>
+          <a class="social" href="https://www.tiktok.com/@osc.gestao" target="_blank" rel="noopener" aria-label="TikTok @osc.gestao">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 2h-3v13.2a2.7 2.7 0 1 1-2.3-2.67V9.4a5.9 5.9 0 1 0 5.3 5.87V8.9a6.7 6.7 0 0 0 3.9 1.25V7.1a3.8 3.8 0 0 1-3.9-3.7V2Z"/></svg>
+          </a>
+          <a class="social js-whats" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC." target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.02 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav aria-label="Soluções">
+        <p class="descriptor text-cream/40">Soluções</p>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li><a class="footlink" href="index.html#servicos">Gestão empresarial</a></li>
+          <li><a class="footlink" href="index.html#servicos">Licitações</a></li>
+          <li><a class="footlink" href="index.html#metodologia">Metodologia</a></li>
+          <li><a class="footlink" href="index.html#diagnostico">Diagnóstico com IA</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Conteúdo">
+        <p class="descriptor text-cream/40">Conteúdo</p>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li><a class="footlink" href="guia-licitacoes.html">Guia de licitações</a></li>
+          <li><a class="footlink" href="setores.html">Setores que atendemos</a></li>
+          <li><a class="footlink" href="index.html#como-funciona">Como funciona</a></li>
+          <li><a class="footlink" href="index.html#duvidas">Dúvidas frequentes</a></li>
+          <li><a class="footlink" href="index.html#alerta">Alerta de editais</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <p class="descriptor text-cream/40">Contato</p>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li><a class="footlink" href="mailto:contato.osc.gestao@gmail.com">contato.osc.gestao@gmail.com</a></li>
+          <li><a class="footlink js-whats" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC." target="_blank" rel="noopener">WhatsApp (86) 98837-2619</a></li>
+          <li><a class="footlink" href="https://instagram.com/osc.gestao" target="_blank" rel="noopener">@osc.gestao</a></li>
+          <li><a class="footlink" href="entrar.html">Entrar na minha conta</a></li>
+          <li><span class="text-cream/60">Atendimento em todo o Brasil</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-3 border-t border-cream/12 pt-6 text-xs text-cream/45 sm:flex-row sm:items-center sm:justify-between">
+      <p>© <span id="year">2026</span> OSC Gestão Empresarial e Licitações</p>
+      <p class="descriptor text-cream/35">Estrutura hoje, crescimento amanhã</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/background.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/componentes.js"></script>
+<script src="assets/js/conta.js"></script>
+</body>
+</html>

@@ -38,11 +38,13 @@ python3 build.py              # gera osc-landing-page.html
 .
 ├── index.html                  # home (fonte de verdade)
 ├── guia-licitacoes.html        # guia de licitações públicas
+├── setores.html                # nove setores atendidos, em detalhe
 ├── entrar.html                 # login e cadastro
 ├── conta.html                  # área do cliente
 ├── build.py                    # gera as versões de arquivo único
 ├── osc-landing-page.html       # home em arquivo único (gerada)
 ├── osc-guia-licitacoes.html    # guia em arquivo único (gerado)
+├── osc-setores.html            # setores em arquivo único (gerado)
 ├── package.json                # metadados e scripts npm
 ├── server.js                   # servidor estático + API do diagnóstico
 ├── .htaccess                   # regras do servidor na hospedagem estática
@@ -116,6 +118,44 @@ Se a base de clientes crescer muito, o caminho é migrar para o Supabase Storage
 Cada pessoa só enxerga e edita o próprio perfil. A regra está na Row Level
 Security do `002-contas.sql` e vale mesmo se alguém chamar a API direto, sem
 passar pelo site.
+
+---
+
+## Navegação e conteúdo
+
+### Mega menu
+
+A barra de navegação virou um **mega menu** de dois painéis — Soluções e
+Conteúdo —, com os caminhos agrupados e uma linha explicando cada um. O site
+passou de uma página para cinco; links soltos na barra não davam mais conta.
+
+Abre no **clique**, não no passar do mouse: em telefone e tablet não existe
+hover, e painel que abre sozinho atrapalha mais do que ajuda. Fecha no Esc, no
+clique fora e ao escolher um caminho. No celular, o menu de tela cheia ganhou
+os mesmos grupos.
+
+### Setores (`setores.html`)
+
+Nove segmentos com profundidade real: como aquele mercado funciona, quem
+costuma comprar, o que é exigido e onde as empresas do setor mais perdem.
+É o padrão "indústrias" de site de consultoria — mostra domínio do assunto sem
+precisar inventar caso de cliente.
+
+### Bloco de conteúdo na home
+
+Cartões editoriais com rótulo de categoria, título, resumo e tempo de leitura,
+levando ao guia, aos setores e ao diagnóstico. O guia ocupa o cartão maior.
+
+### Alerta de editais
+
+Captura leve — e-mail, segmento e estado — que entra no banco de leads com
+`origem = 'alerta-editais'`. Sem o banco configurado, abre o WhatsApp com o
+pedido pronto, para o contato não se perder.
+
+### Barra de progresso de leitura
+
+Fina, no topo, nas páginas longas. Só aparece quando a página passa de 800px
+de rolagem — numa página curta ela não diria nada.
 
 ---
 
