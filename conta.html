@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Minha conta | OSC Gestão Empresarial e Licitações</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#12301F" />
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  window.tailwind = window.tailwind || {};
+  tailwind.config = { theme: { extend: {
+    colors: { deep:'#12301F', deeper:'#0F1F14', mid:'#3F8A4B', growth:'#87D06A', cream:'#F2EFE4', creamdim:'#E3DFD0', rule:'#CFD3C5' },
+    fontFamily: { sans:['Archivo','system-ui','Segoe UI','sans-serif'], mono:['"IBM Plex Mono"','ui-monospace','monospace'] },
+    maxWidth: { shell:'1240px' }
+  }}};
+</script>
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+<link rel="stylesheet" href="assets/css/componentes.css" />
+</head>
+
+<body class="font-sans text-cream antialiased" id="pagina-conta">
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header id="navbar" class="nav fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-4 md:px-8">
+    <a href="index.html" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
+      <span class="logo__sym">
+        <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
+        </svg>
+      </span>
+      <span class="logo__txt">
+        <span class="logo__name">OSC</span>
+        <span class="logo__desc">Gestão e Licitações</span>
+      </span>
+    </a>
+    <div class="flex items-center gap-4">
+      <a href="index.html" class="navlink hidden sm:inline">Voltar ao site</a>
+      <span id="conta-topo"></span>
+    </div>
+  </div>
+  <div class="nav__line" aria-hidden="true"></div>
+</header>
+
+<main class="section relative pt-32 md:pt-40">
+  <div class="relative mx-auto max-w-shell px-5 md:px-8">
+
+    <!-- Espera -->
+    <div id="conta-carregando" class="rel__espera">
+      <span class="rel__spin" aria-hidden="true">
+        <svg viewBox="0 0 115.4 100">
+          <circle class="rel__spin-o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" fill="none" />
+          <path class="rel__spin-c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" fill="none" />
+          <circle class="rel__spin-d" cx="84.89" cy="37.48" r="8.68" />
+        </svg>
+      </span>
+      <p>Abrindo sua conta…</p>
+    </div>
+
+    <div id="conta-conteudo" hidden>
+
+      <!-- Cabeçalho do perfil -->
+      <header class="conta-cabeca">
+        <span class="avt avt--3xl avt--anel" id="conta-avatar" data-nome=""></span>
+        <div class="conta-cabeca__txt">
+          <p class="descriptor text-cream/45">Minha conta</p>
+          <h1 class="h-display mt-3 text-[clamp(1.8rem,4vw,2.8rem)]" id="conta-nome-grande"></h1>
+          <p class="mt-2 text-cream/60" id="conta-email"></p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="index.html#diagnostico" class="btn btn--primary">
+              <span>Gerar um diagnóstico</span><span class="btn__dot" aria-hidden="true"></span>
+            </a>
+            <a href="guia-licitacoes.html" class="btn btn--ghost"><span>Ler o guia</span></a>
+          </div>
+        </div>
+      </header>
+
+      <div class="mt-14 grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
+
+        <!-- Dados -->
+        <form id="form-perfil" class="form" novalidate>
+          <p class="descriptor text-cream/45">Seus dados</p>
+
+          <div class="mt-7 grid gap-5 sm:grid-cols-2">
+            <div class="field sm:col-span-2">
+              <label for="p-nome">Nome <span class="field__obrig">*</span></label>
+              <input id="p-nome" name="nome" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="p-empresa">Empresa</label>
+              <input id="p-empresa" name="empresa" type="text" autocomplete="organization" />
+            </div>
+            <div class="field">
+              <label for="p-cargo">Seu cargo</label>
+              <input id="p-cargo" name="cargo" type="text" placeholder="Ex.: sócio, diretor" />
+            </div>
+            <div class="field">
+              <label for="p-whatsapp">WhatsApp</label>
+              <input id="p-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" />
+            </div>
+            <div class="field">
+              <label for="p-cnpj">CNPJ</label>
+              <input id="p-cnpj" name="cnpj" type="text" inputmode="numeric" placeholder="00.000.000/0001-00" />
+            </div>
+            <div class="field sm:col-span-2">
+              <label for="p-segmento">Segmento</label>
+              <select id="p-segmento" name="segmento">
+                <option value="">Selecione</option>
+                <option>Serviços terceirizados</option>
+                <option>Obras e engenharia</option>
+                <option>Fornecimento de materiais</option>
+                <option>Tecnologia e software</option>
+                <option>Alimentação</option>
+                <option>Locação de equipamentos</option>
+                <option>Saúde e hospitalar</option>
+                <option>Limpeza e conservação</option>
+                <option>Transporte e logística</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <label class="check sm:col-span-2">
+              <input type="checkbox" name="novidades" />
+              <span class="check__caixa" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M4 12.5l5.5 5.5L20 7"/></svg>
+              </span>
+              <span class="check__texto">Quero receber avisos sobre editais e prazos do meu segmento.</span>
+            </label>
+          </div>
+
+          <p id="perfil-aviso" class="form__ok" role="status" hidden></p>
+
+          <!-- Dock de ações -->
+          <div class="dock mt-8">
+            <button type="submit" class="btn btn--primary">
+              <span>Salvar alterações</span><span class="btn__dot" aria-hidden="true"></span>
+            </button>
+            <div class="dock__secundarias">
+              <a href="index.html#contato" class="btn btn--ghost"><span>Falar com a OSC</span></a>
+            </div>
+            <button type="button" class="btn btn--terciario dock__dispensa" id="conta-sair">
+              <span>Sair da conta</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Foto -->
+        <aside class="conta-lateral">
+          <p class="descriptor text-cream/45">Sua foto</p>
+          <p class="mt-3 text-sm leading-relaxed text-cream/60">
+            Opcional. Sem foto, usamos as iniciais do seu nome.
+          </p>
+
+          <label class="upload mt-6" data-upload data-lista="avatar-lista"
+                 data-max-mb="8" data-tipos="image/png,image/jpeg,image/webp" id="avatar-upload">
+            <svg class="upload__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M12 16V4m0 0L7 9m5-5 5 5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+            </svg>
+            <span class="upload__titulo">Arraste a foto ou clique</span>
+            <span class="upload__dica">PNG, JPG ou WEBP · até 8 MB</span>
+            <input type="file" accept="image/png,image/jpeg,image/webp" />
+          </label>
+          <div class="upload-lista" id="avatar-lista"></div>
+
+          <button type="button" class="btn btn--terciario mt-4" id="avatar-remover">
+            <span>Remover foto</span>
+          </button>
+
+          <p class="mt-6 text-xs leading-relaxed text-cream/45">
+            A imagem é reduzida a 256&nbsp;pixels no seu navegador antes de subir.
+            Sobem poucos KB, não o arquivo inteiro.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/background.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/componentes.js"></script>
+<script src="assets/js/conta.js"></script>
+</body>
+</html>

@@ -17,6 +17,9 @@ PAGINAS = [
     ('guia-licitacoes.html', 'osc-guia-licitacoes.html'),
 ]
 
+# entrar.html e conta.html dependem do servidor (/api/conta), então não têm
+# versão de arquivo único: sem servidor elas não funcionariam de qualquer jeito.
+
 # Nas versões de arquivo único os links entre as páginas mudam de nome
 LINKS = {
     'index.html':           'osc-landing-page.html',
@@ -27,6 +30,7 @@ LINKS = {
 def embutir(entrada, saida):
     html = open(entrada, encoding='utf-8').read()
     css  = open('assets/css/styles.css', encoding='utf-8').read()
+    css += '\n\n' + open('assets/css/componentes.css', encoding='utf-8').read()
     fav  = open('assets/img/favicon.svg', encoding='utf-8').read()
 
     # favicon -> data URI
@@ -42,18 +46,19 @@ def embutir(entrada, saida):
          '<!-- EDITAR: suba uma imagem 1200x630 (PNG/JPG) e aponte a URL absoluta aqui -->\n'
          '<meta property="og:image" content="https://oscgestao.com.br/og-cover.png" />'),
 
-        ('<link rel="stylesheet" href="assets/css/styles.css" />',
+        ('<link rel="stylesheet" href="assets/css/styles.css" />\n<link rel="stylesheet" href="assets/css/componentes.css" />',
          '<style>\n' + css.rstrip() + '\n</style>'),
     ]
 
     # os dois scripts, na mesma ordem em que aparecem no HTML
-    for arquivo in ('background.js', 'main.js', 'relatorio.js'):
+    for arquivo in ('background.js', 'main.js', 'componentes.js', 'conta.js', 'relatorio.js'):
         js = open('assets/js/' + arquivo, encoding='utf-8').read()
         trocas.append(('<script src="assets/js/%s"></script>' % arquivo,
                        '<script>\n' + js.rstrip() + '\n</script>'))
 
     for velho, novo in trocas:
         ocorrencias = html.count(velho)
+        # relatorio.js só existe na home; o guia não o carrega
         # relatorio.js só existe na home; o guia não o carrega
         if ocorrencias == 0 and 'relatorio.js' in velho:
             continue

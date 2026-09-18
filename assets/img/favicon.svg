@@ -1,11 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="OSC">
   <!-- Regra de avatar do manual: só o símbolo, a 62 % do quadrado, centralizado.
-       Nunca a sigla dentro — em 32 px ela desaparece. -->
+       Geometria medida na arte original do monograma. -->
   <rect width="64" height="64" fill="#F2EFE4"/>
-  <g transform="translate(10.03 8.67) scale(0.453)">
-    <circle cx="42" cy="58" r="32"    fill="none" stroke="#12301F" stroke-width="10.67"/>
-    <circle cx="58" cy="42" r="29.44" fill="none" stroke="#3F8A4B" stroke-width="9.81"
-            stroke-dasharray="149 36"/>
-    <circle cx="72.5" cy="67.5" r="8.5" fill="#87D06A"/>
+  <g transform="translate(12.16 14.81) scale(0.3438)">
+    <circle cx="40.87" cy="40.87" r="34.71" fill="none" stroke="#12301F" stroke-width="12.31"/>
+    <path d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" fill="none" stroke="#3F8A4B" stroke-width="12.26"/>
+    <circle cx="84.89" cy="37.48" r="8.68" fill="#87D06A"/>
   </g>
 </svg>

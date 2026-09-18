@@ -50,6 +50,7 @@
 </script>
 
 <link rel="stylesheet" href="assets/css/styles.css" />
+<link rel="stylesheet" href="assets/css/componentes.css" />
 </head>
 
 <body class="font-sans text-cream antialiased">
@@ -65,10 +66,10 @@
 
     <a href="#topo" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
       <span class="logo__sym">
-        <svg class="mono mono--negativa" viewBox="0 0 100 100" aria-hidden="true">
-          <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
-          <circle class="mono__c" cx="58" cy="42" r="29.44" stroke-width="9.81" stroke-dasharray="149 36" />
-          <circle class="mono__dot" cx="72.5" cy="67.5" r="8.5" />
+        <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
         </svg>
       </span>
       <span class="logo__txt">
@@ -91,6 +92,8 @@
         <span>Fale com um especialista</span>
         <span class="btn__dot" aria-hidden="true"></span>
       </a>
+
+      <span id="conta-topo"></span>
 
       <button id="menu-toggle" class="burger lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
         <span></span><span></span><span></span>
@@ -432,35 +435,55 @@
         <span class="svc-head__rule" aria-hidden="true"></span>
       </div>
 
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="carrossel carrossel--claro carrossel--vira-grade mt-8" data-carrossel data-rotulo="Serviços de gestão empresarial">
+        <div class="carrossel__trilho">
 
-        <article class="card" data-reveal>
-          <span class="card__num">01</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Diagnóstico e reestruturação</h4>
-          <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal>
+            <span class="card__num">01</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Diagnóstico e reestruturação</h4>
+            <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
+          </article>
+          </div>
 
-        <article class="card" data-reveal data-reveal-delay="80">
-          <span class="card__num">02</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Documentação e regularidade</h4>
-          <p class="card__text">Certidões, alvarás e obrigações em dia, com aviso antes de cada vencimento.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal data-reveal-delay="80">
+            <span class="card__num">02</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Documentação e regularidade</h4>
+            <p class="card__text">Certidões, alvarás e obrigações em dia, com aviso antes de cada vencimento.</p>
+          </article>
+          </div>
 
-        <article class="card" data-reveal data-reveal-delay="160">
-          <span class="card__num">03</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Compliance e governança</h4>
-          <p class="card__text">Regras claras, responsabilidades definidas e a empresa pronta para auditoria.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal data-reveal-delay="160">
+            <span class="card__num">03</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Compliance e governança</h4>
+            <p class="card__text">Regras claras, responsabilidades definidas e a empresa pronta para auditoria.</p>
+          </article>
+          </div>
 
-        <article class="card" data-reveal data-reveal-delay="240">
-          <span class="card__num">04</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Processos e precificação</h4>
-          <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal data-reveal-delay="240">
+            <span class="card__num">04</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Processos e precificação</h4>
+            <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
+          </article>
+          </div>
+        </div>
+      <div class="carrossel__controles lg:hidden">
+        <button type="button" class="carrossel__seta" data-carr="anterior" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="carrossel__seta" data-carr="proximo" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="carrossel__pontos"></div>
+        <span class="carrossel__contador"></span>
+      </div>
       </div>
     </div>
 
@@ -472,35 +495,55 @@
         <span class="svc-head__rule" aria-hidden="true"></span>
       </div>
 
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="carrossel carrossel--claro carrossel--vira-grade mt-8" data-carrossel data-rotulo="Serviços de licitações">
+        <div class="carrossel__trilho">
 
-        <article class="card card--alt" data-reveal>
-          <span class="card__num">05</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Cadastro em portais e SICAF</h4>
-          <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal>
+            <span class="card__num">05</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Cadastro em portais e SICAF</h4>
+            <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
+          </article>
+          </div>
 
-        <article class="card card--alt" data-reveal data-reveal-delay="80">
-          <span class="card__num">06</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Análise e seleção de editais</h4>
-          <p class="card__text">Filtramos o que vale disputar e descartamos o que só dá trabalho.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal data-reveal-delay="80">
+            <span class="card__num">06</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Análise e seleção de editais</h4>
+            <p class="card__text">Filtramos o que vale disputar e descartamos o que só dá trabalho.</p>
+          </article>
+          </div>
 
-        <article class="card card--alt" data-reveal data-reveal-delay="160">
-          <span class="card__num">07</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Disputa, impugnação e recurso</h4>
-          <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando aperta.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal data-reveal-delay="160">
+            <span class="card__num">07</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Disputa, impugnação e recurso</h4>
+            <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando aperta.</p>
+          </article>
+          </div>
 
-        <article class="card card--alt" data-reveal data-reveal-delay="240">
-          <span class="card__num">08</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Gestão de contratos públicos</h4>
-          <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal data-reveal-delay="240">
+            <span class="card__num">08</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Gestão de contratos públicos</h4>
+            <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
+          </article>
+          </div>
+        </div>
+      <div class="carrossel__controles lg:hidden">
+        <button type="button" class="carrossel__seta" data-carr="anterior" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="carrossel__seta" data-carr="proximo" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="carrossel__pontos"></div>
+        <span class="carrossel__contador"></span>
+      </div>
       </div>
     </div>
   </div>
@@ -778,10 +821,10 @@
     <!-- Estado de espera -->
     <div id="relatorio-carregando" class="rel__espera" role="status" hidden>
       <span class="rel__spin" aria-hidden="true">
-        <svg viewBox="0 0 100 100">
-          <circle class="rel__spin-o" cx="42" cy="58" r="32" stroke-width="10.67" fill="none" />
-          <circle class="rel__spin-c" cx="58" cy="42" r="29.44" stroke-width="9.81" fill="none" stroke-dasharray="149 36" />
-          <circle class="rel__spin-d" cx="72.5" cy="67.5" r="8.5" />
+        <svg viewBox="0 0 115.4 100">
+          <circle class="rel__spin-o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" fill="none" />
+          <path class="rel__spin-c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" fill="none" />
+          <circle class="rel__spin-d" cx="84.89" cy="37.48" r="8.68" />
         </svg>
       </span>
       <p>Analisando sua empresa e o mercado público do seu segmento…</p>
@@ -1062,11 +1105,11 @@
       <div>
         <a href="#topo" class="logo logo--lg" aria-label="OSC — Gestão Empresarial e Licitações">
           <span class="logo__sym">
-            <svg class="mono mono--negativa" viewBox="0 0 100 100" aria-hidden="true">
-              <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
-              <circle class="mono__c" cx="58" cy="42" r="29.44" stroke-width="9.81" stroke-dasharray="149 36" />
-              <circle class="mono__dot" cx="72.5" cy="67.5" r="8.5" />
-            </svg>
+            <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
+        </svg>
           </span>
           <span class="logo__txt">
             <span class="logo__name">OSC</span>
@@ -1141,6 +1184,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="assets/js/background.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/componentes.js"></script>
+<script src="assets/js/conta.js"></script>
 <script src="assets/js/relatorio.js"></script>
 </body>
 </html>

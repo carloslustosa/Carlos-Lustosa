@@ -39,31 +39,40 @@
                centro deslocado na diagonal ascendente (+0.5r, -0.5r)
      ponto   → no cruzamento real dos dois anéis
      ------------------------------------------------------------------- */
-  var C_GAP = 290 * Math.PI / 180;          // arco visível do anel C
+  /* Todas as proporções abaixo saíram da medição da arte original do logo,
+     normalizadas pelo raio médio do anel O. */
+  var RAD      = Math.PI / 180;
+  var O_TRACO  = 0.3547;                   // espessura do anel O
+  var C_DESLOC = { x: 1.0778, y: 0.6341 }; // centro do C, a partir do centro do O
+  var C_RAIO   = 0.8928;                   // raio do C
+  var C_TRACO  = 0.3532;                   // espessura do C
+  var C_INICIO = 353 * RAD;                // onde o traço do C começa
+  var C_ARCO   = 283 * RAD;                // quanto ele percorre, no sentido horário
+  var P_DESLOC = { x: 1.2682, y: -0.0977 };// centro do ponto
+  var P_RAIO   = 0.2501;                   // raio do ponto
 
   function drawMonogram(x, y, r, rot, alpha, glow) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rot);
 
-    // anel O
+    // anel O — fechado
     ctx.beginPath();
     ctx.arc(0, 0, r, 0, Math.PI * 2);
-    ctx.lineWidth = r / 3;
+    ctx.lineWidth = r * O_TRACO;
     ctx.strokeStyle = 'rgba(' + COLOR.o + ',' + (alpha * (0.5 + glow * 0.5)).toFixed(3) + ')';
     ctx.stroke();
 
-    // anel C — aberto, deslocado na diagonal ascendente
-    var rc = r * 0.92;
+    // anel C — aberto no quadrante superior direito, deslocado na diagonal
     ctx.beginPath();
-    ctx.arc(r * 0.5, -r * 0.5, rc, 0, C_GAP);
-    ctx.lineWidth = rc / 3;
+    ctx.arc(r * C_DESLOC.x, r * C_DESLOC.y, r * C_RAIO, C_INICIO, C_INICIO + C_ARCO);
+    ctx.lineWidth = r * C_TRACO;
     ctx.strokeStyle = 'rgba(' + COLOR.c + ',' + (alpha * (1 + glow)).toFixed(3) + ')';
     ctx.stroke();
 
     // ponto de encontro
     ctx.beginPath();
-    ctx.arc(r * 0.953, r * 0.297, r * 0.266, 0, Math.PI * 2);
+    ctx.arc(r * P_DESLOC.x, r * P_DESLOC.y, r * P_RAIO, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(' + COLOR.dot + ',' + (alpha * (1.3 + glow * 1.6)).toFixed(3) + ')';
     ctx.fill();
 

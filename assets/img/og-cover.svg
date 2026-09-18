@@ -3,25 +3,23 @@
   <rect width="1200" height="630" fill="#12301F"/>
 
   <!-- Monograma sangrando pela borda direita -->
-  <g transform="translate(830 150) scale(5.2)" opacity="0.9">
-    <circle cx="42" cy="58" r="32"    fill="none" stroke="#3F8A4B" stroke-width="10.67" opacity="0.5"/>
-    <circle cx="58" cy="42" r="29.44" fill="none" stroke="#87D06A" stroke-width="9.81"
-            stroke-dasharray="149 36" opacity="0.4"/>
-    <circle cx="72.5" cy="67.5" r="8.5" fill="#87D06A" opacity="0.7"/>
+  <g transform="translate(860 170) scale(4.4)" opacity="0.85">
+    <circle cx="40.87" cy="40.87" r="34.71" fill="none" stroke="#3F8A4B" stroke-width="12.31" opacity="0.5"/>
+    <path d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" fill="none" stroke="#87D06A" stroke-width="12.26" opacity="0.4"/>
+    <circle cx="84.89" cy="37.48" r="8.68" fill="#87D06A" opacity="0.7"/>
   </g>
 
   <!-- Assinatura -->
   <g transform="translate(80 74)">
-    <g transform="scale(0.78)">
-      <circle cx="42" cy="58" r="32"    fill="none" stroke="#F2EFE4" stroke-width="10.67"/>
-      <circle cx="58" cy="42" r="29.44" fill="none" stroke="#3F8A4B" stroke-width="9.81"
-              stroke-dasharray="149 36"/>
-      <circle cx="72.5" cy="67.5" r="8.5" fill="#87D06A"/>
+    <g transform="scale(0.62)">
+      <circle cx="40.87" cy="40.87" r="34.71" fill="none" stroke="#F2EFE4" stroke-width="12.31"/>
+      <path d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" fill="none" stroke="#3F8A4B" stroke-width="12.26"/>
+      <circle cx="84.89" cy="37.48" r="8.68" fill="#87D06A"/>
     </g>
-    <text x="100" y="44" font-family="Archivo, Helvetica, sans-serif" font-weight="900"
-          font-size="42" letter-spacing="-1.5" fill="#F2EFE4">OSC</text>
-    <text x="101" y="66" font-family="'IBM Plex Mono', monospace" font-weight="500"
-          font-size="13" letter-spacing="3.6" fill="#F2EFE4" opacity="0.72">GESTÃO E LICITAÇÕES</text>
+    <text x="96" y="30" font-family="Archivo, Helvetica, sans-serif" font-weight="900"
+          font-size="40" letter-spacing="-1.4" fill="#F2EFE4">OSC</text>
+    <text x="97" y="52" font-family="'IBM Plex Mono', monospace" font-weight="500"
+          font-size="12.5" letter-spacing="3.4" fill="#F2EFE4" opacity="0.72">GESTÃO E LICITAÇÕES</text>
   </g>
 
   <!-- Título · 900, caixa normal (o manual proíbe frases em caixa alta) -->
@@ -30,7 +28,6 @@
     <text x="80" y="442" fill="#87D06A">crescimento amanhã.</text>
   </g>
 
-  <!-- Tagline · peso 600, nunca em caixa alta -->
   <text x="80" y="512" font-family="Archivo, Helvetica, sans-serif" font-weight="600"
         font-size="26" letter-spacing="-0.5" fill="#F2EFE4" opacity="0.8">
     Parceria de verdade para o seu negócio ir além.

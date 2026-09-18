@@ -338,9 +338,323 @@ async function rotaRelatorio(req, res) {
   }
 }
 
+/* =========================================================================
+   CONTAS — cadastro, login e perfil
+   -------------------------------------------------------------------------
+   Quem cuida de senha, e-mail e recuperação é o Supabase Auth. Este servidor
+   só conversa com ele e guarda a sessão num cookie httpOnly, que o JavaScript
+   da página não consegue ler.
+   ========================================================================= */
+
+const SB_URL  = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
+const SB_ANON = process.env.SUPABASE_ANON_KEY || '';
+const COOKIE  = 'osc_sessao';
+const SEGURO  = String(process.env.COOKIE_SEGURO || '1') !== '0';
+
+function contasLigadas() { return Boolean(SB_URL && SB_ANON); }
+
+function json(res, status, corpo, extras) {
+  enviar(res, status, JSON.stringify(corpo), Object.assign({
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store'
+  }, extras || {}));
+}
+
+function lerCookies(req) {
+  const cru = req.headers.cookie || '';
+  const fora = {};
+  cru.split(';').forEach((parte) => {
+    const i = parte.indexOf('=');
+    if (i < 0) return;
+    fora[parte.slice(0, i).trim()] = decodeURIComponent(parte.slice(i + 1).trim());
+  });
+  return fora;
+}
+
+function cookieSessao(valor, segundos) {
+  const pedacos = [
+    COOKIE + '=' + encodeURIComponent(valor),
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Lax',
+    'Max-Age=' + segundos
+  ];
+  if (SEGURO) pedacos.push('Secure');
+  return pedacos.join('; ');
+}
+
+function guardaSessao(dados) {
+  return Buffer.from(JSON.stringify({
+    a: dados.access_token,
+    r: dados.refresh_token,
+    exp: Math.floor(Date.now() / 1000) + (Number(dados.expires_in) || 3600)
+  })).toString('base64url');
+}
+
+function abreSessao(req) {
+  const c = lerCookies(req)[COOKIE];
+  if (!c) return null;
+  try { return JSON.parse(Buffer.from(c, 'base64url').toString('utf8')); }
+  catch (e) { return null; }
+}
+
+/* Chamada ao Supabase, com a chave anon sempre no cabeçalho. */
+async function sb(caminho, opcoes) {
+  const o = opcoes || {};
+  const cabecalhos = Object.assign({
+    'apikey': SB_ANON,
+    'Content-Type': 'application/json'
+  }, o.headers || {});
+  if (o.token) cabecalhos['Authorization'] = 'Bearer ' + o.token;
+
+  const controle = new AbortController();
+  const corta = setTimeout(() => controle.abort(), 20000);
+  try {
+    const r = await fetch(SB_URL + caminho, {
+      method: o.method || 'GET',
+      headers: cabecalhos,
+      body: o.body ? JSON.stringify(o.body) : undefined,
+      signal: controle.signal
+    });
+    const texto = await r.text();
+    let corpo = null;
+    try { corpo = texto ? JSON.parse(texto) : null; } catch (e) { corpo = texto; }
+    return { ok: r.ok, status: r.status, corpo };
+  } finally {
+    clearTimeout(corta);
+  }
+}
+
+/* Devolve um access_token válido, renovando quando faltar pouco. */
+async function tokenValido(req, res) {
+  const ses = abreSessao(req);
+  if (!ses || !ses.a) return null;
+  if (ses.exp - 60 > Math.floor(Date.now() / 1000)) return ses.a;
+
+  if (!ses.r) return null;
+  const r = await sb('/auth/v1/token?grant_type=refresh_token', {
+    method: 'POST', body: { refresh_token: ses.r }
+  });
+  if (!r.ok || !r.corpo || !r.corpo.access_token) return null;
+  res.setHeader('Set-Cookie', cookieSessao(guardaSessao(r.corpo), 60 * 60 * 24 * 30));
+  return r.corpo.access_token;
+}
+
+const textoLimpo = (v, max) => String(v == null ? '' : v).replace(/\s+/g, ' ').trim().slice(0, max);
+const emailValido = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || '').trim());
+
+/* Mensagens de erro do Supabase traduzidas. Nunca devolvemos o texto cru:
+   ele às vezes conta demais sobre o que existe na base. */
+function erroAmigavel(status, corpo) {
+  const msg = String((corpo && (corpo.msg || corpo.error_description || corpo.message)) || '').toLowerCase();
+  if (msg.includes('already registered') || msg.includes('already been registered')) {
+    return 'Esse e-mail já tem conta. Tente entrar.';
+  }
+  if (msg.includes('invalid login')) return 'E-mail ou senha não conferem.';
+  if (msg.includes('email not confirmed')) return 'Confirme o e-mail antes de entrar. Veja a caixa de entrada.';
+  if (msg.includes('password') && msg.includes('6')) return 'A senha precisa de pelo menos 6 caracteres.';
+  if (status === 429) return 'Muitas tentativas seguidas. Espere um pouco.';
+  return 'Não foi possível concluir. Tente de novo em alguns minutos.';
+}
+
+/* ---- POST /api/conta/cadastro ---- */
+async function rotaCadastro(req, res) {
+  let b;
+  try { b = await lerCorpo(req, 64 * 1024); }
+  catch (e) { return json(res, 400, { ok: false, mensagem: 'Dados inválidos.' }); }
+
+  const nome  = textoLimpo(b.nome, 120);
+  const email = textoLimpo(b.email, 160).toLowerCase();
+  const senha = String(b.senha || '');
+
+  if (nome.length < 2)     return json(res, 400, { ok: false, campo: 'nome',  mensagem: 'Diga seu nome.' });
+  if (!emailValido(email)) return json(res, 400, { ok: false, campo: 'email', mensagem: 'E-mail inválido.' });
+  if (senha.length < 8)    return json(res, 400, { ok: false, campo: 'senha', mensagem: 'A senha precisa de pelo menos 8 caracteres.' });
+
+  const cadastro = await sb('/auth/v1/signup', {
+    method: 'POST',
+    body: { email, password: senha, data: { nome } }
+  });
+
+  if (!cadastro.ok) {
+    return json(res, 400, { ok: false, mensagem: erroAmigavel(cadastro.status, cadastro.corpo) });
+  }
+
+  const dados = cadastro.corpo || {};
+  const sessao = dados.access_token ? dados : (dados.session || null);
+  const usuario = dados.user || (sessao && sessao.user) || null;
+
+  // Supabase com confirmação de e-mail ligada: a conta existe, a sessão não.
+  if (!sessao || !sessao.access_token) {
+    return json(res, 200, {
+      ok: true,
+      precisaConfirmar: true,
+      mensagem: 'Conta criada. Confirme o e-mail que enviamos para entrar.'
+    });
+  }
+
+  const perfil = {
+    id: usuario && usuario.id,
+    nome,
+    empresa:  textoLimpo(b.empresa, 160) || null,
+    whatsapp: textoLimpo(b.whatsapp, 32) || null,
+    segmento: textoLimpo(b.segmento, 80) || null,
+    aceita_novidades: Boolean(b.novidades)
+  };
+  await sb('/rest/v1/perfis', {
+    method: 'POST',
+    token: sessao.access_token,
+    headers: { 'Prefer': 'return=minimal' },
+    body: perfil
+  });
+
+  res.setHeader('Set-Cookie', cookieSessao(guardaSessao(sessao), 60 * 60 * 24 * 30));
+  return json(res, 200, { ok: true, perfil: { nome: perfil.nome, empresa: perfil.empresa, avatar: null } });
+}
+
+/* ---- POST /api/conta/entrar ---- */
+async function rotaEntrar(req, res) {
+  let b;
+  try { b = await lerCorpo(req, 16 * 1024); }
+  catch (e) { return json(res, 400, { ok: false, mensagem: 'Dados inválidos.' }); }
+
+  const email = textoLimpo(b.email, 160).toLowerCase();
+  const senha = String(b.senha || '');
+  if (!emailValido(email) || !senha) {
+    return json(res, 400, { ok: false, mensagem: 'Preencha e-mail e senha.' });
+  }
+
+  const r = await sb('/auth/v1/token?grant_type=password', {
+    method: 'POST', body: { email, password: senha }
+  });
+  if (!r.ok || !r.corpo || !r.corpo.access_token) {
+    return json(res, 401, { ok: false, mensagem: erroAmigavel(r.status, r.corpo) });
+  }
+
+  res.setHeader('Set-Cookie', cookieSessao(guardaSessao(r.corpo), 60 * 60 * 24 * 30));
+  const perfil = await buscaPerfil(r.corpo.access_token, r.corpo.user && r.corpo.user.id);
+  return json(res, 200, { ok: true, perfil });
+}
+
+/* ---- POST /api/conta/sair ---- */
+async function rotaSair(req, res) {
+  const ses = abreSessao(req);
+  if (ses && ses.a) { try { await sb('/auth/v1/logout', { method: 'POST', token: ses.a }); } catch (e) {} }
+  res.setHeader('Set-Cookie', cookieSessao('', 0));
+  return json(res, 200, { ok: true });
+}
+
+async function buscaPerfil(token, id) {
+  if (!id) return null;
+  const r = await sb('/rest/v1/perfis?id=eq.' + encodeURIComponent(id) + '&select=*', { token });
+  if (!r.ok || !Array.isArray(r.corpo) || !r.corpo.length) return null;
+  return r.corpo[0];
+}
+
+/* ---- GET /api/conta/eu ---- */
+async function rotaEu(req, res) {
+  const token = await tokenValido(req, res);
+  if (!token) return json(res, 200, { ok: true, entrou: false });
+
+  const u = await sb('/auth/v1/user', { token });
+  if (!u.ok || !u.corpo || !u.corpo.id) {
+    res.setHeader('Set-Cookie', cookieSessao('', 0));
+    return json(res, 200, { ok: true, entrou: false });
+  }
+  const perfil = await buscaPerfil(token, u.corpo.id);
+  return json(res, 200, { ok: true, entrou: true, email: u.corpo.email, perfil });
+}
+
+/* ---- POST /api/conta/perfil ---- */
+async function rotaPerfil(req, res) {
+  const token = await tokenValido(req, res);
+  if (!token) return json(res, 401, { ok: false, mensagem: 'Entre na sua conta primeiro.' });
+
+  let b;
+  try { b = await lerCorpo(req, 400 * 1024); }   // cabe o avatar reduzido
+  catch (e) {
+    const grande = e.message === 'corpo grande demais';
+    return json(res, grande ? 413 : 400, {
+      ok: false,
+      mensagem: grande ? 'A imagem ficou grande demais. Escolha outra.' : 'Dados inválidos.'
+    });
+  }
+
+  const u = await sb('/auth/v1/user', { token });
+  if (!u.ok || !u.corpo || !u.corpo.id) return json(res, 401, { ok: false, mensagem: 'Sessão expirada.' });
+
+  const mudancas = {};
+  if (b.nome     !== undefined) mudancas.nome     = textoLimpo(b.nome, 120);
+  if (b.empresa  !== undefined) mudancas.empresa  = textoLimpo(b.empresa, 160) || null;
+  if (b.whatsapp !== undefined) mudancas.whatsapp = textoLimpo(b.whatsapp, 32) || null;
+  if (b.cnpj     !== undefined) mudancas.cnpj     = textoLimpo(b.cnpj, 24) || null;
+  if (b.segmento !== undefined) mudancas.segmento = textoLimpo(b.segmento, 80) || null;
+  if (b.cargo    !== undefined) mudancas.cargo    = textoLimpo(b.cargo, 80) || null;
+  if (b.novidades !== undefined) mudancas.aceita_novidades = Boolean(b.novidades);
+
+  if (b.avatar !== undefined) {
+    if (b.avatar === null || b.avatar === '') {
+      mudancas.avatar = null;
+    } else {
+      const v = String(b.avatar);
+      // só aceitamos imagem embutida, nunca um endereço externo
+      if (!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(v)) {
+        return json(res, 400, { ok: false, mensagem: 'Formato de imagem não aceito.' });
+      }
+      if (v.length > 300000) return json(res, 413, { ok: false, mensagem: 'A imagem ficou grande demais.' });
+      mudancas.avatar = v;
+    }
+  }
+
+  if (mudancas.nome !== undefined && mudancas.nome.length < 2) {
+    return json(res, 400, { ok: false, campo: 'nome', mensagem: 'Diga seu nome.' });
+  }
+  if (!Object.keys(mudancas).length) return json(res, 400, { ok: false, mensagem: 'Nada para salvar.' });
+
+  const r = await sb('/rest/v1/perfis?id=eq.' + encodeURIComponent(u.corpo.id), {
+    method: 'PATCH',
+    token,
+    headers: { 'Prefer': 'return=representation' },
+    body: mudancas
+  });
+
+  if (!r.ok) {
+    console.error('[conta] perfil não salvou:', r.status, JSON.stringify(r.corpo).slice(0, 300));
+    return json(res, 502, { ok: false, mensagem: 'Não conseguimos salvar agora. Tente de novo.' });
+  }
+  return json(res, 200, { ok: true, perfil: Array.isArray(r.corpo) ? r.corpo[0] : null });
+}
+
+const ROTAS_CONTA = {
+  '/api/conta/cadastro': rotaCadastro,
+  '/api/conta/entrar':   rotaEntrar,
+  '/api/conta/sair':     rotaSair,
+  '/api/conta/perfil':   rotaPerfil
+};
+
 const servidor = http.createServer((req, res) => {
-  if (req.method === 'POST' && (req.url || '').split('?')[0] === '/api/relatorio') {
+  const caminhoApi = (req.url || '').split('?')[0];
+
+  if (req.method === 'POST' && caminhoApi === '/api/relatorio') {
     return rotaRelatorio(req, res);
+  }
+
+  if (caminhoApi.indexOf('/api/conta/') === 0) {
+    if (!contasLigadas()) {
+      return json(res, 503, {
+        ok: false, erro: 'nao-configurado',
+        mensagem: 'O cadastro ainda não está ligado neste servidor.'
+      });
+    }
+    if (req.method === 'GET' && caminhoApi === '/api/conta/eu') return rotaEu(req, res);
+    const rota = ROTAS_CONTA[caminhoApi];
+    if (rota && req.method === 'POST') {
+      return rota(req, res).catch((e) => {
+        console.error('[conta] falhou:', e.message);
+        json(res, 500, { ok: false, mensagem: 'Erro inesperado. Tente de novo.' });
+      });
+    }
+    return json(res, 405, { ok: false, mensagem: 'Método não permitido.' });
   }
 
   if (req.method !== 'GET' && req.method !== 'HEAD') {

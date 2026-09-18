@@ -38,6 +38,8 @@ python3 build.py              # gera osc-landing-page.html
 .
 ├── index.html                  # home (fonte de verdade)
 ├── guia-licitacoes.html        # guia de licitações públicas
+├── entrar.html                 # login e cadastro
+├── conta.html                  # área do cliente
 ├── build.py                    # gera as versões de arquivo único
 ├── osc-landing-page.html       # home em arquivo único (gerada)
 ├── osc-guia-licitacoes.html    # guia em arquivo único (gerado)
@@ -46,11 +48,15 @@ python3 build.py              # gera osc-landing-page.html
 ├── .htaccess                   # regras do servidor na hospedagem estática
 ├── .env.example                # variáveis do servidor (copie para .env)
 ├── database/
-│   └── schema.sql              # banco de dados dos leads
+│   ├── schema.sql              # leads
+│   └── 002-contas.sql          # contas e perfis
 └── assets/
-    ├── css/styles.css          # identidade visual e componentes
+    ├── css/styles.css          # identidade visual
+    ├── css/componentes.css     # avatar, botões, carrossel, upload
     ├── js/background.js        # fundo interativo em canvas
-    ├── js/main.js              # navegação, reveal, formulário, banco
+    ├── js/main.js              # navegação, reveal, formulário, leads
+    ├── js/componentes.js       # comportamento dos componentes
+    ├── js/conta.js             # cadastro, login e perfil
     ├── js/relatorio.js         # diagnóstico com IA
     └── img/                    # favicon e capa de compartilhamento
 ```
@@ -66,6 +72,71 @@ python3 build.py              # gera osc-landing-page.html
 
 Não há dependências: `npm install` não baixa nada e o `server.js` usa só o que
 já vem no Node.
+
+---
+
+## Contas de cliente
+
+`entrar.html` faz login e cadastro; `conta.html` é a área do cliente, com os
+dados e o avatar. Criar conta é **opcional** — o site inteiro funciona sem.
+
+### Como a sessão é guardada
+
+Quem cuida de senha, e-mail e recuperação é o **Supabase Auth**. Nosso servidor
+conversa com ele e devolve a sessão num **cookie httpOnly**: o JavaScript da
+página não consegue ler o token, o que fecha a porta mais comum de roubo de
+sessão. O cookie é `SameSite=Lax` e `Secure` em produção.
+
+### Ligar
+
+1. Rode `database/002-contas.sql` no SQL Editor do Supabase.
+2. Preencha `SUPABASE_URL` e `SUPABASE_ANON_KEY` no `.env`.
+3. O site precisa rodar como **aplicação Node** — as rotas `/api/conta/*` vivem
+   no `server.js`.
+
+Sem isso configurado, as rotas respondem 503 com uma mensagem clara.
+
+**Confirmação de e-mail:** se estiver ligada no painel do Supabase (é o padrão),
+o cadastro cria a conta mas não abre a sessão — a página avisa para confirmar o
+e-mail. Se preferir entrada imediata, desligue em Authentication → Providers.
+
+### Avatar
+
+A foto é reduzida a **256×256 no navegador** antes de subir, e vai como data URL
+no campo `avatar` do perfil. Sobem poucos KB em vez do arquivo original, e não
+precisamos de um serviço de arquivos. O servidor só aceita `data:image/...` —
+endereço externo é recusado, para ninguém usar o campo como vetor de conteúdo
+de terceiros. Sem foto, o avatar mostra as iniciais, com uma cor derivada do
+nome (a mesma pessoa tem sempre a mesma cor).
+
+Se a base de clientes crescer muito, o caminho é migrar para o Supabase Storage.
+
+### Segurança
+
+Cada pessoa só enxerga e edita o próprio perfil. A regra está na Row Level
+Security do `002-contas.sql` e vale mesmo se alguém chamar a API direto, sem
+passar pelo site.
+
+---
+
+## Biblioteca de componentes
+
+`assets/css/componentes.css` + `assets/js/componentes.js` trazem avatar, grupo
+de botões, dock de ações, carrossel, upload de arquivo e campos de formulário.
+
+As referências que inspiraram esses componentes (Chakra UI, Base Web) são
+bibliotecas **React**. Este site é HTML, CSS e JavaScript puros, então os
+padrões foram reescritos aqui — mesmo comportamento, sem framework, na paleta
+da OSC.
+
+| Componente | Onde está em uso |
+|---|---|
+| Avatar (`.avt`) | cabeçalho e área do cliente; tem tamanhos, formas, anel, selo e grupo |
+| Grupo de botões (`.btn-grupo`) | alterna entre Entrar e Criar conta |
+| Dock de ações (`.dock`) | rodapé do formulário de perfil |
+| Carrossel (`.carrossel`) | os 8 cards de serviços viram carrossel no celular e tablet, e voltam a ser grade no desktop |
+| Upload (`.upload`) | foto do perfil, com arrastar e soltar |
+| Caixa de marcar e chave | preferências de contato |
 
 ---
 

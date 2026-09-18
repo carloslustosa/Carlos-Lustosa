@@ -25,6 +25,7 @@
   RewriteRule ^package-lock\.json$  - [F,L]
   RewriteRule ^README\.md$          - [F,L]
   RewriteRule ^\.gitignore$         - [F,L]
+  RewriteRule ^\.env                - [F,L]
 </IfModule>
 
 # --------------------------------------------------------------------------

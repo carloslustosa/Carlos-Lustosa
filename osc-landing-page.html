@@ -6,7 +6,7 @@
 <title>OSC | Gestão Empresarial e Licitações — Estrutura hoje, crescimento amanhã.</title>
 <meta name="description" content="A OSC tira do caminho a burocracia que impede boas empresas de crescer. Gestão e licitações com clareza, método e presença — do diagnóstico à assinatura do contrato." />
 <meta name="theme-color" content="#12301F" />
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20role%3D%22img%22%20aria-label%3D%22OSC%22%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23F2EFE4%22%2F%3E%20%3Cg%20transform%3D%22translate%2810.03%208.67%29%20scale%280.453%29%22%3E%20%3Ccircle%20cx%3D%2242%22%20cy%3D%2258%22%20r%3D%2232%22%20fill%3D%22none%22%20stroke%3D%22%2312301F%22%20stroke-width%3D%2210.67%22%2F%3E%20%3Ccircle%20cx%3D%2258%22%20cy%3D%2242%22%20r%3D%2229.44%22%20fill%3D%22none%22%20stroke%3D%22%233F8A4B%22%20stroke-width%3D%229.81%22%20stroke-dasharray%3D%22149%2036%22%2F%3E%20%3Ccircle%20cx%3D%2272.5%22%20cy%3D%2267.5%22%20r%3D%228.5%22%20fill%3D%22%2387D06A%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20role%3D%22img%22%20aria-label%3D%22OSC%22%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23F2EFE4%22%2F%3E%20%3Cg%20transform%3D%22translate%2812.16%2014.81%29%20scale%280.3438%29%22%3E%20%3Ccircle%20cx%3D%2240.87%22%20cy%3D%2240.87%22%20r%3D%2234.71%22%20fill%3D%22none%22%20stroke%3D%22%2312301F%22%20stroke-width%3D%2212.31%22%2F%3E%20%3Cpath%20d%3D%22M%20109.04%2059.1%20A%2030.99%2030.99%200%201%201%2081.52%2032.06%22%20fill%3D%22none%22%20stroke%3D%22%233F8A4B%22%20stroke-width%3D%2212.26%22%2F%3E%20%3Ccircle%20cx%3D%2284.89%22%20cy%3D%2237.48%22%20r%3D%228.68%22%20fill%3D%22%2387D06A%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" />
 <link rel="canonical" href="https://oscgestao.com.br/" />
 
 <!-- Open Graph -->
@@ -210,7 +210,8 @@ section[id] { scroll-margin-top: 92px; }
   color: var(--cream);
   text-decoration: none;
 }
-.logo__sym { width: 42px; height: 42px; flex: none; }
+/* O monograma é 1,154 mais largo que alto — proporção da arte original. */
+.logo__sym { width: 48px; height: 42px; flex: none; }
 .logo__txt { display: flex; flex-direction: column; gap: 3px; }
 .logo__name {
   font-weight: 900;
@@ -226,7 +227,7 @@ section[id] { scroll-margin-top: 92px; }
   text-transform: uppercase;
   opacity: 0.72;
 }
-.logo--lg .logo__sym  { width: 62px; height: 62px; }
+.logo--lg .logo__sym  { width: 72px; height: 62px; }
 .logo--lg .logo__name { font-size: 2.1rem; }
 .logo--lg .logo__desc { font-size: 0.6rem; }
 
@@ -1126,7 +1127,7 @@ textarea:focus-visible {
   text-transform: uppercase;
   color: rgba(242, 239, 228, 0.42) !important;
 }
-.rel__spin { width: 72px; height: 72px; margin-bottom: 14px; }
+.rel__spin { width: 83px; height: 72px; margin-bottom: 14px; }
 .rel__spin svg { width: 100%; height: 100%; transform-origin: 50% 50%; animation: relGira 2.4s linear infinite; }
 .rel__spin-o { stroke: rgba(242, 239, 228, 0.35); }
 .rel__spin-c { stroke: var(--growth); }
@@ -1525,7 +1526,7 @@ textarea:focus-visible {
 
 /* ---- Celular pequeno — até 400 px ---- */
 @media (max-width: 400px) {
-  .logo__sym  { width: 36px; height: 36px; }
+  .logo__sym  { width: 42px; height: 36px; }
   .logo__name { font-size: 1.3rem; }
   .logo__desc { font-size: 0.44rem; letter-spacing: 0.22em; }
   .btn        { padding: 13px 20px; font-size: 0.9rem; }
@@ -1577,7 +1578,7 @@ textarea:focus-visible {
 /* ---- Monitor grande — a partir de 1536 px ---- */
 @media (min-width: 1536px) {
   .section { padding-block: 150px; }
-  .logo__sym { width: 46px; height: 46px; }
+  .logo__sym { width: 53px; height: 46px; }
 }
 
 /* ---- Sem hover (toque): o card já nasce no estado final ----
@@ -1639,6 +1640,526 @@ textarea:focus-visible {
   .hero-anim  { opacity: 1 !important; transform: none !important; }
   .btn--pulse::after { display: none; }
 }
+
+
+/* ==========================================================================
+   OSC — Biblioteca de componentes
+   --------------------------------------------------------------------------
+   Avatar, grupos de botão, dock de ações, carrossel, upload de arquivo e
+   campos de formulário.
+
+   As referências que inspiraram cada um (Chakra UI, Base Web) são bibliotecas
+   React. O site é HTML, CSS e JavaScript puros, então os padrões foram
+   reescritos aqui — mesmo comportamento, sem framework e na paleta da OSC.
+
+   01. Avatar          04. Carrossel
+   02. Grupo de botões 05. Upload de arquivo
+   03. Dock de ações   06. Campos de formulário
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------
+   01. AVATAR
+   Imagem do usuário, com recuo para as iniciais quando não há foto ou
+   quando ela falha ao carregar.
+   ---------------------------------------------------------------------- */
+.avt {
+  --avt-tam: 40px;
+  --avt-fonte: 0.95rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--avt-tam);
+  height: var(--avt-tam);
+  border-radius: 999px;
+  overflow: hidden;
+  font-weight: 700;
+  font-size: var(--avt-fonte);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+  background: var(--mid);
+  color: var(--cream);
+}
+
+.avt__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+.avt__img.is-carregada { opacity: 1; }
+
+.avt__ini { position: relative; z-index: 0; }
+
+.avt__icone { width: 58%; height: 58%; opacity: 0.85; }
+
+/* Tamanhos */
+.avt--2xs { --avt-tam: 22px; --avt-fonte: 0.6rem; }
+.avt--xs  { --avt-tam: 28px; --avt-fonte: 0.68rem; }
+.avt--sm  { --avt-tam: 34px; --avt-fonte: 0.8rem; }
+.avt--md  { --avt-tam: 40px; --avt-fonte: 0.95rem; }
+.avt--lg  { --avt-tam: 52px; --avt-fonte: 1.1rem; }
+.avt--xl  { --avt-tam: 68px; --avt-fonte: 1.5rem; }
+.avt--2xl { --avt-tam: 92px; --avt-fonte: 2rem; }
+.avt--3xl { --avt-tam: 124px; --avt-fonte: 2.6rem; }
+
+/* Variantes */
+.avt--solido  { background: var(--growth); color: var(--deep); }
+.avt--suave   { background: rgba(135, 208, 106, 0.18); color: var(--growth); }
+.avt--contorno{ background: transparent; color: var(--growth); box-shadow: inset 0 0 0 2px currentColor; }
+
+/* Formas */
+.avt--quadrado  { border-radius: 8px; }
+.avt--arredondado { border-radius: 14px; }
+
+/* Anel em volta */
+.avt--anel { outline: 2px solid var(--growth); outline-offset: 3px; }
+
+/* Selo de status */
+.avt__selo {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  z-index: 2;
+  width: 28%;
+  height: 28%;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 999px;
+  background: var(--growth);
+  box-shadow: 0 0 0 2px var(--deep);
+}
+.avt__selo--ausente { background: #C9A227; }
+.avt__selo--offline { background: rgba(242, 239, 228, 0.4); }
+
+/* Grupo empilhado */
+.avt-grupo { display: inline-flex; align-items: center; }
+.avt-grupo .avt {
+  box-shadow: 0 0 0 2px var(--deep);
+  margin-left: -10px;
+}
+.avt-grupo .avt:first-child { margin-left: 0; }
+/* o primeiro por cima, em vez do último */
+.avt-grupo--primeiro-na-frente .avt { position: relative; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(1) { z-index: 6; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(2) { z-index: 5; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(3) { z-index: 4; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(4) { z-index: 3; }
+.avt-grupo--solto .avt { margin-left: 4px; box-shadow: none; }
+.avt-grupo--solto .avt:first-child { margin-left: 0; }
+
+/* Ficha de pessoa: avatar + nome + linha secundária */
+.pessoa { display: flex; align-items: center; gap: 14px; }
+.pessoa__nome { font-weight: 600; letter-spacing: -0.02em; color: var(--cream); line-height: 1.2; }
+.pessoa__sub  { font-size: 0.85rem; color: rgba(242, 239, 228, 0.55); line-height: 1.3; }
+
+/* -------------------------------------------------------------------------
+   02. GRUPO DE BOTÕES
+   Botões colados, dividindo a borda. Serve como seletor de opção também.
+   ---------------------------------------------------------------------- */
+.btn-grupo {
+  display: inline-flex;
+  border: 2px solid rgba(242, 239, 228, 0.22);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.btn-grupo::-webkit-scrollbar { display: none; }
+
+.btn-grupo__item {
+  flex: none;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: rgba(242, 239, 228, 0.7);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.28s var(--ease-out), color 0.28s var(--ease-out);
+}
+.btn-grupo__item:hover { color: var(--cream); }
+.btn-grupo__item.is-ativo,
+.btn-grupo__item[aria-selected="true"],
+.btn-grupo__item[aria-pressed="true"] {
+  background: var(--growth);
+  color: var(--deep);
+}
+
+/* Sobre fundo creme */
+.btn-grupo--claro { border-color: var(--rule); }
+.btn-grupo--claro .btn-grupo__item { color: rgba(18, 48, 31, 0.65); }
+.btn-grupo--claro .btn-grupo__item:hover { color: var(--deep); }
+.btn-grupo--claro .btn-grupo__item.is-ativo,
+.btn-grupo--claro .btn-grupo__item[aria-selected="true"] { background: var(--deep); color: var(--cream); }
+
+.btn-grupo--largo { display: flex; width: 100%; }
+.btn-grupo--largo .btn-grupo__item { flex: 1; text-align: center; }
+
+/* -------------------------------------------------------------------------
+   03. DOCK DE AÇÕES
+   Ação principal, secundárias e a de sair — na ordem certa em cada tela.
+   ---------------------------------------------------------------------- */
+.dock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(242, 239, 228, 0.14);
+}
+.dock__secundarias { display: flex; flex-wrap: wrap; gap: 12px; }
+.dock__dispensa { margin-left: auto; }
+
+.btn--terciario {
+  background: transparent;
+  color: rgba(242, 239, 228, 0.6);
+  border-color: transparent;
+  padding-inline: 14px;
+}
+.btn--terciario::before { background: transparent; }
+.btn--terciario:hover { color: var(--cream); }
+
+/* No celular a ação principal vem primeiro e ocupa a linha inteira */
+@media (max-width: 640px) {
+  .dock { flex-direction: column; align-items: stretch; }
+  .dock > .btn, .dock__secundarias > .btn { width: 100%; justify-content: center; }
+  .dock__secundarias { flex-direction: column; }
+  .dock__dispensa { margin-left: 0; order: 9; }
+}
+
+/* -------------------------------------------------------------------------
+   04. CARROSSEL
+   Rolagem com encaixe. Funciona no dedo sem JavaScript; o JS só acrescenta
+   setas, marcadores e teclado.
+   ---------------------------------------------------------------------- */
+.carrossel { position: relative; }
+
+.carrossel__trilho {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  /* deixa o card sangrar até a borda da tela no celular */
+  margin-inline: calc(var(--carr-sangria, 0px) * -1);
+  padding-inline: var(--carr-sangria, 0px);
+}
+.carrossel__trilho::-webkit-scrollbar { display: none; }
+
+.carrossel__item {
+  flex: 0 0 auto;
+  width: var(--carr-larg, 300px);
+  scroll-snap-align: start;
+}
+
+.carrossel__controles {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.carrossel__seta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 2px solid rgba(242, 239, 228, 0.24);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease-out), color 0.25s var(--ease-out), opacity 0.25s;
+}
+.carrossel__seta:hover:not(:disabled) { border-color: var(--growth); color: var(--growth); }
+.carrossel__seta:disabled { opacity: 0.3; cursor: default; }
+.carrossel__seta svg { width: 18px; height: 18px; }
+
+.carrossel__pontos { display: flex; gap: 8px; margin-left: 4px; }
+.carrossel__ponto {
+  width: 8px; height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(242, 239, 228, 0.25);
+  cursor: pointer;
+  transition: background-color 0.28s var(--ease-out), transform 0.28s var(--ease-out);
+}
+.carrossel__ponto.is-ativo { background: var(--growth); transform: scale(1.3); }
+
+.carrossel__contador {
+  margin-left: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: rgba(242, 239, 228, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Carrossel no celular e tablet, grade no desktop.
+   Oito cards empilhados é rolagem demais no telefone; em carrossel são
+   duas passadas de dedo. No desktop a grade mostra tudo de uma vez. */
+.carrossel--vira-grade { --carr-larg: min(78vw, 300px); }
+.carrossel--vira-grade .carrossel__item { width: var(--carr-larg); }
+
+@media (min-width: 1024px) {
+  .carrossel--vira-grade .carrossel__trilho {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+  .carrossel--vira-grade .carrossel__item { width: auto; }
+  .carrossel--vira-grade .carrossel__controles { display: none; }
+}
+
+/* Sobre fundo creme */
+.carrossel--claro .carrossel__seta { border-color: var(--rule); color: var(--deep); }
+.carrossel--claro .carrossel__seta:hover:not(:disabled) { border-color: var(--mid); color: var(--mid-ink); }
+.carrossel--claro .carrossel__ponto { background: rgba(18, 48, 31, 0.2); }
+.carrossel--claro .carrossel__ponto.is-ativo { background: var(--mid); }
+.carrossel--claro .carrossel__contador { color: rgba(18, 48, 31, 0.5); }
+
+/* -------------------------------------------------------------------------
+   05. UPLOAD DE ARQUIVO
+   ---------------------------------------------------------------------- */
+.upload {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 30px 22px;
+  border: 2px dashed rgba(242, 239, 228, 0.28);
+  border-radius: 20px;
+  background: rgba(15, 31, 20, 0.4);
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+}
+.upload:hover, .upload:focus-within { border-color: var(--growth); }
+.upload.is-arrastando { border-color: var(--growth); background: rgba(135, 208, 106, 0.1); }
+.upload input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.upload__icone { width: 32px; height: 32px; color: var(--growth); }
+.upload__titulo { font-weight: 600; letter-spacing: -0.02em; color: var(--cream); }
+.upload__dica {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.45);
+}
+
+.upload-lista { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.upload-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.upload-item__nome { flex: 1; min-width: 0; font-size: 0.92rem; color: var(--cream); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.upload-item__peso {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: rgba(242, 239, 228, 0.45);
+  flex: none;
+}
+.upload-item__x {
+  flex: none;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 999px;
+  background: transparent;
+  color: rgba(242, 239, 228, 0.5);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+.upload-item__x:hover { color: var(--alert); background: rgba(172, 49, 42, 0.15); }
+.upload-item--erro { border-color: rgba(172, 49, 42, 0.5); }
+.upload-item__erro { font-size: 0.8rem; color: #E08A82; }
+
+/* -------------------------------------------------------------------------
+   06. CAMPOS DE FORMULÁRIO — complementos
+   ---------------------------------------------------------------------- */
+.field__ajuda {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: rgba(242, 239, 228, 0.45);
+}
+.field__erro {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #E08A82;
+}
+.field__obrig { color: var(--growth); }
+
+.grupo-campos {
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 20px;
+  padding: 22px;
+}
+.grupo-campos > legend {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--growth);
+  padding-inline: 8px;
+}
+
+/* Caixa de marcar */
+.check { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+/* Escondido dos olhos, mas ainda alcançável pelo Tab. Tamanho zero tira o
+   campo da ordem de tabulação no Chrome — por isso 1px com clip. */
+.check input {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.check__caixa {
+  flex: none;
+  width: 20px; height: 20px;
+  margin-top: 1px;
+  border: 2px solid rgba(242, 239, 228, 0.35);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
+}
+.check__caixa svg { width: 12px; height: 12px; opacity: 0; transform: scale(0.6); transition: opacity 0.2s, transform 0.2s var(--ease-out); color: var(--deep); }
+.check input:checked + .check__caixa { background: var(--growth); border-color: var(--growth); }
+.check input:checked + .check__caixa svg { opacity: 1; transform: scale(1); }
+.check input:focus-visible + .check__caixa { outline: 2px solid var(--growth); outline-offset: 3px; }
+.check__texto { font-size: 0.92rem; line-height: 1.5; color: rgba(242, 239, 228, 0.75); }
+
+/* Chave liga/desliga */
+.chave { display: inline-flex; align-items: center; gap: 12px; cursor: pointer; }
+.chave input {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.chave__trilho {
+  width: 46px; height: 26px;
+  border-radius: 999px;
+  background: rgba(242, 239, 228, 0.2);
+  padding: 3px;
+  transition: background-color 0.28s var(--ease-out);
+}
+.chave__bolinha {
+  width: 20px; height: 20px;
+  border-radius: 999px;
+  background: var(--cream);
+  transition: transform 0.28s var(--ease-out);
+}
+.chave input:checked + .chave__trilho { background: var(--growth); }
+.chave input:checked + .chave__trilho .chave__bolinha { transform: translateX(20px); }
+.chave input:focus-visible + .chave__trilho { outline: 2px solid var(--growth); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .carrossel__trilho { scroll-behavior: auto; }
+}
+
+/* -------------------------------------------------------------------------
+   07. TELAS DE CONTA
+   ---------------------------------------------------------------------- */
+
+/* Avatar e nome no cabeçalho */
+.conta-topo__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 4px 12px 4px 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 239, 228, 0.18);
+  transition: border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+}
+.conta-topo__link:hover { border-color: var(--growth); background: rgba(135, 208, 106, 0.08); }
+.conta-topo__nome {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  max-width: 12ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 520px) { .conta-topo__nome { display: none; } }
+
+/* Entrar / criar conta */
+.entrar-tela {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px 60px;
+}
+.entrar-caixa {
+  width: 100%;
+  max-width: 560px;
+  border: 1px solid rgba(242, 239, 228, 0.18);
+  border-radius: 28px;
+  background: rgba(15, 31, 20, 0.72);
+  padding: clamp(26px, 4vw, 46px);
+}
+
+/* Área da conta */
+.conta-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(20px, 4vw, 40px);
+}
+.conta-cabeca__txt { min-width: 0; flex: 1 1 320px; }
+
+.conta-lateral {
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 26px;
+  background: rgba(15, 31, 20, 0.5);
+  padding: clamp(22px, 3vw, 30px);
+  align-self: start;
+}
+
+@media (max-width: 560px) {
+  .conta-cabeca { flex-direction: column; align-items: flex-start; }
+  .avt--3xl { --avt-tam: 96px; --avt-fonte: 2.1rem; }
+}
 </style>
 </head>
 
@@ -1655,10 +2176,10 @@ textarea:focus-visible {
 
     <a href="#topo" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
       <span class="logo__sym">
-        <svg class="mono mono--negativa" viewBox="0 0 100 100" aria-hidden="true">
-          <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
-          <circle class="mono__c" cx="58" cy="42" r="29.44" stroke-width="9.81" stroke-dasharray="149 36" />
-          <circle class="mono__dot" cx="72.5" cy="67.5" r="8.5" />
+        <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
         </svg>
       </span>
       <span class="logo__txt">
@@ -1681,6 +2202,8 @@ textarea:focus-visible {
         <span>Fale com um especialista</span>
         <span class="btn__dot" aria-hidden="true"></span>
       </a>
+
+      <span id="conta-topo"></span>
 
       <button id="menu-toggle" class="burger lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
         <span></span><span></span><span></span>
@@ -2022,35 +2545,55 @@ textarea:focus-visible {
         <span class="svc-head__rule" aria-hidden="true"></span>
       </div>
 
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="carrossel carrossel--claro carrossel--vira-grade mt-8" data-carrossel data-rotulo="Serviços de gestão empresarial">
+        <div class="carrossel__trilho">
 
-        <article class="card" data-reveal>
-          <span class="card__num">01</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Diagnóstico e reestruturação</h4>
-          <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal>
+            <span class="card__num">01</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Diagnóstico e reestruturação</h4>
+            <p class="card__text">Leitura completa do negócio e um plano objetivo do que arrumar primeiro.</p>
+          </article>
+          </div>
 
-        <article class="card" data-reveal data-reveal-delay="80">
-          <span class="card__num">02</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Documentação e regularidade</h4>
-          <p class="card__text">Certidões, alvarás e obrigações em dia, com aviso antes de cada vencimento.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal data-reveal-delay="80">
+            <span class="card__num">02</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Documentação e regularidade</h4>
+            <p class="card__text">Certidões, alvarás e obrigações em dia, com aviso antes de cada vencimento.</p>
+          </article>
+          </div>
 
-        <article class="card" data-reveal data-reveal-delay="160">
-          <span class="card__num">03</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Compliance e governança</h4>
-          <p class="card__text">Regras claras, responsabilidades definidas e a empresa pronta para auditoria.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal data-reveal-delay="160">
+            <span class="card__num">03</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Compliance e governança</h4>
+            <p class="card__text">Regras claras, responsabilidades definidas e a empresa pronta para auditoria.</p>
+          </article>
+          </div>
 
-        <article class="card" data-reveal data-reveal-delay="240">
-          <span class="card__num">04</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Processos e precificação</h4>
-          <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card" data-reveal data-reveal-delay="240">
+            <span class="card__num">04</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Processos e precificação</h4>
+            <p class="card__text">Rotinas escritas, custo real na ponta do lápis e preço que fecha a conta.</p>
+          </article>
+          </div>
+        </div>
+      <div class="carrossel__controles lg:hidden">
+        <button type="button" class="carrossel__seta" data-carr="anterior" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="carrossel__seta" data-carr="proximo" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="carrossel__pontos"></div>
+        <span class="carrossel__contador"></span>
+      </div>
       </div>
     </div>
 
@@ -2062,35 +2605,55 @@ textarea:focus-visible {
         <span class="svc-head__rule" aria-hidden="true"></span>
       </div>
 
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="carrossel carrossel--claro carrossel--vira-grade mt-8" data-carrossel data-rotulo="Serviços de licitações">
+        <div class="carrossel__trilho">
 
-        <article class="card card--alt" data-reveal>
-          <span class="card__num">05</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Cadastro em portais e SICAF</h4>
-          <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal>
+            <span class="card__num">05</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Cadastro em portais e SICAF</h4>
+            <p class="card__text">Sua empresa habilitada e visível nos portais onde as compras acontecem.</p>
+          </article>
+          </div>
 
-        <article class="card card--alt" data-reveal data-reveal-delay="80">
-          <span class="card__num">06</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Análise e seleção de editais</h4>
-          <p class="card__text">Filtramos o que vale disputar e descartamos o que só dá trabalho.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal data-reveal-delay="80">
+            <span class="card__num">06</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Análise e seleção de editais</h4>
+            <p class="card__text">Filtramos o que vale disputar e descartamos o que só dá trabalho.</p>
+          </article>
+          </div>
 
-        <article class="card card--alt" data-reveal data-reveal-delay="160">
-          <span class="card__num">07</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Disputa, impugnação e recurso</h4>
-          <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando aperta.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal data-reveal-delay="160">
+            <span class="card__num">07</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Disputa, impugnação e recurso</h4>
+            <p class="card__text">Proposta montada, sessão acompanhada e defesa técnica quando aperta.</p>
+          </article>
+          </div>
 
-        <article class="card card--alt" data-reveal data-reveal-delay="240">
-          <span class="card__num">08</span>
-          <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
-          <h4 class="card__title">Gestão de contratos públicos</h4>
-          <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
-        </article>
+          <div class="carrossel__item">
+            <article class="card card--alt" data-reveal data-reveal-delay="240">
+            <span class="card__num">08</span>
+            <span class="card__ring block" aria-hidden="true"><span class="osc-ring osc-ring--lg"></span></span>
+            <h4 class="card__title">Gestão de contratos públicos</h4>
+            <p class="card__text">Prazos, aditivos, reajustes e entregas sob controle depois da assinatura.</p>
+          </article>
+          </div>
+        </div>
+      <div class="carrossel__controles lg:hidden">
+        <button type="button" class="carrossel__seta" data-carr="anterior" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="carrossel__seta" data-carr="proximo" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div class="carrossel__pontos"></div>
+        <span class="carrossel__contador"></span>
+      </div>
       </div>
     </div>
   </div>
@@ -2368,10 +2931,10 @@ textarea:focus-visible {
     <!-- Estado de espera -->
     <div id="relatorio-carregando" class="rel__espera" role="status" hidden>
       <span class="rel__spin" aria-hidden="true">
-        <svg viewBox="0 0 100 100">
-          <circle class="rel__spin-o" cx="42" cy="58" r="32" stroke-width="10.67" fill="none" />
-          <circle class="rel__spin-c" cx="58" cy="42" r="29.44" stroke-width="9.81" fill="none" stroke-dasharray="149 36" />
-          <circle class="rel__spin-d" cx="72.5" cy="67.5" r="8.5" />
+        <svg viewBox="0 0 115.4 100">
+          <circle class="rel__spin-o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" fill="none" />
+          <path class="rel__spin-c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" fill="none" />
+          <circle class="rel__spin-d" cx="84.89" cy="37.48" r="8.68" />
         </svg>
       </span>
       <p>Analisando sua empresa e o mercado público do seu segmento…</p>
@@ -2652,11 +3215,11 @@ textarea:focus-visible {
       <div>
         <a href="#topo" class="logo logo--lg" aria-label="OSC — Gestão Empresarial e Licitações">
           <span class="logo__sym">
-            <svg class="mono mono--negativa" viewBox="0 0 100 100" aria-hidden="true">
-              <circle class="mono__o" cx="42" cy="58" r="32" stroke-width="10.67" />
-              <circle class="mono__c" cx="58" cy="42" r="29.44" stroke-width="9.81" stroke-dasharray="149 36" />
-              <circle class="mono__dot" cx="72.5" cy="67.5" r="8.5" />
-            </svg>
+            <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
+        </svg>
           </span>
           <span class="logo__txt">
             <span class="logo__name">OSC</span>
@@ -2771,31 +3334,40 @@ textarea:focus-visible {
                centro deslocado na diagonal ascendente (+0.5r, -0.5r)
      ponto   → no cruzamento real dos dois anéis
      ------------------------------------------------------------------- */
-  var C_GAP = 290 * Math.PI / 180;          // arco visível do anel C
+  /* Todas as proporções abaixo saíram da medição da arte original do logo,
+     normalizadas pelo raio médio do anel O. */
+  var RAD      = Math.PI / 180;
+  var O_TRACO  = 0.3547;                   // espessura do anel O
+  var C_DESLOC = { x: 1.0778, y: 0.6341 }; // centro do C, a partir do centro do O
+  var C_RAIO   = 0.8928;                   // raio do C
+  var C_TRACO  = 0.3532;                   // espessura do C
+  var C_INICIO = 353 * RAD;                // onde o traço do C começa
+  var C_ARCO   = 283 * RAD;                // quanto ele percorre, no sentido horário
+  var P_DESLOC = { x: 1.2682, y: -0.0977 };// centro do ponto
+  var P_RAIO   = 0.2501;                   // raio do ponto
 
   function drawMonogram(x, y, r, rot, alpha, glow) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rot);
 
-    // anel O
+    // anel O — fechado
     ctx.beginPath();
     ctx.arc(0, 0, r, 0, Math.PI * 2);
-    ctx.lineWidth = r / 3;
+    ctx.lineWidth = r * O_TRACO;
     ctx.strokeStyle = 'rgba(' + COLOR.o + ',' + (alpha * (0.5 + glow * 0.5)).toFixed(3) + ')';
     ctx.stroke();
 
-    // anel C — aberto, deslocado na diagonal ascendente
-    var rc = r * 0.92;
+    // anel C — aberto no quadrante superior direito, deslocado na diagonal
     ctx.beginPath();
-    ctx.arc(r * 0.5, -r * 0.5, rc, 0, C_GAP);
-    ctx.lineWidth = rc / 3;
+    ctx.arc(r * C_DESLOC.x, r * C_DESLOC.y, r * C_RAIO, C_INICIO, C_INICIO + C_ARCO);
+    ctx.lineWidth = r * C_TRACO;
     ctx.strokeStyle = 'rgba(' + COLOR.c + ',' + (alpha * (1 + glow)).toFixed(3) + ')';
     ctx.stroke();
 
     // ponto de encontro
     ctx.beginPath();
-    ctx.arc(r * 0.953, r * 0.297, r * 0.266, 0, Math.PI * 2);
+    ctx.arc(r * P_DESLOC.x, r * P_DESLOC.y, r * P_RAIO, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(' + COLOR.dot + ',' + (alpha * (1.3 + glow * 1.6)).toFixed(3) + ')';
     ctx.fill();
 
@@ -3497,6 +4069,652 @@ textarea:focus-visible {
   } else {
     boot();
   }
+})();
+</script>
+<script>
+/* ==========================================================================
+   OSC — Comportamento dos componentes
+   Avatar, carrossel e upload de arquivo. Sem dependências.
+   Expõe window.OSCComp para as outras telas usarem.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ----------------------------------------------------------------------
+     AVATAR
+     Monta as iniciais a partir do nome e troca pela foto quando ela carrega.
+     Se a foto falhar, as iniciais continuam lá — o usuário nunca vê um
+     quadrado quebrado.
+     ------------------------------------------------------------------- */
+
+  /* Primeira e última palavra do nome, no máximo duas letras. */
+  function iniciais(nome) {
+    var partes = String(nome || '').trim().split(/\s+/).filter(Boolean);
+    if (!partes.length) return '';
+    if (partes.length === 1) return partes[0].slice(0, 2).toUpperCase();
+    return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+  }
+
+  /* Tom do avatar derivado do nome: a mesma pessoa tem sempre a mesma cor,
+     e todas saem da paleta da marca. */
+  var TONS = [
+    { fundo: 'rgba(63, 138, 75, 0.9)',   texto: '#F2EFE4' },
+    { fundo: 'rgba(135, 208, 106, 0.9)', texto: '#12301F' },
+    { fundo: 'rgba(18, 48, 31, 0.9)',    texto: '#87D06A' },
+    { fundo: 'rgba(47, 106, 58, 0.9)',   texto: '#F2EFE4' },
+    { fundo: 'rgba(242, 239, 228, 0.9)', texto: '#12301F' }
+  ];
+  function tomDoNome(nome) {
+    var soma = 0;
+    var t = String(nome || '');
+    for (var i = 0; i < t.length; i++) soma = (soma + t.charCodeAt(i)) % 9973;
+    return TONS[soma % TONS.length];
+  }
+
+  var ICONE_PESSOA =
+    '<svg class="avt__icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+    '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"/></svg>';
+
+  function montarAvatar(el) {
+    if (!el || el.dataset.montado === '1') return el;
+    el.dataset.montado = '1';
+
+    var nome = el.getAttribute('data-nome') || '';
+    var foto = el.getAttribute('data-foto') || '';
+    var letras = iniciais(nome);
+
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', nome || 'Usuário');
+
+    el.innerHTML = letras
+      ? '<span class="avt__ini">' + letras.replace(/[<>&]/g, '') + '</span>'
+      : ICONE_PESSOA;
+
+    // cor automática só quando não foi escolhida uma variante
+    if (!el.className.match(/avt--(solido|suave|contorno)/)) {
+      var tom = tomDoNome(nome);
+      el.style.background = tom.fundo;
+      el.style.color = tom.texto;
+    }
+
+    if (foto) {
+      var img = new Image();
+      img.className = 'avt__img';
+      img.alt = '';
+      img.decoding = 'async';
+      img.onload = function () { img.classList.add('is-carregada'); };
+      img.onerror = function () { if (img.parentNode) img.parentNode.removeChild(img); };
+      img.src = foto;
+      el.appendChild(img);
+    }
+    return el;
+  }
+
+  /* Troca nome/foto de um avatar já montado */
+  function atualizarAvatar(el, nome, foto) {
+    if (!el) return;
+    el.dataset.montado = '';
+    if (nome != null) el.setAttribute('data-nome', nome);
+    if (foto != null) el.setAttribute('data-foto', foto);
+    el.style.background = '';
+    el.style.color = '';
+    montarAvatar(el);
+  }
+
+  function iniciarAvatares(raiz) { $$('.avt[data-nome], .avt[data-foto]', raiz).forEach(montarAvatar); }
+
+  /* ----------------------------------------------------------------------
+     CARROSSEL
+     A rolagem com encaixe já funciona sozinha no dedo. O JS acrescenta
+     setas, marcadores, contador e navegação pelo teclado.
+     ------------------------------------------------------------------- */
+  function iniciarCarrossel(raiz) {
+    var trilho = $('.carrossel__trilho', raiz);
+    if (!trilho) return;
+
+    var itens   = $$('.carrossel__item', trilho);
+    var anterior = $('[data-carr="anterior"]', raiz);
+    var proximo  = $('[data-carr="proximo"]', raiz);
+    var pontos   = $('.carrossel__pontos', raiz);
+    var contador = $('.carrossel__contador', raiz);
+    if (!itens.length) return;
+
+    /* Quantos itens cabem por vez — muda com a largura da tela */
+    function porPagina() {
+      var larg = itens[0].getBoundingClientRect().width +
+                 parseFloat(getComputedStyle(trilho).gap || 0);
+      return Math.max(1, Math.round(trilho.clientWidth / larg));
+    }
+    function paginas() { return Math.max(1, Math.ceil(itens.length / porPagina())); }
+    function paginaAtual() {
+      var larg = itens[0].getBoundingClientRect().width +
+                 parseFloat(getComputedStyle(trilho).gap || 0);
+      return Math.min(paginas() - 1, Math.round(trilho.scrollLeft / (larg * porPagina())));
+    }
+
+    function irPara(p) {
+      var larg = itens[0].getBoundingClientRect().width +
+                 parseFloat(getComputedStyle(trilho).gap || 0);
+      trilho.scrollTo({ left: p * larg * porPagina(), behavior: 'smooth' });
+    }
+
+    function desenharPontos() {
+      if (!pontos) return;
+      var n = paginas();
+      if (pontos.children.length !== n) {
+        pontos.innerHTML = '';
+        for (var i = 0; i < n; i++) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'carrossel__ponto';
+          b.setAttribute('aria-label', 'Ir para a página ' + (i + 1));
+          b.addEventListener('click', (function (idx) {
+            return function () { irPara(idx); };
+          })(i));
+          pontos.appendChild(b);
+        }
+      }
+    }
+
+    function atualizar() {
+      var p = paginaAtual(), n = paginas();
+      if (anterior) anterior.disabled = trilho.scrollLeft <= 2;
+      if (proximo)  proximo.disabled  = trilho.scrollLeft + trilho.clientWidth >= trilho.scrollWidth - 2;
+      if (pontos) {
+        desenharPontos();
+        $$('.carrossel__ponto', pontos).forEach(function (b, i) {
+          b.classList.toggle('is-ativo', i === p);
+          b.setAttribute('aria-current', i === p ? 'true' : 'false');
+        });
+      }
+      if (contador) contador.textContent = (p + 1) + ' / ' + n;
+    }
+
+    if (anterior) anterior.addEventListener('click', function () { irPara(Math.max(0, paginaAtual() - 1)); });
+    if (proximo)  proximo.addEventListener('click',  function () { irPara(Math.min(paginas() - 1, paginaAtual() + 1)); });
+
+    trilho.addEventListener('scroll', function () {
+      window.clearTimeout(trilho._t);
+      trilho._t = window.setTimeout(atualizar, 90);
+    }, { passive: true });
+
+    // teclado, quando o trilho está em foco
+    trilho.setAttribute('tabindex', '0');
+    trilho.setAttribute('role', 'group');
+    trilho.setAttribute('aria-label', raiz.getAttribute('data-rotulo') || 'Carrossel');
+    trilho.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); irPara(Math.min(paginas() - 1, paginaAtual() + 1)); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); irPara(Math.max(0, paginaAtual() - 1)); }
+    });
+
+    window.addEventListener('resize', function () {
+      window.clearTimeout(raiz._r);
+      raiz._r = window.setTimeout(atualizar, 160);
+    });
+
+    atualizar();
+  }
+
+  function iniciarCarrosseis(raiz) { $$('[data-carrossel]', raiz).forEach(iniciarCarrossel); }
+
+  /* ----------------------------------------------------------------------
+     UPLOAD DE ARQUIVO
+     Arrastar e soltar, ou clicar. Valida tipo e tamanho antes de aceitar.
+     ------------------------------------------------------------------- */
+  var ICONE_X = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+
+  function tamanhoLegivel(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + ' KB';
+    return (bytes / 1024 / 1024).toFixed(1).replace('.', ',') + ' MB';
+  }
+
+  function iniciarUpload(raiz) {
+    var input = $('input[type="file"]', raiz);
+    if (!input) return;
+
+    var lista    = $('#' + (raiz.getAttribute('data-lista') || '')) || raiz.nextElementSibling;
+    var maxBytes = Number(raiz.getAttribute('data-max-mb') || 5) * 1024 * 1024;
+    var tipos    = (raiz.getAttribute('data-tipos') || '').split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+    var arquivos = [];
+
+    function valida(f) {
+      if (tipos.length && tipos.indexOf(f.type) < 0) return 'Formato não aceito.';
+      if (f.size > maxBytes) return 'Passa de ' + Math.round(maxBytes / 1024 / 1024) + ' MB.';
+      return null;
+    }
+
+    function desenhar() {
+      if (!lista || !lista.classList.contains('upload-lista')) return;
+      lista.innerHTML = '';
+      arquivos.forEach(function (item, i) {
+        var li = document.createElement('div');
+        li.className = 'upload-item' + (item.erro ? ' upload-item--erro' : '');
+        li.innerHTML =
+          '<span class="upload-item__nome"></span>' +
+          (item.erro ? '<span class="upload-item__erro"></span>' : '<span class="upload-item__peso"></span>') +
+          '<button type="button" class="upload-item__x" aria-label="Remover arquivo">' + ICONE_X + '</button>';
+        $('.upload-item__nome', li).textContent = item.arquivo.name;
+        if (item.erro) $('.upload-item__erro', li).textContent = item.erro;
+        else $('.upload-item__peso', li).textContent = tamanhoLegivel(item.arquivo.size);
+        $('.upload-item__x', li).addEventListener('click', function () {
+          arquivos.splice(i, 1);
+          desenhar();
+          raiz.dispatchEvent(new CustomEvent('osc:arquivos', { detail: aceitos() }));
+        });
+        lista.appendChild(li);
+      });
+    }
+
+    function aceitos() { return arquivos.filter(function (a) { return !a.erro; }).map(function (a) { return a.arquivo; }); }
+
+    function adicionar(fileList) {
+      var varios = input.multiple;
+      if (!varios) arquivos = [];
+      Array.prototype.forEach.call(fileList, function (f) {
+        arquivos.push({ arquivo: f, erro: valida(f) });
+      });
+      if (!varios) arquivos = arquivos.slice(-1);
+      desenhar();
+      raiz.dispatchEvent(new CustomEvent('osc:arquivos', { detail: aceitos() }));
+    }
+
+    input.addEventListener('change', function () { if (input.files.length) adicionar(input.files); });
+
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      raiz.addEventListener(ev, function (e) { e.preventDefault(); raiz.classList.add('is-arrastando'); });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      raiz.addEventListener(ev, function (e) { e.preventDefault(); raiz.classList.remove('is-arrastando'); });
+    });
+    raiz.addEventListener('drop', function (e) {
+      if (e.dataTransfer && e.dataTransfer.files.length) adicionar(e.dataTransfer.files);
+    });
+
+    raiz.oscArquivos = aceitos;
+    raiz.oscLimpar = function () { arquivos = []; input.value = ''; desenhar(); };
+  }
+
+  function iniciarUploads(raiz) { $$('[data-upload]', raiz).forEach(iniciarUpload); }
+
+  /* ----------------------------------------------------------------------
+     GRUPO DE BOTÕES — seleção única
+     ------------------------------------------------------------------- */
+  function iniciarGrupos(raiz) {
+    $$('[data-btn-grupo]', raiz).forEach(function (g) {
+      var itens = $$('.btn-grupo__item', g);
+      itens.forEach(function (b) {
+        b.addEventListener('click', function () {
+          itens.forEach(function (o) {
+            o.classList.toggle('is-ativo', o === b);
+            o.setAttribute('aria-selected', o === b ? 'true' : 'false');
+          });
+          g.dispatchEvent(new CustomEvent('osc:escolha', { detail: b.getAttribute('data-valor') || b.textContent.trim() }));
+        });
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     BOOT
+     ------------------------------------------------------------------- */
+  function iniciarTudo(raiz) {
+    iniciarAvatares(raiz);
+    iniciarCarrosseis(raiz);
+    iniciarUploads(raiz);
+    iniciarGrupos(raiz);
+  }
+
+  window.OSCComp = {
+    iniciarTudo: iniciarTudo,
+    avatar: { montar: montarAvatar, atualizar: atualizarAvatar, iniciais: iniciais },
+    tamanhoLegivel: tamanhoLegivel
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { iniciarTudo(document); });
+  } else {
+    iniciarTudo(document);
+  }
+})();
+</script>
+<script>
+/* ==========================================================================
+   OSC — Contas do cliente
+   --------------------------------------------------------------------------
+   Cuida do cadastro, do login, do perfil e do avatar no cabeçalho.
+
+   A senha nunca passa por aqui além do envio: quem guarda a sessão é um
+   cookie httpOnly, que este JavaScript não consegue ler. Se o servidor não
+   estiver com as contas ligadas, a página avisa em vez de quebrar.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  var API = '/api/conta';
+  var eu = null;   // { entrou, email, perfil }
+
+  function pedir(caminho, opcoes) {
+    var o = opcoes || {};
+    return fetch(API + caminho, {
+      method: o.metodo || 'GET',
+      headers: o.corpo ? { 'Content-Type': 'application/json' } : undefined,
+      body: o.corpo ? JSON.stringify(o.corpo) : undefined,
+      credentials: 'same-origin'
+    }).then(function (r) {
+      return r.json()
+        .catch(function () { return {}; })
+        .then(function (c) { return { status: r.status, corpo: c }; });
+    });
+  }
+
+  var aviso = function (el, texto, tipo) {
+    if (!el) return;
+    el.textContent = texto || '';
+    el.hidden = !texto;
+    el.className = tipo === 'ok' ? 'form__ok' : 'form__error';
+  };
+
+  /* ----------------------------------------------------------------------
+     Avatar no cabeçalho
+     ------------------------------------------------------------------- */
+  function pintarCabecalho() {
+    var caixa = $('#conta-topo');
+    if (!caixa) return;
+
+    if (!eu || !eu.entrou) {
+      caixa.innerHTML = '<a href="entrar.html" class="btn btn--ghost conta-topo__entrar">' +
+                        '<span>Entrar</span></a>';
+      return;
+    }
+
+    var perfil = eu.perfil || {};
+    var nome = perfil.nome || eu.email || 'Minha conta';
+    caixa.innerHTML =
+      '<a href="conta.html" class="conta-topo__link" title="' + nome.replace(/"/g, '') + '">' +
+        '<span class="avt avt--sm" data-nome="' + nome.replace(/"/g, '') + '"' +
+        (perfil.avatar ? ' data-foto="' + perfil.avatar + '"' : '') + '></span>' +
+        '<span class="conta-topo__nome">' + (nome.split(' ')[0] || '') + '</span>' +
+      '</a>';
+    if (window.OSCComp) window.OSCComp.iniciarTudo(caixa);
+  }
+
+  function carregarSessao() {
+    return pedir('/eu').then(function (r) {
+      eu = (r.status === 200 && r.corpo && r.corpo.ok) ? r.corpo : { entrou: false };
+      pintarCabecalho();
+      return eu;
+    }).catch(function () {
+      eu = { entrou: false };
+      pintarCabecalho();
+      return eu;
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     Página de entrar / criar conta
+     ------------------------------------------------------------------- */
+  function iniciarEntrar() {
+    var caixa = $('#entrar-bloco');
+    if (!caixa) return;
+
+    var seletor  = $('#entrar-seletor');
+    var fEntrar  = $('#form-entrar');
+    var fCriar   = $('#form-criar');
+    var avisoE   = $('#entrar-aviso');
+    var avisoC   = $('#criar-aviso');
+
+    function mostrar(aba) {
+      var criar = aba === 'criar';
+      fEntrar.hidden = criar;
+      fCriar.hidden  = !criar;
+      $$('.btn-grupo__item', seletor).forEach(function (b) {
+        var ativo = b.getAttribute('data-valor') === aba;
+        b.classList.toggle('is-ativo', ativo);
+        b.setAttribute('aria-selected', ativo ? 'true' : 'false');
+      });
+      aviso(avisoE, ''); aviso(avisoC, '');
+    }
+
+    if (seletor) {
+      seletor.addEventListener('osc:escolha', function (e) { mostrar(e.detail); });
+      $$('.btn-grupo__item', seletor).forEach(function (b) {
+        b.addEventListener('click', function () { mostrar(b.getAttribute('data-valor')); });
+      });
+    }
+    if (location.hash === '#criar') mostrar('criar');
+
+    function valida(form, box) {
+      var falho = null;
+      $$('input[required], select[required]', form).forEach(function (f) {
+        var ok = f.value.trim() !== '' &&
+                 (f.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.value.trim()));
+        if (f.type === 'password' && f.value.length < 8) ok = false;
+        f.classList.toggle('is-invalid', !ok);
+        if (!ok && !falho) falho = f;
+      });
+      if (falho) {
+        aviso(box, falho.type === 'password'
+          ? 'A senha precisa de pelo menos 8 caracteres.'
+          : 'Confira os campos destacados.');
+        falho.focus();
+      }
+      return !falho;
+    }
+
+    function enviar(form, box, caminho, monta) {
+      var botao = form.querySelector('button[type="submit"]');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!valida(form, box)) return;
+        aviso(box, '');
+        botao.disabled = true;
+
+        pedir(caminho, { metodo: 'POST', corpo: monta(form) })
+          .then(function (r) {
+            botao.disabled = false;
+            if (r.corpo && r.corpo.ok) {
+              if (r.corpo.precisaConfirmar) {
+                aviso(box, r.corpo.mensagem, 'ok');
+                form.reset();
+                return;
+              }
+              var destino = new URLSearchParams(location.search).get('voltar') || 'conta.html';
+              location.href = destino;
+              return;
+            }
+            aviso(box, (r.corpo && r.corpo.mensagem) || 'Não foi possível concluir.');
+          })
+          .catch(function () {
+            botao.disabled = false;
+            aviso(box, 'Sem conexão com o servidor. Tente de novo.');
+          });
+      });
+    }
+
+    var v = function (form, nome) {
+      var el = form.elements[nome];
+      return el ? (el.type === 'checkbox' ? el.checked : el.value.trim()) : '';
+    };
+
+    enviar(fEntrar, avisoE, '/entrar', function (f) {
+      return { email: v(f, 'email'), senha: f.elements.senha.value };
+    });
+    enviar(fCriar, avisoC, '/cadastro', function (f) {
+      return {
+        nome: v(f, 'nome'), email: v(f, 'email'), senha: f.elements.senha.value,
+        empresa: v(f, 'empresa'), whatsapp: v(f, 'whatsapp'),
+        segmento: v(f, 'segmento'), novidades: v(f, 'novidades')
+      };
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+     Página da conta
+     ------------------------------------------------------------------- */
+
+  /* Reduz a imagem a 256x256 no navegador. Sobe poucos KB em vez de
+     alguns MB, e o servidor não precisa redimensionar nada. */
+  function reduzirImagem(arquivo, lado) {
+    return new Promise(function (resolve, reject) {
+      var leitor = new FileReader();
+      leitor.onerror = function () { reject(new Error('leitura')); };
+      leitor.onload = function () {
+        var img = new Image();
+        img.onerror = function () { reject(new Error('imagem')); };
+        img.onload = function () {
+          var c = document.createElement('canvas');
+          c.width = lado; c.height = lado;
+          var x = c.getContext('2d');
+          // recorta o centro, mantendo a proporção
+          var min = Math.min(img.width, img.height);
+          x.drawImage(img, (img.width - min) / 2, (img.height - min) / 2, min, min, 0, 0, lado, lado);
+          resolve(c.toDataURL('image/jpeg', 0.82));
+        };
+        img.src = leitor.result;
+      };
+      leitor.readAsDataURL(arquivo);
+    });
+  }
+
+  function iniciarConta() {
+    var pagina = $('#pagina-conta');
+    if (!pagina) return;
+
+    var carregando = $('#conta-carregando');
+    var conteudo   = $('#conta-conteudo');
+    var form       = $('#form-perfil');
+    var box        = $('#perfil-aviso');
+    var avatarEl   = $('#conta-avatar');
+    var upload     = $('#avatar-upload');
+    var btnRemover = $('#avatar-remover');
+    var btnSair    = $('#conta-sair');
+    var avatarNovo = null;   // data URL pendente
+
+    function preencher() {
+      var p = (eu && eu.perfil) || {};
+      $('#conta-nome-grande').textContent = p.nome || eu.email || '';
+      $('#conta-email').textContent = eu.email || '';
+      if (window.OSCComp) window.OSCComp.avatar.atualizar(avatarEl, p.nome || eu.email || '', p.avatar || '');
+
+      ['nome', 'empresa', 'whatsapp', 'cnpj', 'cargo'].forEach(function (k) {
+        if (form.elements[k]) form.elements[k].value = p[k] || '';
+      });
+      if (form.elements.segmento) form.elements.segmento.value = p.segmento || '';
+      if (form.elements.novidades) form.elements.novidades.checked = Boolean(p.aceita_novidades);
+    }
+
+    carregarSessao().then(function () {
+      if (!eu.entrou) {
+        location.href = 'entrar.html?voltar=' + encodeURIComponent('conta.html');
+        return;
+      }
+      carregando.hidden = true;
+      conteudo.hidden = false;
+      preencher();
+      if (window.OSCComp) window.OSCComp.iniciarTudo(conteudo);
+    });
+
+    if (upload) {
+      upload.addEventListener('osc:arquivos', function (e) {
+        var arq = e.detail && e.detail[0];
+        if (!arq) return;
+        aviso(box, '');
+        reduzirImagem(arq, 256)
+          .then(function (dataUrl) {
+            avatarNovo = dataUrl;
+            if (window.OSCComp) {
+              window.OSCComp.avatar.atualizar(avatarEl, (eu.perfil && eu.perfil.nome) || '', dataUrl);
+            }
+            aviso(box, 'Foto pronta. Salve para confirmar.', 'ok');
+          })
+          .catch(function () { aviso(box, 'Não conseguimos ler essa imagem.'); });
+      });
+    }
+
+    if (btnRemover) {
+      btnRemover.addEventListener('click', function () {
+        avatarNovo = null;
+        if (window.OSCComp) window.OSCComp.avatar.atualizar(avatarEl, (eu.perfil && eu.perfil.nome) || '', '');
+        if (upload && upload.oscLimpar) upload.oscLimpar();
+        form.dataset.removerAvatar = '1';
+        aviso(box, 'Foto removida. Salve para confirmar.', 'ok');
+      });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var botao = form.querySelector('button[type="submit"]');
+      var nome = form.elements.nome.value.trim();
+      if (nome.length < 2) {
+        form.elements.nome.classList.add('is-invalid');
+        aviso(box, 'Diga seu nome.');
+        return;
+      }
+      form.elements.nome.classList.remove('is-invalid');
+
+      var dados = {
+        nome: nome,
+        empresa:  form.elements.empresa.value.trim(),
+        whatsapp: form.elements.whatsapp.value.trim(),
+        cnpj:     form.elements.cnpj.value.trim(),
+        cargo:    form.elements.cargo.value.trim(),
+        segmento: form.elements.segmento.value,
+        novidades: form.elements.novidades.checked
+      };
+      if (avatarNovo) dados.avatar = avatarNovo;
+      else if (form.dataset.removerAvatar === '1') dados.avatar = null;
+
+      botao.disabled = true;
+      aviso(box, 'Salvando…', 'ok');
+
+      pedir('/perfil', { metodo: 'POST', corpo: dados })
+        .then(function (r) {
+          botao.disabled = false;
+          if (r.corpo && r.corpo.ok) {
+            eu.perfil = r.corpo.perfil || eu.perfil;
+            avatarNovo = null;
+            delete form.dataset.removerAvatar;
+            if (upload && upload.oscLimpar) upload.oscLimpar();
+            preencher();
+            pintarCabecalho();
+            aviso(box, 'Pronto, salvamos.', 'ok');
+          } else {
+            aviso(box, (r.corpo && r.corpo.mensagem) || 'Não conseguimos salvar.');
+          }
+        })
+        .catch(function () {
+          botao.disabled = false;
+          aviso(box, 'Sem conexão com o servidor. Tente de novo.');
+        });
+    });
+
+    if (btnSair) {
+      btnSair.addEventListener('click', function () {
+        btnSair.disabled = true;
+        pedir('/sair', { metodo: 'POST' }).then(function () { location.href = 'index.html'; })
+          .catch(function () { location.href = 'index.html'; });
+      });
+    }
+  }
+
+  /* ----------------------------------------------------------------------
+     BOOT
+     ------------------------------------------------------------------- */
+  function boot() {
+    iniciarEntrar();
+    if ($('#pagina-conta')) { iniciarConta(); return; }
+    if ($('#conta-topo')) carregarSessao();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 <script>

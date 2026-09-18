@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Entrar ou criar conta | OSC Gestão Empresarial e Licitações</title>
+<meta name="description" content="Acesse sua conta na OSC para acompanhar seus dados e diagnósticos, ou crie uma conta em um minuto." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#12301F" />
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  window.tailwind = window.tailwind || {};
+  tailwind.config = { theme: { extend: {
+    colors: { deep:'#12301F', deeper:'#0F1F14', mid:'#3F8A4B', growth:'#87D06A', cream:'#F2EFE4', creamdim:'#E3DFD0', rule:'#CFD3C5' },
+    fontFamily: { sans:['Archivo','system-ui','Segoe UI','sans-serif'], mono:['"IBM Plex Mono"','ui-monospace','monospace'] },
+    maxWidth: { shell:'1240px' }
+  }}};
+</script>
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+<link rel="stylesheet" href="assets/css/componentes.css" />
+</head>
+
+<body class="font-sans text-cream antialiased">
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<header id="navbar" class="nav fixed inset-x-0 top-0 z-50">
+  <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-4 md:px-8">
+    <a href="index.html" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
+      <span class="logo__sym">
+        <svg class="mono mono--negativa" viewBox="0 0 115.4 100" aria-hidden="true">
+          <circle class="mono__o" cx="40.87" cy="40.87" r="34.71" stroke-width="12.31" />
+          <path class="mono__c" d="M 109.04 59.1 A 30.99 30.99 0 1 1 81.52 32.06" stroke-width="12.26" />
+          <circle class="mono__dot" cx="84.89" cy="37.48" r="8.68" />
+        </svg>
+      </span>
+      <span class="logo__txt">
+        <span class="logo__name">OSC</span>
+        <span class="logo__desc">Gestão e Licitações</span>
+      </span>
+    </a>
+    <a href="index.html" class="btn btn--ghost"><span>Voltar ao site</span></a>
+  </div>
+  <div class="nav__line" aria-hidden="true"></div>
+</header>
+
+<main class="entrar-tela">
+  <div class="entrar-caixa" id="entrar-bloco">
+
+    <p class="label label--growth">
+      <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
+      Área do cliente
+    </p>
+
+    <h1 class="h-display mt-5 text-[clamp(1.8rem,4vw,2.6rem)]">Sua conta na OSC.</h1>
+    <p class="mt-4 leading-relaxed text-cream/68">
+      Guarde seus dados, seus diagnósticos e o histórico das conversas num lugar só.
+      Criar conta é opcional — o site funciona sem ela.
+    </p>
+
+    <div class="btn-grupo btn-grupo--largo mt-8" id="entrar-seletor" data-btn-grupo role="tablist">
+      <button type="button" class="btn-grupo__item is-ativo" data-valor="entrar" role="tab" aria-selected="true">Entrar</button>
+      <button type="button" class="btn-grupo__item" data-valor="criar" role="tab" aria-selected="false">Criar conta</button>
+    </div>
+
+    <!-- ENTRAR -->
+    <form id="form-entrar" class="mt-8" novalidate>
+      <div class="grid gap-5">
+        <div class="field">
+          <label for="e-email">E-mail</label>
+          <input id="e-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
+        </div>
+        <div class="field">
+          <label for="e-senha">Senha</label>
+          <input id="e-senha" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn--primary btn--lg mt-7 w-full justify-center">
+        <span>Entrar</span><span class="btn__dot" aria-hidden="true"></span>
+      </button>
+      <p id="entrar-aviso" class="form__error" role="alert" hidden></p>
+      <p class="mt-5 text-sm text-cream/50">
+        Esqueceu a senha? Fale com a gente pelo
+        <a class="js-whats underline" href="https://api.whatsapp.com/send?phone=5586988372619&amp;text=Oi!%20Preciso%20recuperar%20o%20acesso%20a%CC%80%20minha%20conta." target="_blank" rel="noopener">WhatsApp</a>.
+      </p>
+    </form>
+
+    <!-- CRIAR CONTA -->
+    <form id="form-criar" class="mt-8" novalidate hidden>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div class="field sm:col-span-2">
+          <label for="c-nome">Seu nome <span class="field__obrig">*</span></label>
+          <input id="c-nome" name="nome" type="text" autocomplete="name" required placeholder="Como podemos te chamar?" />
+        </div>
+        <div class="field sm:col-span-2">
+          <label for="c-email">E-mail <span class="field__obrig">*</span></label>
+          <input id="c-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
+        </div>
+        <div class="field sm:col-span-2">
+          <label for="c-senha">Senha <span class="field__obrig">*</span></label>
+          <input id="c-senha" name="senha" type="password" autocomplete="new-password" required placeholder="Pelo menos 8 caracteres" />
+          <span class="field__ajuda">Use 8 caracteres ou mais. Evite a mesma senha de outros sites.</span>
+        </div>
+        <div class="field">
+          <label for="c-empresa">Empresa</label>
+          <input id="c-empresa" name="empresa" type="text" autocomplete="organization" placeholder="Razão social" />
+        </div>
+        <div class="field">
+          <label for="c-whatsapp">WhatsApp</label>
+          <input id="c-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" />
+        </div>
+        <div class="field sm:col-span-2">
+          <label for="c-segmento">Segmento</label>
+          <select id="c-segmento" name="segmento">
+            <option value="">Selecione</option>
+            <option>Serviços terceirizados</option>
+            <option>Obras e engenharia</option>
+            <option>Fornecimento de materiais</option>
+            <option>Tecnologia e software</option>
+            <option>Alimentação</option>
+            <option>Locação de equipamentos</option>
+            <option>Saúde e hospitalar</option>
+            <option>Limpeza e conservação</option>
+            <option>Transporte e logística</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <label class="check sm:col-span-2">
+          <input type="checkbox" name="novidades" />
+          <span class="check__caixa" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M4 12.5l5.5 5.5L20 7"/></svg>
+          </span>
+          <span class="check__texto">Quero receber avisos sobre editais e prazos do meu segmento.</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--lg mt-7 w-full justify-center">
+        <span>Criar minha conta</span><span class="btn__dot" aria-hidden="true"></span>
+      </button>
+      <p id="criar-aviso" class="form__error" role="alert" hidden></p>
+      <p class="mt-5 text-xs leading-relaxed text-cream/45">
+        Usamos seus dados apenas para atender você. Não vendemos nem repassamos a ninguém.
+      </p>
+    </form>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="assets/js/background.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/componentes.js"></script>
+<script src="assets/js/conta.js"></script>
+</body>
+</html>

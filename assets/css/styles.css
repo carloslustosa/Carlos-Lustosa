@@ -157,7 +157,8 @@ section[id] { scroll-margin-top: 92px; }
   color: var(--cream);
   text-decoration: none;
 }
-.logo__sym { width: 42px; height: 42px; flex: none; }
+/* O monograma é 1,154 mais largo que alto — proporção da arte original. */
+.logo__sym { width: 48px; height: 42px; flex: none; }
 .logo__txt { display: flex; flex-direction: column; gap: 3px; }
 .logo__name {
   font-weight: 900;
@@ -173,7 +174,7 @@ section[id] { scroll-margin-top: 92px; }
   text-transform: uppercase;
   opacity: 0.72;
 }
-.logo--lg .logo__sym  { width: 62px; height: 62px; }
+.logo--lg .logo__sym  { width: 72px; height: 62px; }
 .logo--lg .logo__name { font-size: 2.1rem; }
 .logo--lg .logo__desc { font-size: 0.6rem; }
 
@@ -1073,7 +1074,7 @@ textarea:focus-visible {
   text-transform: uppercase;
   color: rgba(242, 239, 228, 0.42) !important;
 }
-.rel__spin { width: 72px; height: 72px; margin-bottom: 14px; }
+.rel__spin { width: 83px; height: 72px; margin-bottom: 14px; }
 .rel__spin svg { width: 100%; height: 100%; transform-origin: 50% 50%; animation: relGira 2.4s linear infinite; }
 .rel__spin-o { stroke: rgba(242, 239, 228, 0.35); }
 .rel__spin-c { stroke: var(--growth); }
@@ -1472,7 +1473,7 @@ textarea:focus-visible {
 
 /* ---- Celular pequeno — até 400 px ---- */
 @media (max-width: 400px) {
-  .logo__sym  { width: 36px; height: 36px; }
+  .logo__sym  { width: 42px; height: 36px; }
   .logo__name { font-size: 1.3rem; }
   .logo__desc { font-size: 0.44rem; letter-spacing: 0.22em; }
   .btn        { padding: 13px 20px; font-size: 0.9rem; }
@@ -1524,7 +1525,7 @@ textarea:focus-visible {
 /* ---- Monitor grande — a partir de 1536 px ---- */
 @media (min-width: 1536px) {
   .section { padding-block: 150px; }
-  .logo__sym { width: 46px; height: 46px; }
+  .logo__sym { width: 53px; height: 46px; }
 }
 
 /* ---- Sem hover (toque): o card já nasce no estado final ----

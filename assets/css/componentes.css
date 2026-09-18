@@ -1,0 +1,518 @@
+/* ==========================================================================
+   OSC — Biblioteca de componentes
+   --------------------------------------------------------------------------
+   Avatar, grupos de botão, dock de ações, carrossel, upload de arquivo e
+   campos de formulário.
+
+   As referências que inspiraram cada um (Chakra UI, Base Web) são bibliotecas
+   React. O site é HTML, CSS e JavaScript puros, então os padrões foram
+   reescritos aqui — mesmo comportamento, sem framework e na paleta da OSC.
+
+   01. Avatar          04. Carrossel
+   02. Grupo de botões 05. Upload de arquivo
+   03. Dock de ações   06. Campos de formulário
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------
+   01. AVATAR
+   Imagem do usuário, com recuo para as iniciais quando não há foto ou
+   quando ela falha ao carregar.
+   ---------------------------------------------------------------------- */
+.avt {
+  --avt-tam: 40px;
+  --avt-fonte: 0.95rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--avt-tam);
+  height: var(--avt-tam);
+  border-radius: 999px;
+  overflow: hidden;
+  font-weight: 700;
+  font-size: var(--avt-fonte);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+  background: var(--mid);
+  color: var(--cream);
+}
+
+.avt__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+.avt__img.is-carregada { opacity: 1; }
+
+.avt__ini { position: relative; z-index: 0; }
+
+.avt__icone { width: 58%; height: 58%; opacity: 0.85; }
+
+/* Tamanhos */
+.avt--2xs { --avt-tam: 22px; --avt-fonte: 0.6rem; }
+.avt--xs  { --avt-tam: 28px; --avt-fonte: 0.68rem; }
+.avt--sm  { --avt-tam: 34px; --avt-fonte: 0.8rem; }
+.avt--md  { --avt-tam: 40px; --avt-fonte: 0.95rem; }
+.avt--lg  { --avt-tam: 52px; --avt-fonte: 1.1rem; }
+.avt--xl  { --avt-tam: 68px; --avt-fonte: 1.5rem; }
+.avt--2xl { --avt-tam: 92px; --avt-fonte: 2rem; }
+.avt--3xl { --avt-tam: 124px; --avt-fonte: 2.6rem; }
+
+/* Variantes */
+.avt--solido  { background: var(--growth); color: var(--deep); }
+.avt--suave   { background: rgba(135, 208, 106, 0.18); color: var(--growth); }
+.avt--contorno{ background: transparent; color: var(--growth); box-shadow: inset 0 0 0 2px currentColor; }
+
+/* Formas */
+.avt--quadrado  { border-radius: 8px; }
+.avt--arredondado { border-radius: 14px; }
+
+/* Anel em volta */
+.avt--anel { outline: 2px solid var(--growth); outline-offset: 3px; }
+
+/* Selo de status */
+.avt__selo {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  z-index: 2;
+  width: 28%;
+  height: 28%;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 999px;
+  background: var(--growth);
+  box-shadow: 0 0 0 2px var(--deep);
+}
+.avt__selo--ausente { background: #C9A227; }
+.avt__selo--offline { background: rgba(242, 239, 228, 0.4); }
+
+/* Grupo empilhado */
+.avt-grupo { display: inline-flex; align-items: center; }
+.avt-grupo .avt {
+  box-shadow: 0 0 0 2px var(--deep);
+  margin-left: -10px;
+}
+.avt-grupo .avt:first-child { margin-left: 0; }
+/* o primeiro por cima, em vez do último */
+.avt-grupo--primeiro-na-frente .avt { position: relative; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(1) { z-index: 6; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(2) { z-index: 5; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(3) { z-index: 4; }
+.avt-grupo--primeiro-na-frente .avt:nth-child(4) { z-index: 3; }
+.avt-grupo--solto .avt { margin-left: 4px; box-shadow: none; }
+.avt-grupo--solto .avt:first-child { margin-left: 0; }
+
+/* Ficha de pessoa: avatar + nome + linha secundária */
+.pessoa { display: flex; align-items: center; gap: 14px; }
+.pessoa__nome { font-weight: 600; letter-spacing: -0.02em; color: var(--cream); line-height: 1.2; }
+.pessoa__sub  { font-size: 0.85rem; color: rgba(242, 239, 228, 0.55); line-height: 1.3; }
+
+/* -------------------------------------------------------------------------
+   02. GRUPO DE BOTÕES
+   Botões colados, dividindo a borda. Serve como seletor de opção também.
+   ---------------------------------------------------------------------- */
+.btn-grupo {
+  display: inline-flex;
+  border: 2px solid rgba(242, 239, 228, 0.22);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.btn-grupo::-webkit-scrollbar { display: none; }
+
+.btn-grupo__item {
+  flex: none;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: rgba(242, 239, 228, 0.7);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.28s var(--ease-out), color 0.28s var(--ease-out);
+}
+.btn-grupo__item:hover { color: var(--cream); }
+.btn-grupo__item.is-ativo,
+.btn-grupo__item[aria-selected="true"],
+.btn-grupo__item[aria-pressed="true"] {
+  background: var(--growth);
+  color: var(--deep);
+}
+
+/* Sobre fundo creme */
+.btn-grupo--claro { border-color: var(--rule); }
+.btn-grupo--claro .btn-grupo__item { color: rgba(18, 48, 31, 0.65); }
+.btn-grupo--claro .btn-grupo__item:hover { color: var(--deep); }
+.btn-grupo--claro .btn-grupo__item.is-ativo,
+.btn-grupo--claro .btn-grupo__item[aria-selected="true"] { background: var(--deep); color: var(--cream); }
+
+.btn-grupo--largo { display: flex; width: 100%; }
+.btn-grupo--largo .btn-grupo__item { flex: 1; text-align: center; }
+
+/* -------------------------------------------------------------------------
+   03. DOCK DE AÇÕES
+   Ação principal, secundárias e a de sair — na ordem certa em cada tela.
+   ---------------------------------------------------------------------- */
+.dock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(242, 239, 228, 0.14);
+}
+.dock__secundarias { display: flex; flex-wrap: wrap; gap: 12px; }
+.dock__dispensa { margin-left: auto; }
+
+.btn--terciario {
+  background: transparent;
+  color: rgba(242, 239, 228, 0.6);
+  border-color: transparent;
+  padding-inline: 14px;
+}
+.btn--terciario::before { background: transparent; }
+.btn--terciario:hover { color: var(--cream); }
+
+/* No celular a ação principal vem primeiro e ocupa a linha inteira */
+@media (max-width: 640px) {
+  .dock { flex-direction: column; align-items: stretch; }
+  .dock > .btn, .dock__secundarias > .btn { width: 100%; justify-content: center; }
+  .dock__secundarias { flex-direction: column; }
+  .dock__dispensa { margin-left: 0; order: 9; }
+}
+
+/* -------------------------------------------------------------------------
+   04. CARROSSEL
+   Rolagem com encaixe. Funciona no dedo sem JavaScript; o JS só acrescenta
+   setas, marcadores e teclado.
+   ---------------------------------------------------------------------- */
+.carrossel { position: relative; }
+
+.carrossel__trilho {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  /* deixa o card sangrar até a borda da tela no celular */
+  margin-inline: calc(var(--carr-sangria, 0px) * -1);
+  padding-inline: var(--carr-sangria, 0px);
+}
+.carrossel__trilho::-webkit-scrollbar { display: none; }
+
+.carrossel__item {
+  flex: 0 0 auto;
+  width: var(--carr-larg, 300px);
+  scroll-snap-align: start;
+}
+
+.carrossel__controles {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.carrossel__seta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 2px solid rgba(242, 239, 228, 0.24);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease-out), color 0.25s var(--ease-out), opacity 0.25s;
+}
+.carrossel__seta:hover:not(:disabled) { border-color: var(--growth); color: var(--growth); }
+.carrossel__seta:disabled { opacity: 0.3; cursor: default; }
+.carrossel__seta svg { width: 18px; height: 18px; }
+
+.carrossel__pontos { display: flex; gap: 8px; margin-left: 4px; }
+.carrossel__ponto {
+  width: 8px; height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(242, 239, 228, 0.25);
+  cursor: pointer;
+  transition: background-color 0.28s var(--ease-out), transform 0.28s var(--ease-out);
+}
+.carrossel__ponto.is-ativo { background: var(--growth); transform: scale(1.3); }
+
+.carrossel__contador {
+  margin-left: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: rgba(242, 239, 228, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Carrossel no celular e tablet, grade no desktop.
+   Oito cards empilhados é rolagem demais no telefone; em carrossel são
+   duas passadas de dedo. No desktop a grade mostra tudo de uma vez. */
+.carrossel--vira-grade { --carr-larg: min(78vw, 300px); }
+.carrossel--vira-grade .carrossel__item { width: var(--carr-larg); }
+
+@media (min-width: 1024px) {
+  .carrossel--vira-grade .carrossel__trilho {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+  .carrossel--vira-grade .carrossel__item { width: auto; }
+  .carrossel--vira-grade .carrossel__controles { display: none; }
+}
+
+/* Sobre fundo creme */
+.carrossel--claro .carrossel__seta { border-color: var(--rule); color: var(--deep); }
+.carrossel--claro .carrossel__seta:hover:not(:disabled) { border-color: var(--mid); color: var(--mid-ink); }
+.carrossel--claro .carrossel__ponto { background: rgba(18, 48, 31, 0.2); }
+.carrossel--claro .carrossel__ponto.is-ativo { background: var(--mid); }
+.carrossel--claro .carrossel__contador { color: rgba(18, 48, 31, 0.5); }
+
+/* -------------------------------------------------------------------------
+   05. UPLOAD DE ARQUIVO
+   ---------------------------------------------------------------------- */
+.upload {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 30px 22px;
+  border: 2px dashed rgba(242, 239, 228, 0.28);
+  border-radius: 20px;
+  background: rgba(15, 31, 20, 0.4);
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+}
+.upload:hover, .upload:focus-within { border-color: var(--growth); }
+.upload.is-arrastando { border-color: var(--growth); background: rgba(135, 208, 106, 0.1); }
+.upload input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.upload__icone { width: 32px; height: 32px; color: var(--growth); }
+.upload__titulo { font-weight: 600; letter-spacing: -0.02em; color: var(--cream); }
+.upload__dica {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.45);
+}
+
+.upload-lista { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.upload-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.upload-item__nome { flex: 1; min-width: 0; font-size: 0.92rem; color: var(--cream); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.upload-item__peso {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: rgba(242, 239, 228, 0.45);
+  flex: none;
+}
+.upload-item__x {
+  flex: none;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 999px;
+  background: transparent;
+  color: rgba(242, 239, 228, 0.5);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+.upload-item__x:hover { color: var(--alert); background: rgba(172, 49, 42, 0.15); }
+.upload-item--erro { border-color: rgba(172, 49, 42, 0.5); }
+.upload-item__erro { font-size: 0.8rem; color: #E08A82; }
+
+/* -------------------------------------------------------------------------
+   06. CAMPOS DE FORMULÁRIO — complementos
+   ---------------------------------------------------------------------- */
+.field__ajuda {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: rgba(242, 239, 228, 0.45);
+}
+.field__erro {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #E08A82;
+}
+.field__obrig { color: var(--growth); }
+
+.grupo-campos {
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 20px;
+  padding: 22px;
+}
+.grupo-campos > legend {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--growth);
+  padding-inline: 8px;
+}
+
+/* Caixa de marcar */
+.check { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+/* Escondido dos olhos, mas ainda alcançável pelo Tab. Tamanho zero tira o
+   campo da ordem de tabulação no Chrome — por isso 1px com clip. */
+.check input {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.check__caixa {
+  flex: none;
+  width: 20px; height: 20px;
+  margin-top: 1px;
+  border: 2px solid rgba(242, 239, 228, 0.35);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
+}
+.check__caixa svg { width: 12px; height: 12px; opacity: 0; transform: scale(0.6); transition: opacity 0.2s, transform 0.2s var(--ease-out); color: var(--deep); }
+.check input:checked + .check__caixa { background: var(--growth); border-color: var(--growth); }
+.check input:checked + .check__caixa svg { opacity: 1; transform: scale(1); }
+.check input:focus-visible + .check__caixa { outline: 2px solid var(--growth); outline-offset: 3px; }
+.check__texto { font-size: 0.92rem; line-height: 1.5; color: rgba(242, 239, 228, 0.75); }
+
+/* Chave liga/desliga */
+.chave { display: inline-flex; align-items: center; gap: 12px; cursor: pointer; }
+.chave input {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.chave__trilho {
+  width: 46px; height: 26px;
+  border-radius: 999px;
+  background: rgba(242, 239, 228, 0.2);
+  padding: 3px;
+  transition: background-color 0.28s var(--ease-out);
+}
+.chave__bolinha {
+  width: 20px; height: 20px;
+  border-radius: 999px;
+  background: var(--cream);
+  transition: transform 0.28s var(--ease-out);
+}
+.chave input:checked + .chave__trilho { background: var(--growth); }
+.chave input:checked + .chave__trilho .chave__bolinha { transform: translateX(20px); }
+.chave input:focus-visible + .chave__trilho { outline: 2px solid var(--growth); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .carrossel__trilho { scroll-behavior: auto; }
+}
+
+/* -------------------------------------------------------------------------
+   07. TELAS DE CONTA
+   ---------------------------------------------------------------------- */
+
+/* Avatar e nome no cabeçalho */
+.conta-topo__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 4px 12px 4px 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 239, 228, 0.18);
+  transition: border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+}
+.conta-topo__link:hover { border-color: var(--growth); background: rgba(135, 208, 106, 0.08); }
+.conta-topo__nome {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  max-width: 12ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 520px) { .conta-topo__nome { display: none; } }
+
+/* Entrar / criar conta */
+.entrar-tela {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px 60px;
+}
+.entrar-caixa {
+  width: 100%;
+  max-width: 560px;
+  border: 1px solid rgba(242, 239, 228, 0.18);
+  border-radius: 28px;
+  background: rgba(15, 31, 20, 0.72);
+  padding: clamp(26px, 4vw, 46px);
+}
+
+/* Área da conta */
+.conta-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(20px, 4vw, 40px);
+}
+.conta-cabeca__txt { min-width: 0; flex: 1 1 320px; }
+
+.conta-lateral {
+  border: 1px solid rgba(242, 239, 228, 0.16);
+  border-radius: 26px;
+  background: rgba(15, 31, 20, 0.5);
+  padding: clamp(22px, 3vw, 30px);
+  align-self: start;
+}
+
+@media (max-width: 560px) {
+  .conta-cabeca { flex-direction: column; align-items: flex-start; }
+  .avt--3xl { --avt-tam: 96px; --avt-fonte: 2.1rem; }
+}
