@@ -85,6 +85,10 @@ header, main, footer { position: relative; z-index: 1; }
   position: relative;
   z-index: 1;
   background: var(--cream);
+  /* A cor do texto vem junto do fundo. Sem isto, componentes que trazem a
+     própria cor (o FAQ nascia creme, para fundo escuro) ficavam creme sobre
+     creme — invisíveis — se a regra da variante clara não chegasse. */
+  color: var(--deep);
 }
 
 section[id] { scroll-margin-top: 92px; }
@@ -298,6 +302,49 @@ section[id] { scroll-margin-top: 92px; }
 /* -------------------------------------------------------------------------
    05. NAVBAR E MENU MOBILE
    ---------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------
+   ESTRUTURA QUE NÃO DEPENDE DO TAILWIND
+
+   A barra, o hero e o mega menu montavam o seu layout com utilidades do
+   Tailwind (`flex`, `hidden`, `lg:flex`, `max-w-shell`, `text-[clamp(...)]`).
+   O Tailwind vem de um arquivo compilado à parte; se ele chegar desatualizado
+   ou não chegar, a página não fica só feia — ela desmonta: o título cai para
+   32 px, o hambúrguer aparece no computador e o painel do mega menu vira uma
+   parede de texto solto no topo da página.
+
+   As regras abaixo repetem, na nossa própria folha, o que a estrutura precisa
+   para ficar de pé. O Tailwind continua cuidando do acabamento; a espinha
+   dorsal passa a ser nossa.
+   ---------------------------------------------------------------------- */
+.nav__interno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 16px 20px;
+}
+@media (min-width: 768px) { .nav__interno { padding-inline: 32px; } }
+
+.nav__links { display: none; align-items: center; gap: 24px; }
+.nav__acoes { display: flex; align-items: center; gap: 12px; flex: none; }
+
+@media (min-width: 1024px) {
+  .nav__links { display: flex; }
+}
+@media (min-width: 1280px) { .nav__links { gap: 32px; } }
+
+/* O hambúrguer só existe no telefone e no tablet. Sem isto ele aparecia ao
+   lado do menu completo, que é o "desmembrado" da barra. */
+.burger { display: inline-flex; }
+@media (min-width: 1024px) { .burger { display: none; } }
+
+/* Título do hero: o tamanho não pode depender de uma classe de valor
+   arbitrário que só existe no arquivo compilado. */
+.hero h1 { font-size: clamp(2.7rem, 7vw, 5rem); }
+
 .nav {
   background: transparent;
   transition: background-color 0.35s var(--ease-out);
@@ -375,7 +422,9 @@ section[id] { scroll-margin-top: 92px; }
   opacity: 0;
   transition: opacity 0.3s var(--ease-out);
 }
-.mobile-menu[hidden] { display: none; }
+/* o caso geral está em componentes.css, seção 00; este fica por garantia,
+   caso alguém carregue só esta folha */
+.mobile-menu[hidden] { display: none !important; }
 .mobile-menu.is-open { opacity: 1; }
 .mobile-menu__inner {
   position: relative;
@@ -865,7 +914,7 @@ body.is-locked { overflow: hidden; }
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.35;
-  color: var(--cream);
+  color: inherit;
   transition: color 0.25s var(--ease-out);
 }
 .faq__q > span:nth-child(2) { flex: 1; }
@@ -895,7 +944,9 @@ body.is-locked { overflow: hidden; }
 .faq__item.is-open .faq__a { grid-template-rows: 1fr; }
 .faq__a > p {
   overflow: hidden;
-  color: rgba(242, 239, 228, 0.7);
+  /* mesma razão do .faq__q: a cor sai do contexto, não de um valor fixo */
+  color: inherit;
+  opacity: 0.74;
   line-height: 1.6;
   max-width: 64ch;
 }

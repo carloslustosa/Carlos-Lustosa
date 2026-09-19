@@ -2,20 +2,18 @@
    OSC — GESTÃO EMPRESARIAL E LICITAÇÕES
    Interações e animações — Identidade Visual V2.0
    --------------------------------------------------------------------------
-   • Scroll reveal, acordeões e etapas → IntersectionObserver + CSS
-     (funcionam mesmo se o CDN do GSAP falhar).
-   • GSAP + ScrollTrigger → parallax do monograma e disparo do anel de progresso.
-   • WhatsApp: api.whatsapp.com no celular, web.whatsapp.com no computador.
+   • Scroll reveal, acordeões, etapas e o anel de progresso → IntersectionObserver
+     e CSS, escritos à mão. Nenhuma biblioteca externa: a página não busca script
+     fora do próprio servidor.
+   • WhatsApp: um link só (wa.me), que já abre o app no celular e o Web no PC.
    • Tudo respeita prefers-reduced-motion.
    ========================================================================== */
 (function () {
   'use strict';
 
-  var HAS_GSAP = typeof window.gsap !== 'undefined';
-  var HAS_ST   = HAS_GSAP && typeof window.ScrollTrigger !== 'undefined';
+
   var REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (HAS_ST) gsap.registerPlugin(ScrollTrigger);
 
   var $  = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
@@ -323,9 +321,7 @@
 
     var arm = function () { armed = true; paint(); };
 
-    if (HAS_ST) {
-      ScrollTrigger.create({ trigger: gauge, start: 'top 82%', once: true, onEnter: arm });
-    } else if ('IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries, obs) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
@@ -379,27 +375,6 @@
     var speed = Math.max(24, Math.round(track.scrollWidth / 90));
     track.style.setProperty('--marquee-speed', speed + 's');
     track.classList.add('is-running');
-  }
-
-  /* ----------------------------------------------------------------------
-     07. PARALLAX — monograma gigante do hero
-     ------------------------------------------------------------------- */
-  function initParallax() {
-    if (REDUCED || !HAS_ST) return;
-
-    $$('[data-parallax]').forEach(function (el) {
-      var amount = parseFloat(el.getAttribute('data-parallax')) || 0.1;
-      gsap.to(el, {
-        yPercent: amount * 100,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: el.closest('section') || el,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        }
-      });
-    });
   }
 
   /* ----------------------------------------------------------------------
@@ -623,7 +598,6 @@
     initMethodology();
     initFaq();
     initMarquee();
-    initParallax();
     initForm();
     initAlerta();
     initYear();

@@ -70,10 +70,11 @@ def embutir(entrada, saida):
          '<style>\n' + css.rstrip() + '\n</style>'),
     ]
 
-    # os dois scripts, na mesma ordem em que aparecem no HTML
-    for arquivo in ('background.js', 'main.js', 'componentes.js', 'conta.js', 'relatorio.js'):
+    # os scripts, na mesma ordem em que aparecem no HTML
+    for arquivo in ('background.js', 'main.js', 'componentes.js', 'conta.js',
+                    'relatorio.js', 'consultor.js'):
         js = open('assets/js/' + arquivo, encoding='utf-8').read()
-        trocas.append(('<script src="assets/js/%s"></script>' % arquivo,
+        trocas.append(('<script src="assets/js/%s" defer></script>' % arquivo,
                        '<script>\n' + js.rstrip() + '\n</script>'))
 
     # sem arquivo de fonte ao lado, o preload apontaria para o nada
@@ -81,9 +82,8 @@ def embutir(entrada, saida):
 
     for velho, novo in trocas:
         ocorrencias = html.count(velho)
-        # relatorio.js só existe na home; o guia não o carrega
-        # relatorio.js só existe na home; o guia não o carrega
-        if ocorrencias == 0 and 'relatorio.js' in velho:
+        # relatorio.js e consultor.js só existem na home; o guia não os carrega
+        if ocorrencias == 0 and ('relatorio.js' in velho or 'consultor.js' in velho):
             continue
         if ocorrencias != 1:
             raise SystemExit('Esperava exatamente 1 ocorrência de: %s' % velho[:70])

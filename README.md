@@ -77,7 +77,8 @@ python3 build.py              # gera osc-landing-page.html
     ├── js/main.js              # navegação, reveal, formulário, leads
     ├── js/componentes.js       # comportamento dos componentes
     ├── js/conta.js             # cadastro, login e perfil
-    ├── js/relatorio.js         # diagnóstico com IA
+    ├── js/relatorio.js         # relatório de IA (formulário)
+    ├── js/consultor.js         # consultor de IA (conversa) + abas
     └── img/                    # favicon e capa de compartilhamento
 ```
 
@@ -239,6 +240,52 @@ no PNCP, documentos a preparar, armadilhas do perfil e um plano com prazos.
 
 O visitante recebe valor na hora; a OSC recebe um lead qualificado, gravado no banco
 com `origem = 'relatorio-ia'`.
+
+### Dois caminhos: relatório e consultor
+
+A seção tem duas abas, e as duas usam a mesma chave do Gemini.
+
+| | **Relatório completo** | **Conversar com o consultor** |
+|---|---|---|
+| Rota | `POST /api/relatorio` | `POST /api/consultor` |
+| Entrada | formulário de oito campos | conversa livre |
+| Saída | JSON num `responseSchema`, montado no desenho da marca | Markdown, em cinco seções |
+| Quando serve | a pessoa já sabe o que quer responder | a pessoa não sabe por onde começar |
+| Cota por IP/hora | 5 (`LIMITE_POR_IP`) | 30 (`LIMITE_CONSULTOR_POR_IP`) |
+
+**As cotas são contadas separadamente, e isso importa.** As duas rotas dividiam o
+mesmo contador de 5 por hora, que é de sobra para um relatório de tiro único e
+cortaria a conversa na quinta mensagem — bem no meio do diagnóstico. Hoje cada
+escopo tem o seu balde (`dentroDoLimite(ip, escopo)`), e o teto global cobre a
+soma dos dois.
+
+### O consultor
+
+O papel do agente fica em `SISTEMA_CONSULTOR`, dentro do `server.js`, e vai para
+o Gemini como **`systemInstruction`** — não como texto do usuário. Essa distinção
+é o que impede alguém de reescrever as regras digitando no chat.
+
+O que ele faz: pergunta de 2 a 4 coisas curtas quando falta informação e, quando
+tem dados, fecha em cinco seções — resumo executivo, avaliação da gestão,
+potencial em licitações, plano de ação imediato e o convite para falar com a OSC.
+
+O que ele **não** pode fazer, escrito no próprio papel: prometer vitória em
+licitação, inventar número de edital, nome de órgão com contratação em aberto,
+valor de contrato ou estatística, citar valor de limite legal (mudam por decreto),
+ou sair do assunto de gestão e licitações.
+
+**Segurança da conversa:**
+
+- O navegador nunca fala com o Gemini. Manda o histórico para `/api/consultor`,
+  e o servidor guarda a chave.
+- O histórico chega do navegador, então é tratado como entrada suspeita: cortado
+  em 16 turnos e 1.200 caracteres por mensagem, com o papel normalizado para
+  `pessoa` ou `ia`, e recusado se a última mensagem não for da pessoa.
+- A resposta do modelo passa por um conversor de Markdown próprio
+  (`assets/js/consultor.js`) que **escapa o HTML primeiro e formata depois**.
+  Testado com uma resposta contendo `<img src=x onerror=alert(1)>`: aparece como
+  texto na tela, nenhuma imagem é criada e nenhum `alert` dispara.
+- O histórico vive só na memória da aba. Recarregou, começa do zero.
 
 ### ⚠️ A chave do Gemini NUNCA vai no site
 
@@ -576,6 +623,35 @@ entre 640 e 1023 px as provas do hero viram três colunas.
 A home ficou em **9.634 px** (era 9.906) porque o texto de apoio deixou de
 ocupar linhas próprias.
 
+**Duas tags de CDN que não serviam mais para nada.** Todas as cinco páginas
+carregavam `gsap.min.js` e `ScrollTrigger.min.js` do cdnjs, em tags sem `defer`,
+no fim do `<body>`. Isso é pior do que peso morto: script sem `defer` trava a
+leitura do HTML no ponto onde está, então **todo o JavaScript local esperava
+atrás de duas requisições a um servidor de terceiros**. Numa rede lenta, com
+bloqueador de anúncios ou numa rede corporativa que filtra CDN, o visitante via
+a página parada antes do menu e dos reveals funcionarem.
+
+E o GSAP já não fazia nada: a única coisa que restava dele era o disparo do anel
+de progresso, que tem recuo em IntersectionObserver, e a função de parallax —
+que percorria `[data-parallax]`, **atributo que não existe em nenhuma página**.
+As duas tags saíram, a função morta saiu junto, e os scripts locais ganharam
+`defer`. O site agora não busca um único arquivo fora do próprio servidor.
+
+**`hidden` perdia para a classe, pela terceira vez.** O atributo `hidden` vale
+`display: none` só na folha do navegador, e qualquer classe nossa com `display`
+ganha dele. Já tinha derrubado o menu de celular (virava uma camada invisível
+por cima da página inteira, comendo cliques) e o painel da página de referência
+em React. Voltou agora nas sugestões do chat, que continuavam ocupando 164 px
+depois de dispensadas. Em vez de mais um remendo pontual, entrou uma regra só,
+em `componentes.css`:
+
+```css
+[hidden]:not([hidden='until-found']) { display: none !important; }
+```
+
+Uma varredura nas cinco páginas, em dois tamanhos de tela, confirma que nenhum
+elemento marcado com `hidden` ocupa espaço.
+
 **O que parecia defeito e não era:** a auditoria acusava "corte horizontal" em
 `.osc-ring`, `.step__btn`, `.faq__q` e no botão principal. É ornamento: o ponto
 da marca fica de propósito fora do anel (`top: -4px; right: -4px`, como no
@@ -686,17 +762,17 @@ função só: `salvarLead()`, em `assets/js/main.js`.
 
 ## ⚠️ O que ainda precisa da sua conferência
 
-1. **LinkedIn e TikTok podem não existir.** O Instagram está confirmado por você:
-   `https://www.instagram.com/osc.gestao`. Os outros dois o código montou a partir
-   do handle (`linkedin.com/company/osc.gestao`, `tiktok.com/@osc.gestao`) e
-   **ninguém confirmou que essas contas existem** — se não existirem, são dois
-   links quebrados no rodapé de todas as páginas. Estão marcados com `EDITAR` no
-   HTML; diga e eu removo.
+1. **O handle do TikTok está diferente do Instagram.** O endereço que você
+   mandou é `tiktok.com/@osc.gesto` — sem o "a" de *gestão* —, enquanto o
+   Instagram é `@osc.gestao`. Pode ser assim mesmo, porque o nome que você queria
+   já podia estar ocupado; mas se foi engano de digitação, o link vai para lugar
+   nenhum. **Confira abrindo o link do rodapé.** O LinkedIn foi removido, a seu
+   pedido.
 
-   Sobre o endereço que você mandou: o `?stkn=...` no fim é um código de
-   compartilhamento da sua sessão do Instagram, não faz parte do endereço do
-   perfil. Ele pode expirar e carrega rastreio, então o site usa a forma limpa,
-   `https://www.instagram.com/osc.gestao`, que leva ao mesmo lugar.
+   Dos dois endereços saiu o rastreio do fim (`?stkn=...` no Instagram,
+   `?_r=1&_t=...` no TikTok): são códigos da sua sessão no aplicativo, expiram e
+   não fazem parte do endereço do perfil. O site usa a forma limpa, que leva ao
+   mesmo lugar.
 2. **URL canônica** (`<link rel="canonical">`) e `og:image` quando o domínio existir.
 3. **Imagem de compartilhamento.** O `og-cover.svg` serve de referência, mas as redes
    sociais só leem PNG/JPG. Exporte como `og-cover.png` (1200×630).

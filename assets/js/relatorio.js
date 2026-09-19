@@ -117,6 +117,12 @@
   /* ----------------------------------------------------------------------
      Envio
      ------------------------------------------------------------------- */
+  /* A barra de título do painel mostra em que pé está a geração. */
+  function estadoDoPainel(texto) {
+    var el = document.getElementById('painel-estado');
+    if (el) el.textContent = texto;
+  }
+
   var enviando = false;
 
   form.addEventListener('submit', function (e) {
@@ -148,6 +154,7 @@
     aviso('');
     mostrar(painel, false);
     mostrar(carregando, true);
+    estadoDoPainel('analisando');
     enviando = true;
     if (botao) botao.disabled = true;
 
@@ -188,6 +195,7 @@
       enviando = false;
       if (botao) botao.disabled = false;
       mostrar(carregando, false);
+      estadoDoPainel('pronto');
     };
 
     var zap = (window.OSC && window.OSC.whatsBase)

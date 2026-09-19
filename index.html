@@ -40,7 +40,7 @@
      A) NAVBAR FIXO
      ========================================================================== -->
 <header id="navbar" class="nav fixed inset-x-0 top-0 z-50">
-  <div class="mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-4 md:px-8">
+  <div class="nav__interno mx-auto flex max-w-shell items-center justify-between gap-6 px-5 py-4 md:px-8">
 
     <a href="#topo" class="logo" aria-label="OSC — Gestão Empresarial e Licitações">
       <span class="logo__sym">
@@ -56,7 +56,7 @@
       </span>
     </a>
 
-    <nav class="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Navegação principal">
+    <nav class="nav__links hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Navegação principal">
       <a href="#valores" class="navlink">A OSC</a>
 
       <span class="mega">
@@ -76,7 +76,7 @@
       <a href="#diagnostico" class="navlink">Diagnóstico IA</a>
     </nav>
 
-    <div class="flex items-center gap-3">
+    <div class="nav__acoes flex items-center gap-3">
       <a href="#contato" class="btn btn--primary hidden sm:inline-flex">
         <span>Fale com um especialista</span>
         <span class="btn__dot" aria-hidden="true"></span>
@@ -656,7 +656,23 @@
       </p>
     </header>
 
-    <div class="mt-14 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+    <!-- Dois caminhos para o mesmo diagnóstico: o formulário, que devolve o
+         relatório completo de uma vez, e o consultor, que conversa. -->
+    <div class="abas mt-12" data-reveal>
+      <div class="abas__lista" role="tablist" aria-label="Como fazer o diagnóstico">
+        <button class="abas__btn is-ativa" type="button" role="tab" id="aba-relatorio"
+                aria-selected="true" aria-controls="painel-relatorio" data-aba="painel-relatorio">
+          Relatório completo
+        </button>
+        <button class="abas__btn" type="button" role="tab" id="aba-consultor"
+                aria-selected="false" aria-controls="painel-consultor" data-aba="painel-consultor">
+          Conversar com o consultor
+        </button>
+      </div>
+    </div>
+
+    <div id="painel-relatorio" role="tabpanel" aria-labelledby="aba-relatorio">
+    <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
 
       <div data-reveal>
         <ul class="guidelist">
@@ -678,10 +694,21 @@
         </div>
       </div>
 
-      <form id="relatorio-form" class="form" data-endpoint="/api/relatorio" data-reveal data-reveal-delay="120" novalidate>
-        <p class="descriptor text-cream/45">Gerar meu diagnóstico</p>
+      <form id="relatorio-form" class="painel" data-endpoint="/api/relatorio" data-reveal data-reveal-delay="120" novalidate>
 
-        <div class="mt-7 grid gap-5 sm:grid-cols-2">
+        <!-- Barra de título: é o que faz isto ler como ferramenta, e não como
+             mais um formulário de contato igual ao do rodapé. -->
+        <div class="painel__topo">
+          <span class="painel__marca" aria-hidden="true">
+            <span class="painel__luz"></span>
+          </span>
+          <span class="painel__titulo">Diagnóstico OSC</span>
+          <span class="painel__tag">IA</span>
+          <span class="painel__estado" id="painel-estado">pronto</span>
+        </div>
+
+        <div class="painel__corpo">
+        <div class="grid gap-5 sm:grid-cols-2">
 
           <div class="field">
             <label for="r-nome">Seu nome</label>
@@ -801,16 +828,18 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn--primary btn--lg mt-8 w-full justify-center">
-          <span>Gerar meu diagnóstico</span>
-          <span class="btn__dot" aria-hidden="true"></span>
-        </button>
+        <p id="relatorio-erro" class="form__error mt-5" role="alert" hidden></p>
+        </div><!-- /painel__corpo -->
 
-        <p class="mt-4 text-xs leading-relaxed text-cream/45">
-          Usamos seus dados apenas para gerar o relatório e para o contato comercial.
-        </p>
-
-        <p id="relatorio-erro" class="form__error" role="alert" hidden></p>
+        <div class="painel__rodape">
+          <p class="painel__nota">
+            Oito campos. O relatório aparece nesta mesma tela, em cerca de meio minuto.
+          </p>
+          <button type="submit" class="btn btn--primary">
+            <span>Gerar diagnóstico</span>
+            <span class="btn__dot" aria-hidden="true"></span>
+          </button>
+        </div>
       </form>
     </div>
 
@@ -829,6 +858,79 @@
 
     <!-- Relatório -->
     <article id="relatorio-saida" class="rel" aria-live="polite" hidden></article>
+    </div><!-- /painel-relatorio -->
+
+    <!-- ====================== CONSULTOR EM CONVERSA ====================== -->
+    <div id="painel-consultor" role="tabpanel" aria-labelledby="aba-consultor" hidden>
+      <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+
+        <div>
+          <p class="text-lg leading-relaxed text-cream/72">
+            Conte com as suas palavras como a empresa trabalha hoje. O consultor
+            pergunta o que faltar e fecha com um diagnóstico em cinco partes:
+            resumo, avaliação da gestão, potencial em licitações, plano de ação
+            e o próximo passo.
+          </p>
+
+          <ul class="guidelist mt-8">
+            <li>Pergunta antes de concluir, em vez de chutar</li>
+            <li>Trabalha sobre a Lei 14.133/2021 e a LC 123/2006</li>
+            <li>Aponta a fragilidade, não só o ponto forte</li>
+          </ul>
+
+          <div class="note note--warn mt-9">
+            <p>
+              <strong>O que o consultor não faz.</strong> Não consulta editais em
+              tempo real, não cita contratação em aberto, não informa valor de limite
+              legal — esses mudam por decreto e devem ser conferidos no edital ou no
+              PNCP — e não promete resultado em licitação.
+            </p>
+          </div>
+        </div>
+
+        <div class="chat" id="chat" data-endpoint="/api/consultor">
+          <div class="chat__topo">
+            <span class="osc-ring osc-ring--sm" aria-hidden="true"></span>
+            <span class="descriptor text-cream/55">Consultor OSC</span>
+          </div>
+
+          <div class="chat__fluxo" id="chat-fluxo" role="log" aria-live="polite" aria-label="Conversa com o consultor">
+            <div class="chat__msg chat__msg--ia">
+              <div class="chat__balao">
+                <p>
+                  Olá. Sou o consultor da OSC. Me conte o que a sua empresa faz, há
+                  quanto tempo está no mercado e como a gestão é organizada hoje —
+                  daí eu digo onde ela está e o que o mercado público pede dela.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat__sugestoes" id="chat-sugestoes">
+            <button type="button" class="chat__sug">Nunca participei de licitação. Por onde começo?</button>
+            <button type="button" class="chat__sug">Minha gestão ainda é em planilhas. Isso atrapalha?</button>
+            <button type="button" class="chat__sug">Sou ME. Que vantagem tenho na disputa?</button>
+          </div>
+
+          <form class="chat__barra" id="chat-form">
+            <label class="sr-only" for="chat-texto">Sua mensagem</label>
+            <textarea id="chat-texto" name="mensagem" rows="1" maxlength="1200"
+              placeholder="Escreva aqui…" autocomplete="off"></textarea>
+            <button type="submit" class="chat__enviar" id="chat-enviar" aria-label="Enviar mensagem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 12h15M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </form>
+
+          <p class="form__error chat__erro" id="chat-erro" role="alert" hidden></p>
+          <p class="chat__rodape">
+            Respostas geradas por inteligência artificial. Confira no edital e no PNCP
+            antes de decidir.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1261,10 +1363,7 @@
           <a class="social" href="https://www.instagram.com/osc.gestao" target="_blank" rel="noopener" aria-label="Instagram @osc.gestao">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
           </a>
-          <a class="social" href="https://www.linkedin.com/company/osc.gestao" target="_blank" rel="noopener" aria-label="LinkedIn osc.gestao">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4V9Z"/></svg>
-          </a>
-          <a class="social" href="https://www.tiktok.com/@osc.gestao" target="_blank" rel="noopener" aria-label="TikTok @osc.gestao">
+          <a class="social" href="https://www.tiktok.com/@osc.gesto" target="_blank" rel="noopener" aria-label="TikTok @osc.gesto">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 2h-3v13.2a2.7 2.7 0 1 1-2.3-2.67V9.4a5.9 5.9 0 1 0 5.3 5.87V8.9a6.7 6.7 0 0 0 3.9 1.25V7.1a3.8 3.8 0 0 1-3.9-3.7V2Z"/></svg>
           </a>
           <a class="social js-whats" href="https://wa.me/5586994984623?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20OSC." target="_blank" rel="noopener" aria-label="WhatsApp">
@@ -1320,12 +1419,11 @@
 </a>
 
 <!-- GSAP (animações) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="assets/js/background.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/componentes.js"></script>
-<script src="assets/js/conta.js"></script>
-<script src="assets/js/relatorio.js"></script>
+<script src="assets/js/background.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/componentes.js" defer></script>
+<script src="assets/js/conta.js" defer></script>
+<script src="assets/js/relatorio.js" defer></script>
+<script src="assets/js/consultor.js" defer></script>
 </body>
 </html>
