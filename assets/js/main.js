@@ -21,13 +21,15 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
   /* ----------------------------------------------------------------------
-     00. WHATSAPP — links oficiais da OSC
-     No celular abre o app (api.whatsapp.com); no computador, o WhatsApp Web.
+     00. WHATSAPP — link oficial da OSC
+     O wa.me decide o destino sozinho: abre o aplicativo no celular e o
+     WhatsApp Web no computador. Por isso não existe mais um link por
+     dispositivo, e cada página pode ter a sua própria mensagem sem que o
+     JavaScript passe por cima dela.
      ------------------------------------------------------------------- */
   var WHATS = {
-    phone: '5586988372619',
-    mobile: 'https://api.whatsapp.com/send?phone=5586988372619&text=Oi!%20Quero%20saber%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC.',
-    desktop: 'https://web.whatsapp.com/send?phone=5586988372619&text=Oi!%20Quero%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20OSC.'
+    phone: '5586994984623',
+    link: 'https://wa.me/5586994984623?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20especialista%20OSC.'
   };
 
   /* ----------------------------------------------------------------------
@@ -97,15 +99,19 @@
 
   // Base para montar links com mensagem própria (ex.: o formulário)
   function whatsBase() {
-    return (isMobile() ? 'https://api.whatsapp.com' : 'https://web.whatsapp.com') +
-           '/send?phone=' + WHATS.phone + '&text=';
+    return 'https://wa.me/' + WHATS.phone + '?text=';
   }
 
   function initWhatsappLinks() {
-    // No HTML o href padrão é o api.whatsapp.com (funciona em qualquer lugar).
-    // Só trocamos para o WhatsApp Web quando é computador.
-    if (isMobile()) return;
-    $$('.js-whats').forEach(function (a) { a.setAttribute('href', WHATS.desktop); });
+    // Rede de segurança: se alguma página tiver ficado com um link antigo
+    // (api./web.whatsapp.com, ou o número anterior), ele é corrigido aqui,
+    // preservando a mensagem daquela página.
+    $$('.js-whats').forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('wa.me/' + WHATS.phone) !== -1) return;
+      var texto = (href.match(/[?&]text=([^&]*)/) || [])[1];
+      a.setAttribute('href', texto ? whatsBase() + texto : WHATS.link);
+    });
   }
 
   /* ----------------------------------------------------------------------

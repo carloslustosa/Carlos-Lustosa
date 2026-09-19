@@ -442,6 +442,57 @@ body.is-locked { overflow: hidden; }
 @keyframes heroIn { to { opacity: 1; transform: none; } }
 
 
+/* Cabeçalho de seção em duas colunas no computador.
+   Empilhado, o título quebrava cedo numa coluna estreita à esquerda e sobrava
+   meia tela vazia à direita — em 1920 px a página parecia cortada ao meio.
+   O texto de apoio sobe para a segunda coluna e assenta na base do título,
+   que é o mesmo arranjo que as seções de serviços e conteúdo já usavam. */
+.sec-head { display: grid; gap: 22px; }
+.sec-head__apoio { max-width: 62ch; }
+
+@media (min-width: 1024px) {
+  .sec-head {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: end;
+    column-gap: 64px;
+    row-gap: 0;
+  }
+  .sec-head__apoio { padding-bottom: 0.4em; }
+}
+
+/* Hero em duas colunas no computador.
+   Empilhado, o texto ocupava a metade esquerda e a direita ficava vazia — numa
+   tela de 1920 px isso parecia página quebrada, não respiro. Até 1023 px segue
+   empilhado, com as provas viradas para três colunas no tablet. */
+.hero-grade { display: grid; gap: 56px; }
+
+.hero-grade__lado { align-self: end; }
+
+.hero-provas {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: rgba(242, 239, 228, 0.6);
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-provas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 40px; }
+}
+
+@media (min-width: 1024px) {
+  .hero-grade {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: 64px;
+    align-items: end;
+  }
+  .hero-grade__lado {
+    border-top: 1px solid rgba(242, 239, 228, 0.18);
+    padding-top: 26px;
+  }
+  .hero-provas { gap: 20px; }
+}
+
 .hero-note {
   position: relative;
   padding-left: 26px;

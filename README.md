@@ -548,21 +548,67 @@ ao fim e âncora no meio da página: **0 de 36 blocos invisíveis** nos três.
 
 ---
 
+## Ajustes para o computador
+
+A versão de PC tinha um defeito de alinhamento e um problema de composição.
+
+**Cartões de serviço com alturas diferentes.** Acima de 1024 px o carrossel vira
+grade de quatro colunas. A célula da grade estica até a altura da linha, mas o
+cartão dentro dela mantinha a altura do próprio texto — um cartão de título de
+uma linha terminava 22 px acima do vizinho, e a fileira ficava com as bordas
+desalinhadas. Corrigido em `componentes.css`: a célula virou `flex` e o cartão
+ganhou `flex: 1 1 auto`, então preenche a linha.
+
+**Meia tela vazia.** O hero e quatro cabeçalhos de seção eram uma coluna só,
+encostada à esquerda, com um `max-w` que quebrava o título cedo. Em 1920 px isso
+lia como página cortada ao meio: texto espremido num canto e metade da tela em
+branco. A partir de 1024 px passam a duas colunas:
+
+| Onde | Coluna esquerda | Coluna direita |
+|---|---|---|
+| Hero (`.hero-grade`) | rótulo, título, subtítulo, texto e botões | "Como trabalhamos" e as três provas, assentadas na base |
+| `#valores`, `#problema`, `#metodologia`, `#diagnostico` (`.sec-head`) | rótulo e título | o parágrafo de apoio, assentado na base do título |
+
+É o mesmo arranjo que `#servicos` e `#conteudo` já usavam — agora a página
+inteira segue um padrão só. Abaixo de 1024 px nada muda: continua empilhado, e
+entre 640 e 1023 px as provas do hero viram três colunas.
+
+A home ficou em **9.634 px** (era 9.906) porque o texto de apoio deixou de
+ocupar linhas próprias.
+
+**O que parecia defeito e não era:** a auditoria acusava "corte horizontal" em
+`.osc-ring`, `.step__btn`, `.faq__q` e no botão principal. É ornamento: o ponto
+da marca fica de propósito fora do anel (`top: -4px; right: -4px`, como no
+monograma) e a varredura do botão é maior que a caixa, presa por
+`overflow: hidden`. Nada é cortado e a página não rola de lado em nenhuma
+largura. A verificação foi corrigida para não acusar mais isso.
+
+---
+
 ## WhatsApp
 
-O número oficial é **(86) 98837-2619**. O link muda conforme o dispositivo:
+O número oficial é **(86) 99498-4623**. Todo link usa o mesmo endereço:
 
-| Dispositivo | Destino |
-|---|---|
-| Celular | `api.whatsapp.com/send?phone=5586988372619&text=Oi! Quero saber mais informações sobre a OSC.` |
-| Computador | `web.whatsapp.com/send?phone=5586988372619&text=Oi! Quero mais informações sobre a OSC.` |
+```
+https://wa.me/5586994984623?text=Olá! Gostaria de falar com um especialista OSC.
+```
 
-No HTML o `href` padrão de todo link `.js-whats` é o **api.whatsapp.com** (funciona em
-qualquer lugar, inclusive sem JavaScript). O `initWhatsappLinks()` troca para o
-WhatsApp Web só quando detecta computador. O formulário usa a mesma regra, com a
-mensagem montada a partir dos campos.
+**Não existe mais um link por dispositivo.** O `wa.me` decide sozinho: abre o
+aplicativo no celular e o WhatsApp Web no computador. A separação anterior entre
+`api.whatsapp.com` e `web.whatsapp.com` saiu, e com ela um defeito: o
+`initWhatsappLinks()` sobrescrevia todos os `.js-whats` no computador, de modo
+que a mensagem própria de cada página — a de recuperar acesso em `entrar.html`,
+por exemplo — virava a mensagem genérica.
 
-Para trocar o número depois, edite o objeto `WHATS` no JS e os quatro `href` no HTML.
+Hoje o `href` do HTML é a fonte de verdade e cada página mantém a sua mensagem.
+O `initWhatsappLinks()` virou rede de segurança: se encontrar um link com
+endereço ou número antigo, corrige preservando a mensagem daquele link. O
+formulário e o alerta de editais montam a mensagem a partir dos campos, usando
+`OSC.whatsBase()`.
+
+Para trocar o número depois, edite o objeto `WHATS` em `assets/js/main.js` e os
+`href` no HTML — ou só o `WHATS`, que a rede de segurança cobre o resto no
+carregamento.
 
 ---
 
@@ -633,18 +679,24 @@ função só: `salvarLead()`, em `assets/js/main.js`.
 ## Contato aplicado na página
 
 - **E-mail:** contato.osc.gestao@gmail.com
-- **WhatsApp:** (86) 98837-2619
-- **Redes sociais:** @osc.gestao
+- **WhatsApp:** (86) 99498-4623 — `https://wa.me/5586994984623`
+- **Instagram:** [@osc.gestao](https://www.instagram.com/osc.gestao)
 
 ---
 
 ## ⚠️ O que ainda precisa da sua conferência
 
-1. **URLs das redes sociais.** Você informou o handle `osc.gestao`, não os endereços.
-   O código monta Instagram, LinkedIn e TikTok a partir dele
-   (`instagram.com/osc.gestao`, `linkedin.com/company/osc.gestao`,
-   `tiktok.com/@osc.gestao`). **Confirme os perfis que existem e apague os que não
-   usar** — estão marcados com `EDITAR` no rodapé.
+1. **LinkedIn e TikTok podem não existir.** O Instagram está confirmado por você:
+   `https://www.instagram.com/osc.gestao`. Os outros dois o código montou a partir
+   do handle (`linkedin.com/company/osc.gestao`, `tiktok.com/@osc.gestao`) e
+   **ninguém confirmou que essas contas existem** — se não existirem, são dois
+   links quebrados no rodapé de todas as páginas. Estão marcados com `EDITAR` no
+   HTML; diga e eu removo.
+
+   Sobre o endereço que você mandou: o `?stkn=...` no fim é um código de
+   compartilhamento da sua sessão do Instagram, não faz parte do endereço do
+   perfil. Ele pode expirar e carrega rastreio, então o site usa a forma limpa,
+   `https://www.instagram.com/osc.gestao`, que leva ao mesmo lugar.
 2. **URL canônica** (`<link rel="canonical">`) e `og:image` quando o domínio existir.
 3. **Imagem de compartilhamento.** O `og-cover.svg` serve de referência, mas as redes
    sociais só leem PNG/JPG. Exporte como `og-cover.png` (1200×630).

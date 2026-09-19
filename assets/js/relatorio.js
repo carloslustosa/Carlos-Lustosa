@@ -192,7 +192,7 @@
 
     var zap = (window.OSC && window.OSC.whatsBase)
       ? window.OSC.whatsBase() + encodeURIComponent('Oi! Tentei gerar o diagnóstico no site e quero falar com um especialista.')
-      : 'https://api.whatsapp.com/send?phone=5586988372619';
+      : 'https://wa.me/5586994984623';
 
     fetch(ENDPOINT, {
       method: 'POST',

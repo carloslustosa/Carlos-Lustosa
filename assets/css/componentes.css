@@ -284,7 +284,15 @@
     scroll-snap-type: none;
     padding-bottom: 0;
   }
-  .carrossel--vira-grade .carrossel__item { width: auto; }
+  /* Na grade, a célula já estica até a altura da linha; sem isto o cartão
+     dentro dela mantinha a altura do próprio texto e a fileira ficava com as
+     bordas desalinhadas — um cartão de título curto terminava 22 px acima do
+     vizinho. */
+  .carrossel--vira-grade .carrossel__item {
+    width: auto;
+    display: flex;
+  }
+  .carrossel--vira-grade .carrossel__item > * { flex: 1 1 auto; }
   .carrossel--vira-grade .carrossel__controles { display: none; }
 }
 
