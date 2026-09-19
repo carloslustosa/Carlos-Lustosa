@@ -91,7 +91,9 @@ section[id] { scroll-margin-top: 92px; }
 
 ::selection { background: var(--growth); color: var(--deep); }
 
-.section { padding-block: clamp(76px, 10vw, 136px); }
+/* Respiro entre seções. Estava em 136px no desktop e deixava a página com
+   quase 14 telas de altura — ninguém chega ao fim de uma página dessas. */
+.section { padding-block: clamp(56px, 6vw, 96px); }
 
 /* Título · 900, −0.035em — em caixa normal, nunca em caixa alta */
 .h-display {
@@ -1515,7 +1517,7 @@ textarea:focus-visible {
 
 /* ---- Tablet — 640 px a 1023 px ---- */
 @media (min-width: 640px) and (max-width: 1023px) {
-  .section { padding-block: clamp(72px, 9vw, 104px); }
+  .section { padding-block: clamp(56px, 6.5vw, 84px); }
 
   /* o anel de progresso fica ao lado do texto em vez de empilhado */
   .gauge { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; }
@@ -1532,7 +1534,7 @@ textarea:focus-visible {
 
 /* ---- Monitor grande — a partir de 1536 px ---- */
 @media (min-width: 1536px) {
-  .section { padding-block: 150px; }
+  .section { padding-block: 108px; }
   .logo__sym { width: 53px; height: 46px; }
 }
 

@@ -149,6 +149,7 @@ O site é o mesmo em qualquer tela, com ajustes onde o aparelho pede:
 | Até 359 px | o descritor sob o logo sai, para a marca não virar amontoado |
 | Até 640 px | botões ocupam a linha inteira, cantos menores, dock de ações empilhado |
 | **Até 1023 px** | **rótulo em mono sobe para 12,5 px** e **todo alvo de toque chega a 44 px**; menu vira hambúrguer; os 8 cards de serviço viram carrossel |
+| Até 360 px | os controles do carrossel quebram em duas linhas em vez de vazar para fora da tela |
 | Celular deitado | o hero perde a altura mínima e o menu vira rolável |
 | 640–1023 px | o anel da metodologia fica ao lado do texto |
 | A partir de 1024 px | menu em links com mega menu, grade de 4 colunas |
@@ -478,8 +479,46 @@ Há ainda uma folha de impressão que esconde fundo, menu e botão flutuante.
 | Setores | faixa em loop contínuo (pausa no hover) |
 | Botões | varredura de cor + o ponto da marca deslizando; CTA principal com pulso |
 
-Tudo respeita `prefers-reduced-motion`. Se o CDN do GSAP falhar, a página continua
-funcionando: reveal, acordeões e o anel têm fallback em IntersectionObserver + CSS.
+Tudo respeita `prefers-reduced-motion`. Nada disso depende de biblioteca
+externa: reveal, acordeões e o anel são IntersectionObserver + CSS, escritos à
+mão. A página não busca nenhum script fora do próprio servidor.
+
+---
+
+## Ritmo da página e o conserto da rolagem
+
+A home tinha **12.400 px — quase 14 telas de 900 px — em 12 seções, seis delas
+escuras em sequência.** Quem rolava atravessava um bloco verde atrás do outro
+sem respiro, e o texto parava de ser lido no meio do caminho.
+
+Além do tamanho, havia um defeito de verdade: **seis dos blocos com
+`data-reveal` ficavam invisíveis depois de uma rolagem rápida.** O
+IntersectionObserver sozinho não dava conta — numa passada rápida de dedo ou
+num salto por âncora, o navegador não emite a entrada de cada bloco, e a pessoa
+chegava numa faixa verde ou creme vazia. Era isso que estava horrível na tela,
+não a escolha de cor.
+
+**O que foi feito**
+
+| Antes | Depois |
+|---|---|
+| 12.400 px, 13,8 telas, 12 seções | **9.906 px, 11,0 telas, 10 seções** |
+| seis seções escuras seguidas | escuro e creme alternando o tempo todo |
+| `#como-funciona` repetia a metodologia | removida |
+| `#setores` ocupava uma seção inteira | virou uma faixa de chips dentro de `#conteudo` |
+| `#alerta` com 734 px | **244 px**, uma faixa de uma linha só |
+| `#duvidas` escura, logo antes do rodapé escuro | creme, na variante `.faq--claro` |
+| `.section` com até 136 px de respiro vertical | até 96 px |
+| fundo em canvas com até 16 monogramas a 25 % | até 9, a 7–14 % |
+
+**A rede de segurança do reveal** (`assets/js/main.js`): o
+IntersectionObserver continua sendo o caminho normal, e junto dele roda uma
+varredura de rolagem limitada por `requestAnimationFrame` que revela qualquer
+bloco cujo topo já passou de 95 % da altura da janela. Os dois juntos fecham o
+buraco.
+
+Medido com Playwright em três cenários — rolagem rápida de roda, salto direto
+ao fim e âncora no meio da página: **0 de 36 blocos invisíveis** nos três.
 
 ---
 

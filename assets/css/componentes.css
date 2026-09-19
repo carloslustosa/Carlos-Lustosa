@@ -226,6 +226,7 @@
 .carrossel__controles {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 14px;
   margin-top: 22px;
 }
@@ -248,7 +249,7 @@
 .carrossel__seta:disabled { opacity: 0.3; cursor: default; }
 .carrossel__seta svg { width: 18px; height: 18px; }
 
-.carrossel__pontos { display: flex; gap: 8px; margin-left: 4px; }
+.carrossel__pontos { display: flex; flex-wrap: wrap; gap: 8px; margin-left: 4px; min-width: 0; }
 .carrossel__ponto {
   width: 8px; height: 8px;
   padding: 0;
@@ -801,7 +802,8 @@
 @media (max-width: 1023px) {
 
   /* ---- Texto miúdo ---- */
-  .logo__desc        { font-size: 0.66rem; letter-spacing: 0.18em; }
+  .logo__desc        { font-size: 0.72rem; letter-spacing: 0.16em; }
+  .logo--lg .logo__desc { font-size: 0.76rem; letter-spacing: 0.16em; }
   .descriptor        { font-size: 0.78rem; letter-spacing: 0.2em; }
   .label             { font-size: 0.76rem; letter-spacing: 0.14em; }
   .artigo__cat       { font-size: 0.78rem; letter-spacing: 0.2em; }
@@ -880,3 +882,83 @@
   .logo__desc { display: none; }
   .logo__name { font-size: 1.35rem; }
 }
+
+/* =========================================================================
+   13. PEÇAS DA HOME ENXUTA
+   ========================================================================= */
+
+/* Etiquetas de segmento, no lugar da faixa em movimento */
+.chips { display: flex; flex-wrap: wrap; gap: 9px; }
+.chips li {
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(18, 48, 31, 0.8);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 9px 16px;
+  transition: border-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
+}
+.chips li:hover { border-color: var(--mid); color: var(--deep); }
+
+/* Alerta de editais em uma faixa só */
+.alerta { display: grid; gap: 26px; align-items: end; }
+@media (min-width: 1024px) { .alerta { grid-template-columns: 0.9fr 1.35fr; gap: 44px; } }
+
+.alerta__campos { display: grid; gap: 16px; }
+@media (min-width: 560px) { .alerta__campos { grid-template-columns: 1.5fr 1.5fr 0.7fr; align-items: end; } }
+@media (min-width: 560px) and (max-width: 1023px) { .alerta__botao { grid-column: 1 / -1; justify-content: center; } }
+@media (min-width: 1024px) { .alerta__campos { grid-template-columns: 1.4fr 1.3fr 0.6fr auto; } }
+.alerta__botao { white-space: nowrap; }
+@media (max-width: 559px) { .alerta__botao { width: 100%; justify-content: center; } }
+.alerta__aviso { grid-column: 1 / -1; margin-top: 4px; }
+
+/* FAQ sobre fundo creme */
+.faq--claro { border-top-color: rgba(18, 48, 31, 0.16); }
+.faq--claro .faq__item { border-bottom-color: rgba(18, 48, 31, 0.16); }
+.faq--claro .faq__q { color: var(--deep); }
+.faq--claro .faq__q:hover { color: var(--mid-ink); }
+.faq--claro .faq__n { color: var(--mid-ink); }
+.faq--claro .faq__icon { border-color: rgba(18, 48, 31, 0.3); border-top-color: transparent; }
+.faq--claro .faq__item.is-open .faq__icon { border-color: var(--mid); border-top-color: transparent; }
+.faq--claro .faq__a > p { color: rgba(18, 48, 31, 0.72); }
+
+/* Lista dentro do cartão em destaque: ocupa o vazio com o que interessa,
+   em vez de esticar o cartão com espaço morto. */
+.artigo__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 22px;
+  flex: 1;
+}
+.artigo__lista > span {
+  position: relative;
+  padding-left: 28px;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: rgba(18, 48, 31, 0.7);
+}
+.artigo__lista > span::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.32em;
+  width: 13px; height: 13px;
+  border: 2.5px solid var(--mid);
+  border-top-color: transparent;
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+.artigo__lista > span::after {
+  content: '';
+  position: absolute;
+  left: 10px; top: 0.18em;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--growth);
+}
+.artigo--destaque .artigo__resumo { flex: none; }
+
+/* Ícone do FAQ sobre creme: precisa ter contraste para ser visto */
+.faq--claro .faq__icon { border-color: rgba(18, 48, 31, 0.5); border-top-color: transparent; }
+.faq--claro .faq__q:hover .faq__icon { border-color: var(--mid); border-top-color: transparent; }

@@ -210,16 +210,53 @@
       return;
     }
 
-    var io = new IntersectionObserver(function (entries, obs) {
+    var mostrar = function (el, atraso) {
+      if (el.classList.contains('is-visible')) return;
+      if (atraso) window.setTimeout(function () { el.classList.add('is-visible'); }, atraso);
+      else el.classList.add('is-visible');
+    };
+
+    var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        var delay = parseInt(e.target.getAttribute('data-reveal-delay') || '0', 10);
-        window.setTimeout(function () { e.target.classList.add('is-visible'); }, delay);
-        obs.unobserve(e.target);
+        mostrar(e.target, parseInt(e.target.getAttribute('data-reveal-delay') || '0', 10));
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
 
     items.forEach(function (el) { io.observe(el); });
+
+    /* Rede de segurança.
+       O observador sozinho pode deixar passar um bloco quando a rolagem salta:
+       clique numa âncora, dedo com força, botão de "ir para o fim". O usuário
+       então encontra uma faixa de cor vazia, sem texto nenhum.
+       Esta varredura roda na rolagem e garante que nada fique escondido depois
+       de já ter passado pela tela. É barata: só mede o que ainda falta. */
+    var restantes = items.slice();
+
+    function varrer() {
+      if (!restantes.length) return;
+      var limite = window.innerHeight * 0.95;
+      var ainda = [];
+      for (var i = 0; i < restantes.length; i++) {
+        var el = restantes[i];
+        if (el.classList.contains('is-visible')) continue;
+        if (el.getBoundingClientRect().top < limite) mostrar(el, 0);
+        else ainda.push(el);
+      }
+      restantes = ainda;
+    }
+
+    var agendado = false;
+    var aoRolar = function () {
+      if (agendado) return;
+      agendado = true;
+      window.requestAnimationFrame(function () { agendado = false; varrer(); });
+    };
+
+    window.addEventListener('scroll', aoRolar, { passive: true });
+    window.addEventListener('resize', aoRolar);
+    window.addEventListener('load', varrer);
+    window.setTimeout(varrer, 400);
   }
 
   /* ----------------------------------------------------------------------

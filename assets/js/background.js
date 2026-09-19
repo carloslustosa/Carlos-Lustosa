@@ -83,8 +83,10 @@
      Campo de anéis
      ------------------------------------------------------------------- */
   function ringCount() {
+    /* Menos anéis do que antes: o fundo é textura, não desenho. Cheio demais,
+       ele briga com o texto em vez de sustentar. */
     var area = W * H;
-    return Math.max(5, Math.min(16, Math.round(area / 150000)));
+    return Math.max(3, Math.min(9, Math.round(area / 260000)));
   }
 
   function build() {
@@ -108,7 +110,7 @@
         drift: 0.1 + Math.random() * 0.35,   // amplitude do vaivém lento
         phase: Math.random() * Math.PI * 2,
         speed: 0.00012 + Math.random() * 0.00022,
-        alpha: big ? 0.1 : 0.12 + Math.random() * 0.13,
+        alpha: big ? 0.07 : 0.07 + Math.random() * 0.07,
         glow: 0
       });
     }
