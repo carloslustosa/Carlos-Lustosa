@@ -68,6 +68,8 @@ python3 build.py              # gera osc-landing-page.html
 ├── database/
 │   ├── schema.sql              # leads
 │   └── 002-contas.sql          # contas e perfis
+├── ui-referencia/              # material de estudo, NÃO faz parte do site
+│   └── NovaSolucoesLanding.jsx # landing em React de uma empresa fictícia
 └── assets/
     ├── css/styles.css          # identidade visual
     ├── css/componentes.css     # avatar, botões, carrossel, upload
@@ -319,6 +321,30 @@ no edital — mantenha assim.
 
 Pelo mesmo motivo o guia abre e fecha avisando que é orientação geral e que quem
 manda é o edital. Não remova esses avisos.
+
+---
+
+## Pasta `ui-referencia/`
+
+Material de estudo de interface. **Não é conteúdo da OSC e não entra em
+nenhuma página do site.**
+
+`NovaSolucoesLanding.jsx` é uma landing page em React + Tailwind, num arquivo
+só, de uma empresa **fictícia** (NOVA | Soluções, ERP SIGNUS), feita para olhar
+de perto o padrão visual de consultoria: título em serifada grande, grade
+rigorosa, blocos de cor sólida e muito respiro.
+
+Ela ficou de fora do site por três motivos, e os três continuam valendo:
+
+- a OSC é consultoria de gestão e licitações — publicar uma página vendendo um
+  ERP anunciaria um produto que a empresa não tem;
+- a identidade da OSC é o monograma de anel, o verde `#12301F` e Archivo + IBM
+  Plex Mono; aquela página usa outro verde e título em serifada;
+- o site é HTML, CSS e JavaScript puros, sem React e sem build de JSX.
+
+O que dá para aproveitar dela no site da OSC, sem mexer na marca nem inventar
+conteúdo, está anotado no `ui-referencia/README.md`, junto com o passo a passo
+para rodá-la num projeto à parte.
 
 ---
 
